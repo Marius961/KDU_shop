@@ -3,8 +3,8 @@ $navHeight: 55px;
 $secondaryColor: #179bd7;
 $dropdownBg: #262626;
 
+
 .nav-bar {
-  height: $navHeight;
   background: $navAccent;
   margin: 0;
   padding: 0;
@@ -26,14 +26,12 @@ $dropdownBg: #262626;
 
 
 .nav-link {
-  height: $navHeight;
   padding: 0;
-
   .link-content {
+    height: $navHeight;
     padding-left: 13px;
     padding-right: 13px;
-    display: inline-flex;
-    height: 100%;
+    display: flex;
     align-items: center;
 
     img {
@@ -62,6 +60,7 @@ $dropdownBg: #262626;
   background: $dropdownBg;
   width: 100%;
   display: none;
+  z-index: 999;
   a {
     text-decoration: none;
     display: block;
@@ -110,30 +109,21 @@ $dropdownBg: #262626;
 }
 
 
-
-.menu-dot {
-  width: 6px;
-  height: 3px;
-  background-color: white;
-  margin: 6px 3px 6px 0;
+.menu {
+  display: none;
 }
 
-.menu-line {
-  width: 20px;
-  height: 3px;
-  background-color: white;
-  margin: 6px 0;
+.show-menu {
+  display: block;
 }
 
 
 @media all and (min-width: 768px){
-  .item-dropdown {
-    position: absolute;
+  .nav-bar {
+    height: $navHeight;
   }
 }
 
 
-.menu {
-}
 
 

@@ -5,11 +5,22 @@
         <div class="col-auto logo">
           <img src="../assets/img/KDU_logo.png" alt="">
         </div>
-        <div class="col-12 col-md menu">
+        <div
+          class="col-auto nav-link d-md-none"
+          @click="isShowNavMenu = !isShowNavMenu"
+        >
+          <div class="link-content">
+            <img src="../assets/img/menu.png" alt="">
+          </div>
+        </div>
+        <div
+          class="col-12 col-md d-md-block menu"
+          :class="{'show-menu': isShowNavMenu}"
+        >
           <div class="row">
             <div class="col-12 col-md-auto p-0 pl-md-3 pr-md-3">
-              <div class="row">
-                <div class="col-auto col-md-auto nav-link">
+              <div class="row no-gutters">
+                <div class="col-12 col-auto col-md-auto nav-link">
                   <div class="link-content">
                     <img src="../assets/img/home.png" alt="">
                     <span>ГОЛОВНА</span>
@@ -58,7 +69,11 @@
 
 <script>
     export default {
-
+      data() {
+        return {
+          isShowNavMenu: false
+        }
+      }
     }
 </script>
 
