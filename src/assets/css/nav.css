@@ -1,4 +1,6 @@
 .nav-bar {
+  z-index: 99999;
+  position: relative;
   background: #606060;
   margin: 0;
   padding: 0;
@@ -39,8 +41,7 @@
 .item-dropdown {
   background: #262626;
   width: 100%;
-  display: none;
-  z-index: 999; }
+  display: none; }
   .item-dropdown a {
     text-decoration: none;
     display: block;

@@ -1,0 +1,64 @@
+.card-body {
+  margin: 20px 0;
+  max-width: 320px;
+  border: 1px solid #cccccc;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #e5e5e5; }
+  .card-body img {
+    max-width: 100%; }
+  .card-body:hover .item-info .params {
+    transition: max-height 1s ease-in-out;
+    max-height: 600px; }
+
+.item-title {
+  font-size: 1.3em;
+  font-weight: bold; }
+
+.item-price {
+  font-weight: bolder;
+  font-size: 1.3em;
+  color: #009a00; }
+
+.item-info {
+  bottom: 0;
+  background: white;
+  position: absolute; }
+
+.params {
+  max-height: 0;
+  transition: max-height 1s ease-out; }
+
+.color-radio {
+  width: 32px;
+  height: 32px; }
+  .color-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0; }
+    .color-radio input:checked ~ .checkmark:after {
+      display: block; }
+  .color-radio .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%; }
+    .color-radio .checkmark::after {
+      content: "";
+      position: absolute;
+      display: none; }
+  .color-radio input:checked + .checkmark {
+    border: 3px solid #606060; }
+
+.to-cart-btn {
+  background: #179BD7;
+  border: 0;
+  padding: 5px 10px 5px 10px;
+  font-size: 1.1em;
+  color: white;
+  cursor: pointer; }

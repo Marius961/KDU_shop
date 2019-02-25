@@ -1,11 +1,9 @@
-$navAccent: #606060;
-$navHeight: 55px;
-$secondaryColor: #179bd7;
-$dropdownBg: #262626;
-
+@import "vars";
 
 .nav-bar {
-  background: $navAccent;
+  z-index: 99999;
+  position: relative;
+  background: $accent;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -60,7 +58,6 @@ $dropdownBg: #262626;
   background: $dropdownBg;
   width: 100%;
   display: none;
-  z-index: 999;
   a {
     text-decoration: none;
     display: block;
@@ -88,7 +85,7 @@ $dropdownBg: #262626;
     display: inline;
     height: 35px;
     width: 100%;
-    background: $navAccent;
+    background: $accent;
     border: 2px solid white;
   }
 
