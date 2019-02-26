@@ -1,0 +1,28 @@
+.img-segment {
+  background: #e5e5e5; }
+  .img-segment img {
+    max-width: 100%; }
+
+.size-radio {
+  padding-left: 7px;
+  padding-right: 7px; }
+  .size-radio .wrapper {
+    transition: all 0.2s;
+    color: black; }
+  .size-radio label {
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #606060;
+    border-radius: 6px;
+    text-align: center;
+    display: block;
+    width: 100%; }
+  .size-radio input {
+    opacity: 0;
+    position: absolute; }
+    .size-radio input:checked ~ .wrapper {
+      background: #606060;
+      color: white; }
+
+.cart-btn-text {
+  font-size: 1.6em;
+  font-weight: bold; }

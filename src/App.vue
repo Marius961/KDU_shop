@@ -17,6 +17,7 @@
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=cyrillic');
+  @import "assets/css/main.css";
 
   body {
     font-family: 'Roboto Condensed', sans-serif;

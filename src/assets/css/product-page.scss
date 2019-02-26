@@ -1,0 +1,41 @@
+@import "vars";
+
+.img-segment {
+  background: #e5e5e5;
+  img {
+    max-width: 100%;
+  }
+}
+
+
+.size-radio {
+  padding-left: 7px;
+  padding-right: 7px;
+  .wrapper {
+    transition: all 0.2s;
+    color: black;
+  }
+
+  label {
+    padding: 5px 10px 5px 10px;
+    border: 1px solid $accent;
+    border-radius: 6px;
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    &:checked ~ .wrapper {
+      background: $accent;
+      color: white;
+    }
+  }
+}
+
+.cart-btn-text {
+  font-size: 1.6em;
+  font-weight: bold;
+}
