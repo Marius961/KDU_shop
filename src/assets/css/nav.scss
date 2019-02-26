@@ -43,6 +43,10 @@
       font-weight: bold;
       color: white;
     }
+
+    a {
+      color: white;
+    }
   }
 
   &:hover {
@@ -120,6 +124,7 @@
     height: $navHeight;
   }
 }
+
 
 
 

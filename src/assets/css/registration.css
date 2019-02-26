@@ -1,0 +1,24 @@
+.form {
+  border: 1px solid #606060;
+  border-radius: 8px;
+  color: #606060;
+  padding: 20px;
+  transition: all .3s; }
+  .form input {
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    padding: 5px 10px;
+    width: 100%;
+    outline: none; }
+    .form input:focus {
+      border: 2px solid #179bd7; }
+
+.submit-btn {
+  border: 0;
+  background: #606060;
+  color: white;
+  margin: 15px 0 0 0;
+  padding: 5px 10px;
+  transition: background-color .3s; }
+  .submit-btn:hover {
+    background: #179bd7; }

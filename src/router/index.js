@@ -4,6 +4,7 @@ import Home from '../pages/Home'
 import Products from '../pages/products'
 import Cart from '../pages/cart'
 import Product from '../pages/product'
+import Registration from '../pages/registration'
 
 Vue.use(Router);
 
@@ -24,6 +25,10 @@ export default new Router({
     {
       path: '/product/:id',
       component: Product
+    },
+    {
+      path: '/registration',
+      component: Registration
     }
   ]
 })

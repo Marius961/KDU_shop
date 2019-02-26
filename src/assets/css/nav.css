@@ -33,6 +33,8 @@
       font-size: 1.3em;
       font-weight: bold;
       color: white; }
+    .nav-link .link-content a {
+      color: white; }
   .nav-link:hover {
     background: #179bd7; }
   .nav-link:hover .item-dropdown {

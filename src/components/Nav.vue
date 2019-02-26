@@ -42,9 +42,17 @@
             </div>
             <div class="col-12 col-md">
               <div class="row justify-content-end">
-                <div class="col-auto nav-link">
+                <!--<div class="col-auto nav-link">-->
+                  <!--<div class="link-content">-->
+                    <!--<img src="../assets/img/nav-icons/user.png" alt="">-->
+                  <!--</div>-->
+                <!--</div>-->
+                <div class="col-12 col-auto col-md-auto nav-link">
                   <div class="link-content">
-                    <img src="../assets/img/nav-icons/user.png" alt="">
+                    <span>
+                      <router-link to="/registration">Реєстрація</router-link> |
+                      <router-link to="/registration">Вхід</router-link>
+                    </span>
                   </div>
                 </div>
                 <router-link  tag="div" to="/cart" class="col-auto nav-link">
