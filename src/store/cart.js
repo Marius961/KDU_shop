@@ -14,7 +14,6 @@ export default  {
       state.cartItems = [];
     },
     addItemToCart(state, item) {
-      console.log(item);
       state.cartItems.push(item);
     }
   },

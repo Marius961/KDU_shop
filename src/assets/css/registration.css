@@ -22,3 +22,8 @@
   transition: background-color .3s; }
   .submit-btn:hover {
     background: #179bd7; }
+
+.error-label {
+  font-weight: bolder;
+  font-size: 1.4em;
+  color: darkred; }

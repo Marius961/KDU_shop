@@ -42,16 +42,21 @@
             </div>
             <div class="col-12 col-md">
               <div class="row justify-content-end">
-                <!--<div class="col-auto nav-link">-->
-                  <!--<div class="link-content">-->
-                    <!--<img src="../assets/img/nav-icons/user.png" alt="">-->
-                  <!--</div>-->
-                <!--</div>-->
-                <div class="col-12 col-auto col-md-auto nav-link">
+                <div v-if="isAuthenticated" class="col-12 col-md-auto nav-link">
+                  <div class="link-content">
+                    <img src="../assets/img/nav-icons/user.png" alt="">
+                    <span>{{username}}</span>
+                  </div>
+                  <div class="item-dropdown">
+                    <a href="#">Замовлення</a>
+                    <a href="#" @click.prevent="logout">Вийти</a>
+                  </div>
+                </div>
+                <div v-if="!isAuthenticated" class="col-12 col-auto col-md-auto nav-link">
                   <div class="link-content">
                     <span>
                       <router-link to="/registration">Реєстрація</router-link> |
-                      <router-link to="/registration">Вхід</router-link>
+                      <router-link to="/login">Вхід</router-link>
                     </span>
                   </div>
                 </div>
@@ -76,13 +81,28 @@
 </template>
 
 <script>
-    export default {
-      data() {
-        return {
-          isShowNavMenu: false
-        }
+
+  import {mapGetters} from 'vuex'
+  import {mapMutations} from 'vuex'
+
+  export default {
+    computed: {
+      ...mapGetters({
+        isAuthenticated: 'isAuthenticated',
+        username: 'getUsername'
+      })
+    },
+    data() {
+      return {
+        isShowNavMenu: false
       }
+    },
+    methods: {
+      ...mapMutations({
+        logout: 'LOGOUT'
+      })
     }
+  }
 </script>
 
 <style scoped>
