@@ -1,0 +1,88 @@
+@import "vars";
+
+.form {
+  margin-top: 50px;
+  transition: all .3s;
+  border: 3px solid $accent;
+  color: $accent;
+}
+
+.form-2 {
+  margin-top: 20px;
+  transition: all .3s;
+  color: $accent;
+}
+
+.form-body {
+  padding: 15px 40px;
+}
+
+.form-group-1 {
+  margin: 0 0 15px 0;
+
+  input {
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    padding: 5px 10px;
+    width: 100%;
+    outline: none;
+
+    &:focus {
+      border: 2px solid $secondaryColor;
+    }
+  }
+
+  label {
+    padding-left: 10px;
+    font-size: 1.2em;
+  }
+}
+
+.group-error {
+  transition: all .3s;
+
+  input {
+    border: 2px solid #ff7b7d;
+    background: #ffe1e6;
+  }
+  label {
+    color: #ff7b7d;
+  }
+}
+
+.submit-btn {
+  border: 0;
+  background: $accent;
+  color: white;
+  border-radius: 5px;
+  margin: 15px 0 0 0;
+  padding: 5px 10px;
+  transition: background-color .3s;
+
+  &:hover {
+    background: $secondaryColor;
+  }
+
+  &:disabled {
+    background: #d7d7d7;
+    cursor: no-drop;
+  }
+}
+
+.form-header {
+  margin-top: -1px;
+  font-size: 1.5em;
+  font-weight: bolder;
+  color: $secondaryColor;
+  background: $accent;
+  padding: 1px 20px;
+}
+
+
+.error-label {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: white;
+  background: #c70000;
+  padding: 0 20px;
+}

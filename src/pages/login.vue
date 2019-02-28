@@ -1,25 +1,32 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-6 form">
-                <div class="row no-gutters">
-                    <div class="col-12 h3">Вхід</div>
+            <form @submit.prevent="loginUser()" class="col-5 p-0 form">
+                <div class="row no-gutters form-header">
+                    <div class="col-12">Вхід</div>
                 </div>
-                <div class="row no-gutters" v-if="isError">
-                    <label class="col-12 error-label">Неправильний логін або пароль</label>
+                <div class="row no-gutters error-label" v-if="isError">
+                    <div class="col-12">Неправильний логін або пароль</div>
                 </div>
-                <div class="row no-gutters">
-                    <label for="username" class="col-12">Логін</label>
-                    <input id="username" type="text" v-model="user.username" class="col-12">
+                <div class="row ">
+                    <div class="col form-body">
+                        <div class="row no-gutters form-group-1"
+                             :class="{'group-error': $v.user.username.$error }"
+                        >
+                            <label for="username" class="col-12">Логін</label>
+                            <input class="col-12"  type="text" v-model.lazy="$v.user.username.$model" id="username">
+                        </div>
+                        <div class="row no-gutters form-group-1"
+                             :class="{'group-error': $v.user.password.$error }">
+                            <label for="password" class="col-12">Пароль</label>
+                            <input class="col-12"  type="password" v-model="$v.user.password.$model" id="password">
+                        </div>
+                        <div class="row justify-content-end no-gutters">
+                            <button :disabled="$v.$invalid"  type="submit" class="col-auto submit-btn">Увійти</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="row no-gutters">
-                    <label for="password" class="col-12">Пароль</label>
-                    <input id="password" type="password" v-model="user.password" class="col-12">
-                </div>
-                <div class="row no-gutters">
-                    <div @click="loginUser()" class="col-auto submit-btn">Відправити</div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </template>
@@ -28,34 +35,43 @@
 
     import {mapActions} from 'vuex'
 
+    import { required, minLength } from 'vuelidate/lib/validators'
+
     export default {
         data() {
             return {
                 user: {
                     username: '',
-                    password: ''
+                    password: '',
                 },
                 isError: false
             }
         },
+        validations: {
+            user: {
+                username: {required, minLength: minLength(4)},
+                password: {required, minLength: minLength(4)}
+            }
+        },
         methods: {
             ...mapActions({
-                login: 'login'
+                login: 'loginUser'
             }),
             loginUser() {
-                this.login({...this.user}).then((isSuccess) => {
-                    alert(isSuccess)
-                    if (isSuccess) {
+                if (!this.$v.$invalid) {
+                    this.isError = false;
+                    this.login({...this.user}).then(() => {
                         this.$router.push('/')
-                    }  else {
+                    }).catch((error) => {
+                        console.log(error);
                         this.isError = true;
-                    }
-                })
+                    })
+                }
             }
         }
     }
 </script>
 
 <style scoped>
-    @import "../assets/css/registration.css";
+    @import "../assets/css/form.css";
 </style>

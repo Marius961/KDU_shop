@@ -12,6 +12,16 @@ import java.util.Set;
 @Entity
 public class User implements UserDetails {
 
+    public User() {
+    }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

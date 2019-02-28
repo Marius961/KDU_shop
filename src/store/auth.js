@@ -1,49 +1,46 @@
 import {$http} from "../axiosConfig";
 import  jwtHelper from '../helpers/jwtHelper'
 
+
+
 export default  {
     state: {
         user: JSON.parse(localStorage.getItem('user'))
     },
     actions: {
         registerUser(context, user) {
-            return $http.post('/api/auth/sign-up', user)
-                .then((response) => {
-                    context.dispatch('loginUser', {
-                        username: user.username,
-                        password: user.password
-                    }).then((isSuccess) => {
-                        return !!isSuccess;
+            return new Promise((resolve, reject) => {
+                $http.post('/api/auth/sign-up', user)
+                    .then(() => {
+                        resolve();
                     })
+                    .catch((error) => {
+                        reject(error);
+                    });
+                }).then(() => {
+                    context.dispatch('loginUser', {username: user.username, password: user.password})
                 })
-                .catch((error) => {
-                    return false;
-                });
         },
         loginUser(context, credentials) {
-            return $http.post('/api/auth/sign-in', {...credentials})
-                .then((response) => {
-                    const token = response.headers['authorization'];
-                    let roles = jwtHelper.decodeClaim('roles', token);
-                    if (roles) {
-                        roles = roles.split(',');
-                        context.commit('LOGIN_SUCCESS', {
-                            username: credentials.username,
-                            token,
-                            roles
-                        });
-                        return true;
-                    }
-                    return false;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    return false;
+            return new Promise((resolve, reject) => {
+                $http.post('/api/auth/sign-in', {...credentials})
+                    .then((response) => {
+                        const token = response.headers['authorization'];
+                        let roles = jwtHelper.decodeClaim('roles', token);
+                        if (roles && roles) {
+                            context.commit('LOGIN_SUCCESS', { username: credentials.username, token, roles });
+                            resolve();
+                        }
+                        reject();
+                    }).catch(function (error) {
+                    reject(error);
                 });
+            })
         }
     },
     mutations: {
         LOGIN_SUCCESS(state, user) {
+            user.roles = user.roles.split(',');
             state.user = user;
             console.log(state.user.username);
             localStorage.setItem('user', JSON.stringify(user));

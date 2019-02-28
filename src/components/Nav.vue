@@ -42,14 +42,16 @@
             </div>
             <div class="col-12 col-md">
               <div class="row justify-content-end">
-                <div v-if="isAuthenticated" class="col-12 col-md-auto nav-link">
+                <div v-if="isAuthenticated" class="col-12 col-md-4 col-lg-3 col-xl-2 nav-link">
                   <div class="link-content">
                     <img src="../assets/img/nav-icons/user.png" alt="">
                     <span>{{username}}</span>
                   </div>
                   <div class="item-dropdown">
                     <a href="#">Замовлення</a>
-                    <a href="#" @click.prevent="logout">Вийти</a>
+                    <router-link to="/add-category" href="#" v-if="isAdmin">Додати категорію</router-link>
+                    <a href="#" v-if="isAdmin">Додати товар</a>
+                    <a href="#" @click.prevent="logoutUser">Вийти</a>
                   </div>
                 </div>
                 <div v-if="!isAuthenticated" class="col-12 col-auto col-md-auto nav-link">
@@ -84,13 +86,17 @@
 
   import {mapGetters} from 'vuex'
   import {mapMutations} from 'vuex'
+  import rolesHelper from '../helpers/rolesHelper'
 
   export default {
     computed: {
       ...mapGetters({
         isAuthenticated: 'isAuthenticated',
         username: 'getUsername'
-      })
+      }),
+      isAdmin() {
+        return rolesHelper.isUserHasRole('ADMIN')
+      }
     },
     data() {
       return {
@@ -100,7 +106,11 @@
     methods: {
       ...mapMutations({
         logout: 'LOGOUT'
-      })
+      }),
+      logoutUser() {
+        this.logout();
+        this.$router.push('/');
+      }
     }
   }
 </script>
