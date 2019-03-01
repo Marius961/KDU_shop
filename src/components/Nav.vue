@@ -32,10 +32,11 @@
                     <span>ПРОДУКЦІЯ</span>
                   </div>
                   <div class="item-dropdown">
-                    <a href="#">Футболки</a>
-                    <a href="#">Толстовки</a>
-                    <a href="#">Аксесуари</a>
-                    <a href="#">Різне</a>
+                    <router-link
+                            v-for="category in categories"
+                            :to="'/category/' + category.categoryUrl"
+                            :key="'c' + category.id"
+                    >{{category.categoryName}}</router-link>
                   </div>
                 </div>
               </div>
@@ -86,11 +87,13 @@
 
   import {mapGetters} from 'vuex'
   import {mapMutations} from 'vuex'
+  import {mapActions} from 'vuex'
   import rolesHelper from '../helpers/rolesHelper'
 
   export default {
     computed: {
       ...mapGetters({
+        categories: 'getCategories',
         isAuthenticated: 'isAuthenticated',
         username: 'getUsername'
       }),
@@ -107,10 +110,24 @@
       ...mapMutations({
         logout: 'LOGOUT'
       }),
+      ...mapActions({
+        loadCategories: 'getAllCategories'
+      }),
       logoutUser() {
         this.logout();
         this.$router.push('/');
       }
+    },
+    created() {
+      this.loadCategories()
+              .then(() => {
+                if (this.categories.length < 1) {
+                  this.$router.push('/404')
+                }
+              })
+              .catch(() => {
+                this.$router.push('/404')
+              })
     }
   }
 </script>

@@ -4,6 +4,7 @@ package ua.shop.kdu.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import ua.shop.kdu.entities.Role;
 import ua.shop.kdu.filters.JWTAuthenticationFilter;
 import ua.shop.kdu.filters.JWTAuthorizationFilter;
 import ua.shop.kdu.services.UserService;
@@ -51,6 +53,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf().disable()
                     .authorizeRequests()
                         .antMatchers("/api/auth/**").permitAll()
+                        .antMatchers(HttpMethod.GET,"/api/categories").permitAll()
+                        .antMatchers(HttpMethod.GET,"/api/categories/{url}").permitAll()
+                        .antMatchers("/api/categories**").hasAuthority(Role.ADMIN.getAuthority())
+                        .antMatchers(HttpMethod.GET, "/api/product/{id}").permitAll()
+                        .antMatchers("/api/product**").hasAuthority(Role.ADMIN.getAuthority())
                         .anyRequest().authenticated()
                 .and()
                     .addFilter(new JWTAuthorizationFilter(authenticationManager()))
