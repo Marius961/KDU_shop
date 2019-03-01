@@ -50,8 +50,8 @@
                   </div>
                   <div class="item-dropdown">
                     <a href="#">Замовлення</a>
-                    <router-link to="/add-category" href="#" v-if="isAdmin">Додати категорію</router-link>
-                    <a href="#" v-if="isAdmin">Додати товар</a>
+                    <router-link to="/add-category" v-if="isAdmin">Додати категорію</router-link>
+                    <router-link to="/add-product" v-if="isAdmin">Додати товар</router-link>
                     <a href="#" @click.prevent="logoutUser">Вийти</a>
                   </div>
                 </div>

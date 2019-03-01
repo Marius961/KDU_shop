@@ -52,12 +52,9 @@
 
 <script>
 
-  import  {mapGetters} from 'vuex'
+  import  {mapActions} from 'vuex'
   export default {
     computed: {
-      ...mapGetters({
-        getProduct: 'getProduct'
-      })
     },
     data() {
       return {
@@ -65,6 +62,11 @@
         selectedSize: 0,
         product: {}
       }
+    },
+    methods: {
+      ...mapActions({
+        loadProduct: 'getProduct'
+      })
     },
     created() {
       const productFromDb = this.getProduct(parseInt(this.$route.params.id));

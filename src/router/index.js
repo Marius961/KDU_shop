@@ -7,6 +7,7 @@ import Product from '../pages/product'
 import Registration from '../pages/registration'
 import Login from '../pages/login'
 import AddCategory from '../pages/addCategory'
+import AddProduct from '../pages/addProduct'
 
 Vue.use(Router);
 
@@ -45,6 +46,14 @@ const router = new Router({
     {
       path: '/add-category',
       component: AddCategory,
+      meta: {
+        requiresAuth: true,
+        requiresRoles: ["ADMIN"]
+      }
+    },
+    {
+      path: '/add-product',
+      component: AddProduct,
       meta: {
         requiresAuth: true,
         requiresRoles: ["ADMIN"]
