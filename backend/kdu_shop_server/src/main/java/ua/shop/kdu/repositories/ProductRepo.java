@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ProductRepo extends CrudRepository<Product, Long> {
 
-    Iterable<Product> findByCategoryId(long categoryId);
+    Iterable<Product> findByCategory(Category category);
 }

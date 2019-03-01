@@ -5,6 +5,7 @@ export default  {
         getProduct(context, productId) {
             return new Promise((resolve, reject) => {
                 $http.get()
+                //TODO: complete this
             })
         }
     },

@@ -31,14 +31,14 @@ public class ProductService {
     }
 
     public void addProduct(Product product) throws NotFoundException {
+        System.out.println(product.getCategory().getId());
         productRepo.save(product);
     }
 
     public Iterable<Product> getProductsByCategoryUrl(String categoryUrl) {
         Optional category = categoryRepo.findFirstByCategoryUrl(categoryUrl);
         if (category.isPresent()) {
-            Category c = (Category) category.get();
-            return productRepo.findByCategoryId(c.getId());
+            return productRepo.findByCategory((Category) category.get());
         }
         return null;
     }
