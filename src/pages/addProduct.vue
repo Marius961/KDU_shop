@@ -32,7 +32,10 @@
                 </div>
                 <div class="row form-group-1" :class="{'group-error': $v.product.category.id.$error}">
                     <label for="categoryId">Категорія</label>
-                    <input id="categoryId" v-model="$v.product.category.id.$model" type="number">
+                    <select id="categoryId" v-model="$v.product.category.id.$model">
+                        <option disabled value="">Виберіть категорію</option>
+                        <option v-for="category in categories" :key="'option' + category.id" :value="category.id">{{category.categoryName}}</option>
+                    </select>
                 </div>
                 <div class="row justify-content-end no-gutters">
                     <button :disabled="$v.$invalid" class="col-auto submit-btn">Додати категорію</button>
@@ -45,9 +48,14 @@
 <script>
     import { required, minLength} from 'vuelidate/lib/validators'
 
-    import {mapActions} from "vuex";
+    import {mapActions, mapGetters} from "vuex";
 
     export default {
+        computed: {
+            ...mapGetters({
+                categories: 'getCategories'
+            })
+        },
         data() {
             return {
                 product: {
@@ -55,18 +63,21 @@
                     color: '',
                     description: '',
                     productSizes: '',
-                    image: '',
                     price: '',
                     category: {
                         id: ''
                     }
-                }
+                },
+                image: '',
             }
         },
         methods: {
             submitForm() {
                 if (!this.$v.$invalid) {
-                    this.addProduct(this.product)
+                    let formData = new FormData();
+                    formData.append("product", new Blob([JSON.stringify(this.product)],{ type: "application/json"}));
+                    formData.append("image", this.image);
+                    this.addProduct(formData)
                         .then(() => {
                             alert('Success')
                         })
@@ -76,8 +87,7 @@
                 }
             },
             onFileChange(event) {
-                this.product.image = event.target.files[0]
-                console.log(this.product.image)
+                this.image = event.target.files[0];
             },
             ...mapActions({
                 addProduct: 'postProduct'

@@ -2,6 +2,7 @@ package ua.shop.kdu.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ua.shop.kdu.entities.Product;
 import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.services.ProductService;
@@ -23,7 +24,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public void addProduct(@RequestBody Product product) throws NotFoundException {
-        productService.addProduct(product);
+    public void addProduct(@RequestPart(name = "image") MultipartFile file, @RequestPart(name = "product") Product product) throws NotFoundException {
+//        productService.addProduct(product);
+        System.out.println(product.getProductName());
     }
 }

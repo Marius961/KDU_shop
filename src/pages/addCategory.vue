@@ -51,8 +51,10 @@
                         .then(() => {
                             alert('Success')
                         })
-                        .catch(() => {
-                            alert('Error')
+                        .catch((error) => {
+                            if (error.status === 403) {
+                                this.$router.push('/login')
+                            }
                         })
                 }
             }

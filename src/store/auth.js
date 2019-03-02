@@ -27,7 +27,7 @@ export default  {
                     .then((response) => {
                         const token = response.headers['authorization'];
                         let roles = jwtHelper.decodeClaim('roles', token);
-                        if (roles && roles) {
+                        if (roles && token) {
                             context.commit('LOGIN_SUCCESS', { username: credentials.username, token, roles });
                             resolve();
                         }
@@ -42,7 +42,6 @@ export default  {
         LOGIN_SUCCESS(state, user) {
             user.roles = user.roles.split(',');
             state.user = user;
-            console.log(state.user.username);
             localStorage.setItem('user', JSON.stringify(user));
         },
         LOGOUT(state) {
@@ -55,7 +54,9 @@ export default  {
             return state.user !== null;
         },
         getUsername(state) {
-            return state.user.username
+            if (state.user) {
+                return state.user.username;
+            } else return null;
         }
     }
 }

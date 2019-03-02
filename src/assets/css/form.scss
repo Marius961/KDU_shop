@@ -20,7 +20,7 @@
 .form-group-1 {
   margin: 0 0 15px 0;
 
-  input {
+  input, select {
     border: 1px solid lightgray;
     border-radius: 6px;
     padding: 5px 10px;
@@ -41,7 +41,7 @@
 .group-error {
   transition: all .3s;
 
-  input {
+  input, select {
     border: 2px solid #ff7b7d;
     background: #ffe1e6;
   }

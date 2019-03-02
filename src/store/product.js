@@ -1,10 +1,12 @@
 import {$http} from "../axiosConfig";
+import JwtHelper from '../helpers/jwtHelper'
 
-const config = {
+const config ={
     headers: {
-        'Authorization': JSON.parse(localStorage.getItem('user')).token
+        ...JwtHelper.getAuthorizationHeader(),
+        'Content-Type': 'multipart/form-data'
     }
-};
+}
 
 export default  {
     actions: {
@@ -19,16 +21,15 @@ export default  {
                     })
             })
         },
-        postProduct(context, product) {
+        postProduct(context, formProduct) {
+            console.log(config);
             return new Promise((resolve, reject) => {
-                $http.post('/api/product', {...product}, config)
+                $http.post('/api/product', formProduct, config)
                     .then(() => {
-                        console.log('done f')
                         resolve();
                     })
                     .catch((error) => {
-                        console.log(error)
-                        reject();
+                        reject(error.response);
                     })
             })
         }

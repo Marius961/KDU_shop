@@ -1,11 +1,11 @@
 import {$http} from "../axiosConfig";
+import JwtHelper from '../helpers/jwtHelper'
 
-
-const config = {
+const config ={
     headers: {
-        'Authorization': JSON.parse(localStorage.getItem('user')).token
+        ...JwtHelper.getAuthorizationHeader()
     }
-};
+}
 
 
 export default  {
@@ -17,7 +17,6 @@ export default  {
             return new Promise((resolve, reject) => {
                 $http.get("/api/categories")
                     .then(response => {
-                        console.log(response);
                         context.commit('setCategories', response.data);
                         resolve();
                     })
@@ -27,14 +26,15 @@ export default  {
             })
         },
         addCategory(context, category) {
+            console.log(config);
             return new Promise((resolve, reject) => {
                 $http.post('/api/categories', {...category}, config)
                     .then(() => {
                         context.dispatch('getAllCategories');
                         resolve();
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error.response);
                     })
             })
         }

@@ -8,5 +8,24 @@ export default {
         } catch (e) {
             return null;
         }
+    },
+
+    getJwtToken() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.token) {
+            return user.token
+        } else {
+            alert('no token')
+            return null
+        }
+    },
+
+    getAuthorizationHeader() {
+        let token = this.getJwtToken();
+        if (typeof token != null) {
+            return {
+                'Authorization': token
+            }
+        } else return {};
     }
 }
