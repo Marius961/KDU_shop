@@ -12,7 +12,7 @@ export default  {
     actions: {
         getProduct(context, productId) {
             return new Promise((resolve, reject) => {
-                $http.get("/api/product/3")
+                $http.get("/api/product/" + productId)
                     .then((response) => {
                         resolve(response.data);
                     })
@@ -22,7 +22,6 @@ export default  {
             })
         },
         postProduct(context, formProduct) {
-            console.log(config);
             return new Promise((resolve, reject) => {
                 $http.post('/api/product', formProduct, config)
                     .then(() => {
@@ -30,6 +29,17 @@ export default  {
                     })
                     .catch((error) => {
                         reject(error.response);
+                    })
+            })
+        },
+        getAllProducts(context) {
+            return new Promise((resolve, reject) => {
+                $http.get("/api/product")
+                    .then((response) => {
+                        resolve(response.data);
+                    })
+                    .catch(() => {
+                        reject();
                     })
             })
         }

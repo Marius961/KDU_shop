@@ -17,7 +17,7 @@
               <div class="col-auto h4">Розмір:</div>
               <div class="col">
                 <div class="row no-gutters">
-                  <div class="col-auto size-radio align-self-end" v-for="size in product.sizes">
+                  <div class="col-auto size-radio align-self-end" v-for="size in productSizeList">
                     <input type="radio" :id="'size' + size" v-model="selectedSize" :value="size">
                     <label class="wrapper" :for="'size' + size">{{size}}</label>
                   </div>
@@ -42,7 +42,7 @@
       <div class="col-12 col-md-6 order-1 order-md-2 col-xl-4 mt-5">
         <div class="row">
           <div class="col-12 img-segment">
-            <img :src="'http://localhost:8090/img/' + product.imageName"  alt="">
+            <img :src="productImageUrl"  alt="">
           </div>
         </div>
       </div>
@@ -54,10 +54,19 @@
 
   import  {mapActions} from 'vuex'
   export default {
+    computed: {
+      productImageUrl() {
+        return this.product.imageName ? this.staticImgPath + this.product.imageName : ''
+      },
+      productSizeList() {
+        return this.product.sizes ? this.product.sizes.split(',') : [];
+      }
+    },
     data() {
       return {
         product: {},
-        selectedSize: ''
+        selectedSize: '',
+        staticImgPath: 'http://localhost:8090/img/'
       }
     },
     methods: {
@@ -66,13 +75,13 @@
       })
     },
     created() {
-      this.loadProduct(parseInt(this.$route.params.id))
+      this.loadProduct(this.$route.params.id)
               .then((data) => {
                 this.product = data;
-                this.product.sizes = this.product.sizes.split(',');
               })
               .catch(() => {
-                this.$router.push('/404')
+                alert('error')
+                // this.$router.push('/404')
               });
     }
   }

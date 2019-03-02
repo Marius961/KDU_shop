@@ -5,13 +5,13 @@
       </div>
       <div class="row">
         <card
-          v-for="item in items"
-          :key="'product' + item.id"
+          v-for="product in products"
+          :key="'product' + product.id"
           class="col-12 col-sm-6 col-md-4 col-lg-3"
-          :item-id="item.id"
-          :item-name="item.name"
-          :item-img="item.image"
-          :item-price="item.price"
+          :id="product.id"
+          :name="product.name"
+          :image-name="product.imageName"
+          :price="product.price"
         >
         </card>
       </div>
@@ -20,19 +20,40 @@
 
 <script>
 
-  import ItemCard from '../components/ItemCard'
-  import {mapGetters} from 'vuex'
+    import ItemCard from '../components/ItemCard'
+    import {mapGetters, mapActions} from 'vuex'
 
-  export default {
-    computed: {
-      ...mapGetters({
-        items: 'getProducts'
-      })
-    },
-    components: {
-      'card': ItemCard
+    export default {
+        data() {
+            return {
+                products: []
+            }
+        },
+        computed: {
+            ...mapGetters({
+                items: 'getProducts'
+            })
+        },
+        components: {
+            'card': ItemCard
+        },
+        methods: {
+            ...mapActions({
+                loadAllProducts: 'getAllProducts'
+            })
+        },
+        created() {
+            this.loadAllProducts()
+                .then(data => {
+                    this.products = data;
+                    console.log(data)
+                })
+                .catch(() => {
+                    this.$router.push('/404')
+                })
+        }
+
     }
-  }
 </script>
 
 <style scoped>

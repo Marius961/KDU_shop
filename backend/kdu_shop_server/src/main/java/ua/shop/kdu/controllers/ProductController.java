@@ -23,6 +23,11 @@ public class ProductController {
         return productService.getProduct(id);
     }
 
+    @GetMapping
+    public Iterable<Product> getAllProducts() {
+        return productService.findAllProducts();
+    }
+
     @PostMapping
     public void addProduct(@RequestPart(name = "image") MultipartFile file, @RequestPart(name = "product") Product product) throws Exception {
         productService.addProduct(product, file);

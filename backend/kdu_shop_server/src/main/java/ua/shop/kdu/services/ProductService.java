@@ -46,4 +46,8 @@ public class ProductService {
         }
         return null;
     }
+
+    public Iterable<Product> findAllProducts() {
+        return productRepo.findAll();
+    }
 }
