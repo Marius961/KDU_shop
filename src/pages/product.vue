@@ -17,9 +17,9 @@
               <div class="col-auto h4">Розмір:</div>
               <div class="col">
                 <div class="row no-gutters">
-                  <div class="col-auto size-radio align-self-end" v-for="size in product.productSizes">
-                    <input type="radio" :id="'size' + size.id" v-model="selectedSize" :value="size.id">
-                    <label class="wrapper" :for="'size' + size.id">{{size.name}}</label>
+                  <div class="col-auto size-radio align-self-end" v-for="size in product.sizes">
+                    <input type="radio" :id="'size' + size" v-model="selectedSize" :value="size">
+                    <label class="wrapper" :for="'size' + size">{{size}}</label>
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@
       <div class="col-12 col-md-6 order-1 order-md-2 col-xl-4 mt-5">
         <div class="row">
           <div class="col-12 img-segment">
-            <img :src="imageUrl" alt="">
+            <img :src="'http://localhost:8090/img/' + product.imageName"  alt="">
           </div>
         </div>
       </div>
@@ -54,13 +54,6 @@
 
   import  {mapActions} from 'vuex'
   export default {
-    computed: {
-      imageUrl() {
-        const img = this.product.image.data;
-        let arrayBuffer = img;
-        let bytes = new Uint8Array(arrayBuffer);
-      }
-    },
     data() {
       return {
         product: {},
@@ -76,6 +69,7 @@
       this.loadProduct(parseInt(this.$route.params.id))
               .then((data) => {
                 this.product = data;
+                this.product.sizes = this.product.sizes.split(',');
               })
               .catch(() => {
                 this.$router.push('/404')

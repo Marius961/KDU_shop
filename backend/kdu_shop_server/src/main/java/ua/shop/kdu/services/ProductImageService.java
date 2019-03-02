@@ -1,34 +1,36 @@
 package ua.shop.kdu.services;
 
 import org.apache.tomcat.util.http.fileupload.InvalidFileNameException;
-import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import ua.shop.kdu.entities.ProductImage;
-import ua.shop.kdu.repositories.ProductImageRepo;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 @Service
 public class ProductImageService {
 
-    private ProductImageRepo productImageRepo;
+    @Value(("${upload.path}"))
+    private String uploadPath;
 
-    public ProductImageService(ProductImageRepo productImageRepo) {
-        this.productImageRepo = productImageRepo;
-    }
+    public String saveImage(MultipartFile file) throws IOException {
+        if(file != null) {
+            System.out.println(file.getSize());
+            File uploadFolder = new File(uploadPath);
 
+            if (!uploadFolder.exists()) {
+                uploadFolder.mkdir();
+            }
 
-    public ProductImage saveImage(MultipartFile file) throws InvalidFileNameException, IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        if(fileName.contains("..")) {
-            throw new InvalidFileNameException("Invalid file name", fileName);
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFileName = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + '/' + resultFileName));
+            System.out.println(resultFileName);
+            return resultFileName;
         }
-        ProductImage image = new ProductImage(fileName, file.getContentType(), file.getBytes());
-
-        productImageRepo.save(image);
-
-        return image;
+        return "";
     }
 }

@@ -6,9 +6,9 @@
         <hr class="w-100">
         <div class="row">
             <form class="col-auto form-2 form-body" @submit.prevent="submitForm()">
-                <div class="row form-group-1" :class="{'group-error': $v.product.productName.$error}">
+                <div class="row form-group-1" :class="{'group-error': $v.product.name.$error}">
                     <label for="name">Назва</label>
-                    <input id="name" v-model="$v.product.productName.$model" type="text">
+                    <input id="name" v-model="$v.product.name.$model" type="text">
                 </div>
                 <div class="row form-group-1" :class="{'group-error': $v.product.color.$error}">
                     <label for="color">Колір</label>
@@ -18,9 +18,9 @@
                     <label for="description">Опис</label>
                     <input id="description" v-model="$v.product.description.$model" type="text">
                 </div>
-                <div class="row form-group-1" :class="{'group-error': $v.product.productSizes.$error}">
-                    <label for="productSizes">Розміри</label>
-                    <input id="productSizes" v-model="$v.product.productSizes.$model" type="text">
+                <div class="row form-group-1" :class="{'group-error': $v.product.sizes.$error}">
+                    <label for="sizes">Розміри</label>
+                    <input id="sizes" v-model="$v.product.sizes.$model" type="text">
                 </div>
                 <div class="row form-group-1">
                     <label for="image">Фото</label>
@@ -59,10 +59,10 @@
         data() {
             return {
                 product: {
-                    productName: '',
+                    name: '',
                     color: '',
                     description: '',
-                    productSizes: '',
+                    sizes: '',
                     price: '',
                     category: {
                         id: ''
@@ -95,10 +95,10 @@
         },
         validations: {
             product: {
-                productName: {required, minLength: minLength(3)},
+                name: {required, minLength: minLength(3)},
                 color: {},
                 description: {},
-                productSizes: {},
+                sizes: {},
                 price: {required},
                 category: {
                     id: {required}

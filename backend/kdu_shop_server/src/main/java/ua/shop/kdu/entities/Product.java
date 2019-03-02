@@ -1,7 +1,5 @@
 package ua.shop.kdu.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 
 @Entity
@@ -11,10 +9,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String productName;
+    private String name;
     private String color;
     private String description;
-    private String productSizes;
+    private String sizes;
 
     private double price;
 
@@ -22,9 +20,7 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "image_id")
-    private ProductImage image;
+    private String imageName;
 
     public Long getId() {
         return id;
@@ -34,12 +30,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getColor() {
@@ -58,12 +54,12 @@ public class Product {
         this.description = description;
     }
 
-    public ProductImage getImage() {
-        return image;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImage(ProductImage image) {
-        this.image = image;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public double getPrice() {
@@ -82,12 +78,12 @@ public class Product {
         this.category = category;
     }
 
-    public String getProductSizes() {
-        return productSizes;
+    public String getSizes() {
+        return sizes;
     }
 
-    public void setProductSizes(String productSizes) {
-        this.productSizes = productSizes;
+    public void setSizes(String sizes) {
+        this.sizes = sizes;
     }
 
 
