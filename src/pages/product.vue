@@ -3,12 +3,12 @@
     <div class="row">
       <div class="col-12 col-md-6 col-xl-8 pr-4 order-2 order-md-1">
         <div class="row">
-          <div class="col-12 h1 mt-4 mt-md-0">{{product.name}}</div>
+          <div class="col-12 h1 mt-4 mt-md-0">{{product.productName}}</div>
           <hr class="w-100 m-1">
           <div class="col-12 mt-3 mb-3">
             <div class="row align-items-center">
               <div class="col-auto h4">Колір:</div>
-              <div class="col h5 font-weight-bold">чорний</div>
+              <div class="col h5 font-weight-bold">{{product.color}}</div>
             </div>
           </div>
           <hr class="w-100 m-1">
@@ -17,7 +17,7 @@
               <div class="col-auto h4">Розмір:</div>
               <div class="col">
                 <div class="row no-gutters">
-                  <div class="col-auto size-radio align-self-end" v-for="size in product.sizes">
+                  <div class="col-auto size-radio align-self-end" v-for="size in product.productSizes">
                     <input type="radio" :id="'size' + size.id" v-model="selectedSize" :value="size.id">
                     <label class="wrapper" :for="'size' + size.id">{{size.name}}</label>
                   </div>
@@ -42,7 +42,7 @@
       <div class="col-12 col-md-6 order-1 order-md-2 col-xl-4 mt-5">
         <div class="row">
           <div class="col-12 img-segment">
-            <img :src="product.image" alt="">
+            <img :src="imageUrl" alt="">
           </div>
         </div>
       </div>
@@ -55,12 +55,16 @@
   import  {mapActions} from 'vuex'
   export default {
     computed: {
+      imageUrl() {
+        const img = this.product.image.data;
+        let arrayBuffer = img;
+        let bytes = new Uint8Array(arrayBuffer);
+      }
     },
     data() {
       return {
-        quantity: 1,
-        selectedSize: 0,
-        product: {}
+        product: {},
+        selectedSize: ''
       }
     },
     methods: {
@@ -69,12 +73,13 @@
       })
     },
     created() {
-      const productFromDb = this.getProduct(parseInt(this.$route.params.id));
-      if (typeof productFromDb === 'undefined') {
-        this.$router.push('/404')
-      } else {
-        this.product = productFromDb;
-      }
+      this.loadProduct(parseInt(this.$route.params.id))
+              .then((data) => {
+                this.product = data;
+              })
+              .catch(() => {
+                this.$router.push('/404')
+              });
     }
   }
 </script>

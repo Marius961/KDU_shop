@@ -6,13 +6,13 @@ const config ={
         ...JwtHelper.getAuthorizationHeader(),
         'Content-Type': 'multipart/form-data'
     }
-}
+};
 
 export default  {
     actions: {
         getProduct(context, productId) {
             return new Promise((resolve, reject) => {
-                $http.get("/api/product " + productId)
+                $http.get("/api/product/3")
                     .then((response) => {
                         resolve(response.data);
                     })

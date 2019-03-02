@@ -24,8 +24,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public void addProduct(@RequestPart(name = "image") MultipartFile file, @RequestPart(name = "product") Product product) throws NotFoundException {
-//        productService.addProduct(product);
-        System.out.println(product.getProductName());
+    public void addProduct(@RequestPart(name = "image") MultipartFile file, @RequestPart(name = "product") Product product) throws Exception {
+        productService.addProduct(product, file);
     }
 }

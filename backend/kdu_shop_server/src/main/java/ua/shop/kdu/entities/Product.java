@@ -16,12 +16,15 @@ public class Product {
     private String description;
     private String productSizes;
 
-    private byte[] image;
     private double price;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "image_id")
+    private ProductImage image;
 
     public Long getId() {
         return id;
@@ -55,11 +58,11 @@ public class Product {
         this.description = description;
     }
 
-    public byte[] getImage() {
+    public ProductImage getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(ProductImage image) {
         this.image = image;
     }
 
