@@ -38,7 +38,8 @@
 <script>
 
     import  {mapActions} from 'vuex'
-    import { required, minLength, email} from 'vuelidate/lib/validators'
+    import { required, minLength, email, maxLength} from 'vuelidate/lib/validators'
+    import {isUserRegistered, isEmailRegistered} from "../validators/userValidator";
 
     export default {
         data() {
@@ -53,10 +54,9 @@
         },
         validations: {
             user: {
-                //TODO: change minLength such as in DB
-                username: {required, minLength: minLength(3)},
-                email: {required, email, minLength: minLength(4)},
-                password: {required, minLength: minLength(6)}
+                username: {required, minLength: minLength(3), maxLength: maxLength(16), isUserRegistered},
+                email: {required, email, minLength: minLength(4), maxLength: maxLength(32), isEmailRegistered},
+                password: {required, minLength: minLength(6), maxLength: maxLength(32)}
             }
         },
         methods: {

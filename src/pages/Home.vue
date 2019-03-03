@@ -46,7 +46,6 @@
             this.loadAllProducts()
                 .then(data => {
                     this.products = data;
-                    console.log(data)
                 })
                 .catch(() => {
                     this.$router.push('/404')

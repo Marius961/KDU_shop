@@ -1,24 +1,18 @@
 package ua.shop.kdu.controllers;
 
-import org.hibernate.result.Output;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ua.shop.kdu.entities.User;
 import ua.shop.kdu.services.UserService;
-import ua.shop.kdu.utils.JWTUtil;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.Map;
-
-import static ua.shop.kdu.filters.SecurityConstants.HEADER_STRING;
-import static ua.shop.kdu.filters.SecurityConstants.TOKEN_PREFIX;
 
 @RestController
 @RequestMapping("/api/auth/")

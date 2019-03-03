@@ -1,6 +1,9 @@
 package ua.shop.kdu.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Product {
@@ -9,17 +12,30 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
+    @Size(min = 3, max = 32)
     private String name;
+
+    @NotBlank
+    @Size(min = 3, max = 32)
     private String color;
+
+    @NotBlank
+    @Size(min = 3, max = 512)
     private String description;
+
+    @NotBlank
+    @Size(max = 128)
     private String sizes;
 
+    @NotNull
     private double price;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @NotBlank
     private String imageName;
 
     public Long getId() {

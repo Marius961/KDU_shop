@@ -19,7 +19,6 @@ public class User implements UserDetails {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
     @Id
@@ -30,6 +29,7 @@ public class User implements UserDetails {
     private String username;
 
     @Email
+    @Size(min = 4, max = 32)
     private String email;
 
     @Size(min = 6)

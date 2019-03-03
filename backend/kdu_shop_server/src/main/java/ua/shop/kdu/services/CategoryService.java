@@ -49,4 +49,14 @@ public class CategoryService {
         }
         throw new NotFoundException("Category not found");
     }
+
+    public boolean isCategoryNameExist(String name) {
+        Optional oCategory = categoryRepo.findFirstByCategoryName(name);
+        return oCategory.isPresent();
+    }
+
+    public boolean isCategoryUrlExist(String url) {
+        Optional oCategory = categoryRepo.findFirstByCategoryUrl(url);
+        return oCategory.isPresent();
+    }
 }

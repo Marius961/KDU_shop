@@ -86,3 +86,32 @@
   background: #c70000;
   padding: 0 20px;
 }
+
+
+@mixin messageBox {
+  transition: all .3s;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: white;
+  overflow: hidden;
+  max-height: 0;
+  padding: 0;
+}
+
+.success-message {
+  @include messageBox;
+  background: #008028;
+}
+
+.error-message {
+  @include messageBox;
+  background: #c70000;
+}
+
+.message-show {
+  max-height: 75px;
+  padding: 10px;
+}
+
+
+

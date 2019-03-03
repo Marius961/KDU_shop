@@ -1,14 +1,13 @@
 package ua.shop.kdu.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.shop.kdu.entities.Category;
 import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.services.CategoryService;
 
-import java.util.List;
+import javax.validation.Valid;
+import java.util.Collections;
 import java.util.Map;
 
 @RestController
@@ -33,7 +32,17 @@ public class CategoriesController {
     }
 
     @PostMapping
-    public void addCategory(@RequestBody Category category) {
+    public void addCategory(@Valid @RequestBody Category category) {
         categoryService.saveCategory(category);
+    }
+
+    @PostMapping("/check-name")
+    public Map<String, Boolean> checkCategoryName(@RequestBody Map<String, String> categoryName) {
+        return Collections.singletonMap("isExist", categoryService.isCategoryNameExist(categoryName.get("categoryName")));
+    }
+
+    @PostMapping("/check-url")
+    public Map<String, Boolean> checkCategoryUrl(@RequestBody Map<String, String> categoryIrl) {
+        return Collections.singletonMap("isExist", categoryService.isCategoryUrlExist(categoryIrl.get("categoryUrl")));
     }
 }

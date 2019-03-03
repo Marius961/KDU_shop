@@ -30,6 +30,7 @@ public class ProductController {
 
     @PostMapping
     public void addProduct(@RequestPart(name = "image") MultipartFile file, @RequestPart(name = "product") Product product) throws Exception {
+        System.out.println("Product name:  " + product.getName());
         productService.addProduct(product, file);
     }
 }

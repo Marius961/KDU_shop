@@ -4,7 +4,9 @@
             <div class="col-12 h2">Додати категорію</div>
         </div>
         <hr class="w-100">
-        <div class="row">
+        <div class="row success-message mb-2 mt-1" :class="{'message-show': successMessage}">Категорію успішно додано</div>
+        <div class="row error-message mb-2 mt-1" :class="{'message-show': errorMessage.isShow}">{{errorMessage.text + errorMessage.errorText}}</div>
+        <div class="row justify-content-center">
             <form class="col-auto form-2 form-body" @submit.prevent="submitForm()">
                 <div class="row form-group-1" :class="{'group-error': $v.category.categoryName.$error}">
                     <label for="categoryName">Назва категорії</label>
@@ -24,21 +26,28 @@
 
 <script>
     import {mapActions} from 'vuex'
-    import { required, minLength} from 'vuelidate/lib/validators'
+    import { required, minLength, maxLength} from 'vuelidate/lib/validators'
+    import {isNameUnique, isUrlUnique} from "../validators/categoryValidator";
 
     export default {
         data() {
             return {
                 category: {
                     categoryName: '',
-                    categoryUrl: ''
+                    categoryUrl: '',
+                },
+                successMessage: false,
+                errorMessage: {
+                    isShow: false,
+                    text: 'Виникла помилка: ',
+                    errorText: ''
                 }
             }
         },
         validations: {
             category: {
-                categoryName: {required, minLength: minLength(3)},
-                categoryUrl: {required, minLength: minLength(3)}
+                categoryName: {required, minLength: minLength(3), maxLength: maxLength(32), isNameUnique},
+                categoryUrl: {required, minLength: minLength(3), maxLength: maxLength(32), isUrlUnique}
             }
         },
         methods: {
@@ -49,14 +58,43 @@
                 if (!this.$v.$invalid) {
                     this.addCategory(this.category)
                         .then(() => {
-                            alert('Success')
+                            this.clearData();
+                            this.showSuccessMessage();
                         })
                         .catch((error) => {
                             if (error.status === 403) {
                                 this.$router.push('/login')
+                            } else {
+                                this.showErrorMessage(error.data.status + " | " + error.data.error)
                             }
                         })
                 }
+            },
+            showSuccessMessage() {
+                this.successMessage = true;
+                setTimeout(() => { this.successMessage = false}, 4000);
+            },
+            clearData() {
+                this.category.categoryName = '';
+                this.category.categoryUrl = '';
+                this.$v.$reset()
+            },
+            showErrorMessage(error) {
+                this.errorMessage.errorText = error;
+                this.errorMessage.isShow = true;
+                setTimeout(() => {
+                    this.errorMessage.isShow = false;
+                    this.errorMessage.errorText = '';
+                }, 4000);
+            }
+        },
+        watch: {
+            'category.categoryUrl': {
+                handler(newVal){
+                    let re = /[^A-Z0-9]/gi;
+                    this.category.categoryUrl = newVal.replace(re, '');
+                },
+                deep: true
             }
         }
 
