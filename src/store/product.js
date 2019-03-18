@@ -1,12 +1,14 @@
 import {$http} from "../axiosConfig";
 import JwtHelper from '../helpers/jwtHelper'
 
-const config ={
-    headers: {
-        ...JwtHelper.getAuthorizationHeader(),
-        'Content-Type': 'multipart/form-data'
+function getConfig() {
+    return {
+        headers: {
+            ...JwtHelper.getAuthorizationHeader()
+        }
     }
-};
+}
+
 
 export default  {
     actions: {
@@ -23,7 +25,7 @@ export default  {
         },
         postProduct(context, formProduct) {
             return new Promise((resolve, reject) => {
-                $http.post('/api/product', formProduct, config)
+                $http.post('/api/product', formProduct, getConfig())
                     .then(() => {
                         resolve();
                     })
@@ -32,9 +34,20 @@ export default  {
                     })
             })
         },
-        getAllProducts(context) {
+        getAllProducts() {
             return new Promise((resolve, reject) => {
-                $http.get("/api/product")
+                $http.get("/api/product?page=0&size=16")
+                    .then((response) => {
+                        resolve(response.data.content);
+                    })
+                    .catch(() => {
+                        reject();
+                    })
+            })
+        },
+        getProductsByCategoryUrl(context, params) {
+            return new Promise((resolve, reject) => {
+                $http.get("/api/product/category/"+ params.categoryUrl +"?page="+ params.page +"&size=16")
                     .then((response) => {
                         resolve(response.data);
                     })

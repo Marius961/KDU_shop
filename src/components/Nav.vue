@@ -34,7 +34,7 @@
                   <div class="item-dropdown">
                     <router-link
                             v-for="category in categories"
-                            :to="'/category/' + category.categoryUrl"
+                            :to="'/products/' + category.categoryUrl + '?page=0'"
                             :key="'c' + category.id"
                     >{{category.categoryName}}</router-link>
                   </div>
@@ -122,11 +122,11 @@
       this.loadCategories()
               .then(() => {
                 if (this.categories.length < 1) {
-                  this.$router.push('/404')
+                  this.$router.push('/errors/404')
                 }
               })
               .catch(() => {
-                this.$router.push('/404')
+                this.$router.push('/errors/404')
               })
     }
   }

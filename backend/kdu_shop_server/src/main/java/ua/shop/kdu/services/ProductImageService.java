@@ -18,7 +18,6 @@ public class ProductImageService {
 
     public String saveImage(MultipartFile file) throws IOException {
         if(file != null) {
-            System.out.println(file.getSize());
             File uploadFolder = new File(uploadPath);
 
             if (!uploadFolder.exists()) {
@@ -28,7 +27,6 @@ public class ProductImageService {
             String uuidFile = UUID.randomUUID().toString();
             String resultFileName = uuidFile + "." + file.getOriginalFilename();
             file.transferTo(new File(uploadPath + '/' + resultFileName));
-            System.out.println(resultFileName);
             return resultFileName;
         }
         return "";

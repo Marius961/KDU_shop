@@ -14,7 +14,7 @@
                              :class="{'group-error': $v.user.username.$error }"
                         >
                             <label for="username" class="col-12">Логін</label>
-                            <input class="col-12"  type="text" v-model.lazy="$v.user.username.$model" id="username">
+                            <input class="col-12"  type="text" v-model="$v.user.username.$model" id="username">
                         </div>
                         <div class="row no-gutters form-group-1"
                              :class="{'group-error': $v.user.password.$error }">
@@ -60,12 +60,14 @@
             loginUser() {
                 if (!this.$v.$invalid) {
                     this.isError = false;
-                    this.login({...this.user}).then(() => {
-                        this.$router.push('/')
-                    }).catch((error) => {
-                        console.log(error);
-                        this.isError = true;
-                    })
+                    this.login({...this.user})
+                        .then(() => {
+                            this.$router.push('/')
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            this.isError = true;
+                        })
                 }
             }
         }

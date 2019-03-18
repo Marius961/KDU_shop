@@ -8,6 +8,7 @@ import Registration from '../pages/registration'
 import Login from '../pages/login'
 import AddCategory from '../pages/addCategory'
 import AddProduct from '../pages/addProduct'
+import Error404 from "../pages/Error404";
 
 Vue.use(Router);
 
@@ -18,8 +19,13 @@ const router = new Router({
       component: Home
     },
     {
-      path: '/products',
+      path: '/products/:categoryUrl',
       component: Products,
+      props: true
+    },
+    {
+      path: '/errors/404',
+      component: Error404,
     },
     {
       path: '/cart',
@@ -81,7 +87,7 @@ router.beforeEach((to, from, next) => {
     if (found) {
       next();
     } else {
-      next('/404')
+      next('/errors/404')
     }
   }
   next();

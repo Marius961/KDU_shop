@@ -9,3 +9,31 @@
 
   cursor: pointer;
 }
+
+
+.pagination {
+
+  .page-active {
+    background: $secondaryColor;
+    color: white;
+  }
+
+
+  a {
+
+    &:first-child {
+      border-left: 1px solid lightgrey;
+    }
+
+    border-top: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+
+    min-width: 40px;
+    padding: 5px;
+    text-align: center;
+
+    text-decoration: none;
+    color: $accent;
+  }
+}

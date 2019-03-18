@@ -15,7 +15,6 @@ export default {
         if (user && user.token) {
             return user.token
         } else {
-            alert('no token')
             return null
         }
     },

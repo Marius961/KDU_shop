@@ -1,6 +1,8 @@
 package ua.shop.kdu.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ua.shop.kdu.entities.Category;
@@ -39,15 +41,14 @@ public class ProductService {
         productRepo.save(product);
     }
 
-    public Iterable<Product> getProductsByCategoryUrl(String categoryUrl) {
+    public Page<Product> getProductsByCategoryUrl(String categoryUrl, int page, int size) throws NotFoundException {
         Optional category = categoryRepo.findFirstByCategoryUrl(categoryUrl);
         if (category.isPresent()) {
-            return productRepo.findByCategory((Category) category.get());
-        }
-        return null;
+            return productRepo.findByCategory((Category) category.get(), PageRequest.of(page, size));
+        } else throw new NotFoundException("Cannot find category with URL: " + categoryUrl);
     }
 
-    public Iterable<Product> findAllProducts() {
-        return productRepo.findAll();
+    public Page<Product> findAllProducts(int page, int size) {
+        return productRepo.findAll(PageRequest.of(page, size));
     }
 }

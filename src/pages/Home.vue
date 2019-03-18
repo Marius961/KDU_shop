@@ -48,7 +48,7 @@
                     this.products = data;
                 })
                 .catch(() => {
-                    this.$router.push('/404')
+                    this.$router.push('/errors/404')
                 })
         }
 

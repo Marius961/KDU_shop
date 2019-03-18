@@ -57,6 +57,9 @@ export default  {
             if (state.user) {
                 return state.user.username;
             } else return null;
+        },
+        getToken(state) {
+            return state.user.token
         }
     }
 }

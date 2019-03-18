@@ -1,9 +1,11 @@
 import {$http} from "../axiosConfig";
 import JwtHelper from '../helpers/jwtHelper'
 
-const config ={
-    headers: {
-        ...JwtHelper.getAuthorizationHeader()
+function getConfig() {
+    return {
+        headers: {
+            ...JwtHelper.getAuthorizationHeader()
+        }
     }
 }
 
@@ -28,7 +30,7 @@ export default  {
         addCategory(context, category) {
             console.log(config);
             return new Promise((resolve, reject) => {
-                $http.post('/api/categories', {...category}, config)
+                $http.post('/api/categories', {...category}, getConfig())
                     .then(() => {
                         context.dispatch('getAllCategories');
                         resolve();

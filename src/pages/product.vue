@@ -80,8 +80,7 @@
                 this.product = data;
               })
               .catch(() => {
-                alert('error')
-                // this.$router.push('/404')
+                this.$router.push('/errors/404')
               });
     }
   }
