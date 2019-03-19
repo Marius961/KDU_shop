@@ -3,6 +3,7 @@ package ua.shop.kdu.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ua.shop.kdu.entities.Category;
@@ -10,8 +11,15 @@ import ua.shop.kdu.entities.Product;
 import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.repositories.CategoryRepo;
 import ua.shop.kdu.repositories.ProductRepo;
+import ua.shop.kdu.specifications.ProductSpecification;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+
+import static org.springframework.data.jpa.domain.Specification.where;
+import static ua.shop.kdu.specifications.ProductSpecification.productByCategoryUrl;
+import static ua.shop.kdu.specifications.ProductSpecification.productByColors;
 
 @Service
 public class ProductService {
@@ -41,10 +49,17 @@ public class ProductService {
         productRepo.save(product);
     }
 
-    public Page<Product> getProductsByCategoryUrl(String categoryUrl, int page, int size) throws NotFoundException {
+    public Page<Product> getProductsByCategoryUrl(String categoryUrl, int page, int size, List<String> colors) throws NotFoundException {
         Optional category = categoryRepo.findFirstByCategoryUrl(categoryUrl);
         if (category.isPresent()) {
-            return productRepo.findByCategory((Category) category.get(), PageRequest.of(page, size));
+
+            Specification<Product> endSpecification = productByCategoryUrl(categoryUrl);
+
+            if (colors != null) {
+                endSpecification = endSpecification.and(productByColors(colors));
+            }
+
+            return productRepo.findAll(endSpecification, PageRequest.of(page, size));
         } else throw new NotFoundException("Cannot find category with URL: " + categoryUrl);
     }
 

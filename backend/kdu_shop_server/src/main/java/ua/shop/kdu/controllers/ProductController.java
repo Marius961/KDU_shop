@@ -8,6 +8,8 @@ import ua.shop.kdu.entities.Product;
 import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.services.ProductService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
@@ -33,9 +35,10 @@ public class ProductController {
     public Page<Product> getProductsByCategory(
             @PathVariable String url,
             @RequestParam(name = "page") int page,
-            @RequestParam(name = "size") int size) throws NotFoundException {
+            @RequestParam(name = "size") int size,
+            @RequestParam(name = "colors", required = false)List<String> colors) throws NotFoundException {
 
-        return productService.getProductsByCategoryUrl(url, page, size);
+        return productService.getProductsByCategoryUrl(url, page, size, colors);
     }
 
     @PostMapping

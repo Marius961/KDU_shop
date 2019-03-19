@@ -1,12 +1,9 @@
 package ua.shop.kdu.repositories;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import ua.shop.kdu.entities.Category;
 import ua.shop.kdu.entities.Product;
 
-public interface ProductRepo extends PagingAndSortingRepository<Product, Long> {
+public interface ProductRepo extends PagingAndSortingRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
-    Page<Product> findByCategory(Category category, Pageable pageable);
 }

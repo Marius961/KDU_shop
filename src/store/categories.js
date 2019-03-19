@@ -28,7 +28,6 @@ export default  {
             })
         },
         addCategory(context, category) {
-            console.log(config);
             return new Promise((resolve, reject) => {
                 $http.post('/api/categories', {...category}, getConfig())
                     .then(() => {
