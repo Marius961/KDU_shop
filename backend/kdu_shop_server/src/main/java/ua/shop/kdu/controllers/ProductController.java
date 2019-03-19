@@ -36,9 +36,13 @@ public class ProductController {
             @PathVariable String url,
             @RequestParam(name = "page") int page,
             @RequestParam(name = "size") int size,
-            @RequestParam(name = "colors", required = false)List<String> colors) throws NotFoundException {
+            @RequestParam(name = "colors", required = false)List<String> colors,
+            @RequestParam(name = "minPrice", required = false, defaultValue = "0") int minPrice,
+            @RequestParam(name = "maxPrice", required = false, defaultValue = "0") int maxPrice
+    ) throws NotFoundException {
 
-        return productService.getProductsByCategoryUrl(url, page, size, colors);
+        return productService.getProductsByCategoryUrl(
+                url, page, size, colors, maxPrice, minPrice);
     }
 
     @PostMapping

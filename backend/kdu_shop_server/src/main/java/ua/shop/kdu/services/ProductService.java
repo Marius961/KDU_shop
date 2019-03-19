@@ -18,8 +18,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import static org.springframework.data.jpa.domain.Specification.where;
-import static ua.shop.kdu.specifications.ProductSpecification.productByCategoryUrl;
-import static ua.shop.kdu.specifications.ProductSpecification.productByColors;
+import static ua.shop.kdu.specifications.ProductSpecification.*;
 
 @Service
 public class ProductService {
@@ -49,7 +48,15 @@ public class ProductService {
         productRepo.save(product);
     }
 
-    public Page<Product> getProductsByCategoryUrl(String categoryUrl, int page, int size, List<String> colors) throws NotFoundException {
+    public Page<Product> getProductsByCategoryUrl(
+            String categoryUrl,
+             int page,
+             int size,
+             List<String> colors,
+             int maxPrice,
+             int minPrice
+        ) throws NotFoundException {
+
         Optional category = categoryRepo.findFirstByCategoryUrl(categoryUrl);
         if (category.isPresent()) {
 
@@ -58,6 +65,13 @@ public class ProductService {
             if (colors != null) {
                 endSpecification = endSpecification.and(productByColors(colors));
             }
+            if (minPrice != 0) {
+                endSpecification = endSpecification.and(productByMinPrice(minPrice));
+            }
+            if (maxPrice != 0) {
+                endSpecification = endSpecification.and(productsByMaxPrice(maxPrice));
+            }
+
 
             return productRepo.findAll(endSpecification, PageRequest.of(page, size));
         } else throw new NotFoundException("Cannot find category with URL: " + categoryUrl);
@@ -66,4 +80,5 @@ public class ProductService {
     public Page<Product> findAllProducts(int page, int size) {
         return productRepo.findAll(PageRequest.of(page, size));
     }
+
 }

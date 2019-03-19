@@ -27,4 +27,16 @@ public class ProductSpecification {
             return criteriaBuilder.equal(root.get("category").get("categoryUrl"), categoryUrl);
         };
     }
+
+    public static Specification<Product> productByMinPrice(double price) {
+        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> {
+            return criteriaBuilder.greaterThanOrEqualTo(root.get("price"), price);
+        };
+    }
+
+    public static Specification<Product> productsByMaxPrice(double price) {
+        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> {
+            return criteriaBuilder.lessThanOrEqualTo(root.get("price"), price);
+        };
+    }
 }

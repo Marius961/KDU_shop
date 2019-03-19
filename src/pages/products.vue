@@ -83,7 +83,14 @@
                     </card>
                 </div>
                 <div class="row justify-content-center pagination">
-                    <router-link :class="{'page-active': page.isCurrent}" v-for="page in pages" :key="'page' + page.name" :to="page.url" class="col-auto">{{page.name}}</router-link>
+                    <router-link
+                            :class="{'page-active': page.isCurrent}"
+                            v-for="page in pages"
+                            :key="'page' + page.name"
+                            :to="page.url" class="col-auto"
+                    >
+                        {{page.name}}
+                    </router-link>
                 </div>
             </div>
         </div>
