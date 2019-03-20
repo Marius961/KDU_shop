@@ -34,8 +34,8 @@ public class ProductController {
     @GetMapping("/category/{url}")
     public Page<Product> getProductsByCategory(
             @PathVariable String url,
-            @RequestParam(name = "page") int page,
-            @RequestParam(name = "size") int size,
+            @RequestParam(name = "pageNum") int page,
+            @RequestParam(name = "pageSize") int size,
             @RequestParam(name = "colors", required = false)List<String> colors,
             @RequestParam(name = "minPrice", required = false, defaultValue = "0") int minPrice,
             @RequestParam(name = "maxPrice", required = false, defaultValue = "0") int maxPrice

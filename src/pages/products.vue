@@ -87,7 +87,7 @@
                             :class="{'page-active': page.isCurrent}"
                             v-for="page in pages"
                             :key="'page' + page.name"
-                            :to="page.url" class="col-auto"
+                            :to="{ path: page.url, query: page.query }" class="col-auto"
                     >
                         {{page.name}}
                     </router-link>
@@ -108,6 +108,24 @@
             return {
                 pageData: {},
                 pages: [],
+                query: {
+                    pageSize: 2,
+                    pageNum: this.$route.query.pageNum ? this.$route.query.pageNum : 0,
+                    minPrice: this.$route.query.minPrice ? this.$route.query.minPrice : undefined,
+                    maxPrice: this.$route.query.maxPrice ? this.$route.query.maxPrice : undefined,
+                    colors: this.$route.query.colors ? this.$route.query.colors : undefined
+                }
+            }
+        },
+        computed: {
+            getQueryParams() {
+                let result = {};
+                result.pageNum = this.query.pageNum;
+                result.pageSize = this.query.pageSize;
+                if (this.query.colors) result.colors = this.query.colors;
+                if (this.query.minPrice !== 0) result.minPrice = this.query.minPrice;
+                if (this.query.maxPrice !== 0) result.maxPrice = this.query.maxPrice;
+                return result;
             }
         },
         components: {
@@ -119,8 +137,7 @@
             }),
             loadData() {
                 if (this.categoryUrl) {
-                    const page = this.$route.query.page ? this.$route.query.page : 0;
-                    this.getProducts({categoryUrl: this.categoryUrl, page})
+                    this.getProducts({categoryUrl: this.categoryUrl, query: this.getQueryParams})
                         .then((pageData) => {
                             this.pageData = pageData;
                             this.setPagination();
@@ -137,27 +154,29 @@
                 const start = currentPage -3 >0 ? currentPage - 3 : 0;
                 const end = currentPage +3 < max ? currentPage + 3 : max;
 
+
                 if (start > 0) {
-                    this.addPageToPagination(1, '1...', false);
+                    this.pages.push(this.generatePaginationObject(0, '1...', false, {...this.$route.query}));
                 }
+
                 for (let i = start; i< end; i++) {
-                    this.pages.push({
-                        url: '/products/' + this.categoryUrl + '?page=' + i,
-                        name: i+1,
-                        isCurrent: currentPage === i
-                    })
+                    this.pages.push(this.generatePaginationObject(+i, +i+1, +i === currentPage, {...this.$route.query}));
+                }
+
+                if (end !== max) {
+                    this.pages.push(this.generatePaginationObject(max-1, '...' +  +max, false, {...this.$route.query}));
 
                 }
-                if (end !== max) {
-                    this.addPageToPagination(max-1, '...' +  +max, false);
-                }
             },
-            addPageToPagination(page, name, isCurrent) {
-                this.pages.push({
-                    url: '/products/' + this.categoryUrl + '?page=' + page,
+            generatePaginationObject(pageNum, name, isCurrent, query) {
+                query.pageNum = pageNum;
+                console.log(query)
+                return {
+                    url: '/products/' + this.categoryUrl,
                     name: name,
-                    isCurrent: isCurrent
-                })
+                    isCurrent: isCurrent,
+                    query: query
+                }
             }
         },
         created() {

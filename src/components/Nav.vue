@@ -32,9 +32,11 @@
                     <span>ПРОДУКЦІЯ</span>
                   </div>
                   <div class="item-dropdown">
+                    <!--:to="'/products/' + category.categoryUrl + '?page=0'"-->
+
                     <router-link
                             v-for="category in categories"
-                            :to="'/products/' + category.categoryUrl + '?page=0'"
+                            :to="{ path: '/products/' + category.categoryUrl, query: {pageNum: 0}}"
                             :key="'c' + category.id"
                     >{{category.categoryName}}</router-link>
                   </div>

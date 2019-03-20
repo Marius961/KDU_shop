@@ -47,7 +47,7 @@ export default  {
         },
         getProductsByCategoryUrl(context, params) {
             return new Promise((resolve, reject) => {
-                $http.get("/api/product/category/"+ params.categoryUrl +"?page="+ params.page +"&size=16")
+                $http.get("/api/product/category/"+ params.categoryUrl, {params: params.query})
                     .then((response) => {
                         resolve(response.data);
                     })
