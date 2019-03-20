@@ -22,36 +22,13 @@
                 </div>
                 <div class="row filters-group">
                     <div class="col-12 group-name">Колір</div>
-                    <div class="col-12 group-items">
+                    <div class="col-12 group-items" v-for="color in colorsList" :key="'color' + color">
                         <label class="checkbox-container">
-                            <input type="checkbox">Чорний
+                            <input @change="applyFilters" type="checkbox" v-model="query.colors" :value="color">{{color}}
                             <span class="checkmark"></span>
                         </label>
                     </div>
-                    <div class="col-12 group-items">
-                        <label class="checkbox-container">
-                            <input type="checkbox">Білий
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="col-12 group-items">
-                        <label class="checkbox-container">
-                            <input type="checkbox">Сірий
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="col-12 group-items">
-                        <label class="checkbox-container">
-                            <input type="checkbox">Червоний
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="col-12 group-items">
-                        <label class="checkbox-container">
-                            <input type="checkbox">Фіолетовив
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
+                    {{query.colors}}
                 </div>
             </div>
             <div class="col-9">
@@ -74,7 +51,6 @@
                             :key="'page' + page.name"
                             :to="{ path: page.url, query: page.query }" class="col-auto"
                     >
-                        {{page.name}}
                     </router-link>
                 </div>
             </div>
@@ -91,13 +67,14 @@
         props: ["categoryUrl"],
         data() {
             return {
+                colorsList: [],
                 pageData: {},
                 pages: [],
                 query: {
                     pageNum: this.$route.query.pageNum ? this.$route.query.pageNum : 0,
                     minPrice: this.$route.query.minPrice ? this.$route.query.minPrice : undefined,
                     maxPrice: this.$route.query.maxPrice ? this.$route.query.maxPrice : undefined,
-                    colors: this.$route.query.colors ? this.$route.query.colors : undefined
+                    colors: this.$route.query.colors ? this.$route.query.colors.split(',') : []
                 },
                 pageSize: 16,
             }
@@ -106,7 +83,7 @@
             getQueryParams() {
                 let result = {};
                 result.pageNum = this.query.pageNum;
-                if (this.query.colors) result.colors = this.query.colors;
+                if (this.query.colors.length > 0) result.colors = this.query.colors.toString();
                 if (this.query.minPrice > 0) result.minPrice = this.query.minPrice;
                 if (this.query.maxPrice > 0) result.maxPrice = this.query.maxPrice;
                 return result;
@@ -117,7 +94,8 @@
         },
         methods: {
             ...mapActions({
-                getProducts: 'getProductsByCategoryUrl'
+                getProducts: 'getProductsByCategoryUrl',
+                getColors: 'getAllColors'
             }),
             getRequestQuery() {
                 let query = this.getQueryParams;
@@ -137,11 +115,17 @@
                         .then((pageData) => {
                             this.pageData = pageData;
                             this.setPagination();
+                            this.getColors()
+                                .then((data) => {
+                                    this.colorsList = data;
+                                })
+                                .catch(() => {
+                                    this.$router.push("/errors/404")
+                                })
                         })
                         .catch(() => {
                             this.$router.push("/errors/404")
                         })
-
                 }
             },
             setPagination() {

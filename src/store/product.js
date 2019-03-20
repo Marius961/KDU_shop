@@ -55,6 +55,17 @@ export default  {
                         reject();
                     })
             })
+        },
+        getAllColors(context) {
+            return new Promise((resolve, reject) => {
+                $http.get("/api/product/colors")
+                    .then((response) => {
+                        resolve(response.data);
+                    })
+                    .catch(() => {
+                        reject();
+                    })
+            })
         }
     },
     mutations: {

@@ -81,4 +81,7 @@ public class ProductService {
         return productRepo.findAll(PageRequest.of(page, size));
     }
 
+    public List<String> getAllColors() {
+        return productRepo.findAllColors();
+    }
 }

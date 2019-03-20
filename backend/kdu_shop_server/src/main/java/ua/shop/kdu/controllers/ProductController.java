@@ -50,4 +50,9 @@ public class ProductController {
         System.out.println("Product name:  " + product.getName());
         productService.addProduct(product, file);
     }
+
+    @GetMapping("/colors")
+    public List<String> getAllColors() {
+        return productService.getAllColors();
+    }
 }
