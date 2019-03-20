@@ -3,36 +3,21 @@
         <div class="row">
             <div class="col-3 filters">
                 <div class="row filters-group">
-                    <div class="col-12 group-name">Розмір</div>
-                    <div class="col-12 group-items">
-                        <label class="checkbox-container">
-                            <input type="checkbox">XS
-                            <span class="checkmark"></span>
-                        </label>
+                    <div class="col-12 group-name">Ціна</div>
+                    <div class="col-12">
+                        <div class="row">
+                            <label class="col-12">Від</label>
+                            <input v-model="query.minPrice" class="col-12" type="number">
+                        </div>
                     </div>
-                    <div class="col-12 group-items">
-                        <label class="checkbox-container">
-                            <input type="checkbox">S
-                            <span class="checkmark"></span>
-                        </label>
+                    <div class="col-12">
+                        <div class="row">
+                            <label class="col-12">до</label>
+                            <input v-model="query.maxPrice" class="col-12" type="number">
+                        </div>
                     </div>
-                    <div class="col-12 group-items">
-                        <label class="checkbox-container">
-                            <input type="checkbox">L
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="col-12 group-items">
-                        <label class="checkbox-container">
-                            <input type="checkbox">XL
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="col-12 group-items">
-                        <label class="checkbox-container">
-                            <input type="checkbox">XXL
-                            <span class="checkmark"></span>
-                        </label>
+                    <div class="col-4 align-self-end">
+                        <button @click="applyFilters">OK</button>
                     </div>
                 </div>
                 <div class="row filters-group">
@@ -109,22 +94,21 @@
                 pageData: {},
                 pages: [],
                 query: {
-                    pageSize: 2,
                     pageNum: this.$route.query.pageNum ? this.$route.query.pageNum : 0,
                     minPrice: this.$route.query.minPrice ? this.$route.query.minPrice : undefined,
                     maxPrice: this.$route.query.maxPrice ? this.$route.query.maxPrice : undefined,
                     colors: this.$route.query.colors ? this.$route.query.colors : undefined
-                }
+                },
+                pageSize: 16,
             }
         },
         computed: {
             getQueryParams() {
                 let result = {};
                 result.pageNum = this.query.pageNum;
-                result.pageSize = this.query.pageSize;
                 if (this.query.colors) result.colors = this.query.colors;
-                if (this.query.minPrice !== 0) result.minPrice = this.query.minPrice;
-                if (this.query.maxPrice !== 0) result.maxPrice = this.query.maxPrice;
+                if (this.query.minPrice > 0) result.minPrice = this.query.minPrice;
+                if (this.query.maxPrice > 0) result.maxPrice = this.query.maxPrice;
                 return result;
             }
         },
@@ -135,9 +119,21 @@
             ...mapActions({
                 getProducts: 'getProductsByCategoryUrl'
             }),
+            getRequestQuery() {
+                let query = this.getQueryParams;
+                query.pageSize = this.pageSize;
+                return query;
+            },
+            applyFilters() {
+                let query = this.getQueryParams;
+                query.pageNum = 0;
+                const path = '/products/' + this.categoryUrl;
+
+                this.$router.push({ path, query})
+            },
             loadData() {
                 if (this.categoryUrl) {
-                    this.getProducts({categoryUrl: this.categoryUrl, query: this.getQueryParams})
+                    this.getProducts({categoryUrl: this.categoryUrl, query: this.getRequestQuery()})
                         .then((pageData) => {
                             this.pageData = pageData;
                             this.setPagination();
@@ -170,7 +166,6 @@
             },
             generatePaginationObject(pageNum, name, isCurrent, query) {
                 query.pageNum = pageNum;
-                console.log(query)
                 return {
                     url: '/products/' + this.categoryUrl,
                     name: name,
