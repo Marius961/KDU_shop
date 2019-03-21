@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ua.shop.kdu.entities.CartItem;
+import ua.shop.kdu.entities.Product;
 import ua.shop.kdu.entities.User;
 import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.repositories.CartItemRepo;
@@ -29,10 +30,15 @@ public class CartService {
 
     public void addItemToCart(CartItem cartItem) throws NotFoundException {
         Long productId = cartItem.getProduct().getId();
-        boolean isProductExist = productRepo.existsById(productId);
-        if (isProductExist) {
+        Optional<Product> existedProduct = productRepo.findById(productId);
+        if (existedProduct.isPresent()) {
             User currentUser = (User) userService.loadUserByUsername(getPrincipal().getName());
-            if (currentUser != null) {
+            Optional<CartItem> alreadyExistedItem = cartItemRepo.findByProductAndSizeAndUser(existedProduct.get(),cartItem.getSize(), currentUser);
+            if (alreadyExistedItem.isPresent()) {
+                CartItem updatedItem = alreadyExistedItem.get();
+                updatedItem.setQuantity(updatedItem.getQuantity() + cartItem.getQuantity());
+                cartItemRepo.save(updatedItem);
+            } else if (currentUser != null) {
                 cartItem.setUser(currentUser);
                 cartItemRepo.save(cartItem);
             } else throw new UsernameNotFoundException("Cannot find user with username: " + getPrincipal().getName());

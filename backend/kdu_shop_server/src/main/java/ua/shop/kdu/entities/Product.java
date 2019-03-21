@@ -23,8 +23,7 @@ public class Product {
     @NotBlank
     @Size(min = 3, max = 512)
     private String description;
-
-    @NotBlank
+    
     @Size(max = 128)
     private String sizes;
 
