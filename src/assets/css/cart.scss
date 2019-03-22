@@ -1,5 +1,44 @@
+@import "vars";
+
 .item {
+  color: $accent;
+  background: #f1f1f1;
+  margin-top: 15px;
+  border: 1px solid lightgrey;
+  padding: 10px 15px;
   img {
     max-width: 100%;
   }
+}
+
+.quantity-bar {
+  font-size: 1.4em;
+
+  i {
+    border-radius: 6px;
+    color: $accent;
+
+    &:hover {
+      padding: 5px;
+      color: white;
+      background: $secondaryColor;
+    }
+  }
+}
+
+.delete-btn {
+  i {
+    color: lightgrey;
+    font-size: 1.8em;
+  }
+}
+
+.item-header {
+  font-size: 1.8em;
+  font-weight: bolder;
+}
+
+.details-link {
+  font-size: 1.3em;
+  color: $secondaryColor;
 }

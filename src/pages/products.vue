@@ -51,6 +51,7 @@
                             :key="'page' + page.name"
                             :to="{ path: page.url, query: page.query }" class="col-auto"
                     >
+                        {{page.name}}
                     </router-link>
                 </div>
             </div>

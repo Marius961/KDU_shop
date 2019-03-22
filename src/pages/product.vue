@@ -72,7 +72,7 @@
         data() {
             return {
                 product: {},
-                selectedSize: '',
+                selectedSize: "",
                 quantity: 0,
                 staticImgPath: 'http://localhost:8090/img/'
             }
@@ -82,6 +82,10 @@
                 loadProduct: 'getProduct',
                 addToCart: 'postCartItem'
             }),
+            setDefaultProductSize() {
+                const list = this.productSizeList;
+                this.selectedSize = list[0];
+            },
             addItemToCart() {
                 let cartItem = {
                     size: this.selectedSize,
@@ -104,6 +108,7 @@
             this.loadProduct(this.$route.params.id)
                 .then((data) => {
                     this.product = data;
+                    this.setDefaultProductSize();
                 })
                 .catch(() => {
                     this.$router.push('/errors/404')
