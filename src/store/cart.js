@@ -75,9 +75,7 @@ export default  {
         },
         changeQuantity(state, cartItemData) {
             const index =  state.cartItems.findIndex(obj => obj.id === cartItemData.itemId);
-            let item = state.cartItems[index];
-            item.quantity = cartItemData.quantity;
-            item.totalPrice = item.product.price * item.quantity;
+            state.cartItems[index].quantity = cartItemData.quantity;
 
         }
     },

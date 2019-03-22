@@ -47,7 +47,7 @@
                             <div class="col-12" v-if="cartItem.product.sizes">
                                 <div class="row">
                                     <div class="col-auto">Ціна</div>
-                                    <div class="col-auto font-weight-bold">{{cartItem.totalPrice}}</div>
+                                    <div class="col-auto font-weight-bold">{{cartItem.product.price * cartItem.quantity}}</div>
                                 </div>
                             </div>
                         </div>

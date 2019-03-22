@@ -1,25 +1,22 @@
 package ua.shop.kdu.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "cart_items")
-public class CartItem {
+@Table(name = "ordered_items")
+public class OrderedItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
-
-    @Column(name = "user_id", insertable = false, updatable = false)
-    private Long userId;
+    @JoinColumn(name = "order_id")
+    @JsonBackReference
+    private Order order;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Product product;
@@ -28,6 +25,8 @@ public class CartItem {
     private int quantity;
 
     private String size;
+
+    private double totalPrice;
 
     public Long getId() {
         return id;
@@ -61,15 +60,19 @@ public class CartItem {
         this.size = size;
     }
 
-    public User getUser() {
-        return user;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public Long getUserId() {
-        return userId;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
