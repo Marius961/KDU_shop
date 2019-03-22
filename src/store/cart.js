@@ -75,12 +75,22 @@ export default  {
         },
         changeQuantity(state, cartItemData) {
             const index =  state.cartItems.findIndex(obj => obj.id === cartItemData.itemId);
-            state.cartItems[index].quantity = cartItemData.quantity;
+            let item = state.cartItems[index];
+            item.quantity = cartItemData.quantity;
+            item.totalPrice = item.product.price * item.quantity;
+
         }
     },
     getters: {
         getCartItemsList(state) {
             return state.cartItems;
+        },
+        totalCartPrice(state) {
+            let totalPrice = 0;
+            state.cartItems.map(item => {
+                totalPrice += item.totalPrice;
+            })
+            return totalPrice;
         }
     }
 }

@@ -59,6 +59,7 @@ public class CartService {
         if (opCartItem.isPresent()) {
             CartItem cartItem = opCartItem.get();
             cartItem.setQuantity(quantity);
+            cartItem.setTotalPrice(cartItem.getProduct().getPrice() * quantity);
             cartItemRepo.save(cartItem);
         } else throw new NotFoundException("Cannot find cart item with id: " + itemId);
     }

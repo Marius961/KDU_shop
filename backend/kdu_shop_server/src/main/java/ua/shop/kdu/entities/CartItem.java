@@ -29,6 +29,7 @@ public class CartItem {
 
     private String size;
 
+    private double totalPrice;
 
     public Long getId() {
         return id;
@@ -72,5 +73,13 @@ public class CartItem {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

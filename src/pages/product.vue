@@ -92,8 +92,9 @@
                     product: {
                         id: this.product.id
                     },
-                    quantity: this.quantity
-                }
+                    quantity: this.quantity,
+                    totalPrice: this.product.price * this.quantity
+                };
 
                 this.addToCart(cartItem)
                     .then(() => {
