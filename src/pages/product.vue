@@ -73,7 +73,7 @@
             return {
                 product: {},
                 selectedSize: "",
-                quantity: 0,
+                quantity: 1,
                 staticImgPath: 'http://localhost:8090/img/'
             }
         },
@@ -92,7 +92,7 @@
                     product: {
                         id: this.product.id
                     },
-                    quantity: this.quantity,
+                    quantity: this.quantity > 0 ? this.quantity : 1,
                     totalPrice: this.product.price * this.quantity
                 };
 
