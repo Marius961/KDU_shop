@@ -20,7 +20,7 @@
 .form-group-1 {
   margin: 0 0 15px 0;
 
-  input, select {
+  input, select, textarea {
     border: 1px solid lightgray;
     border-radius: 6px;
     padding: 5px 10px;
@@ -41,7 +41,7 @@
 .group-error {
   transition: all .3s;
 
-  input, select {
+  input, select textarea {
     border: 2px solid #ff7b7d;
     background: #ffe1e6;
   }
@@ -78,6 +78,15 @@
   padding: 1px 20px;
 }
 
+.form-group-header {
+  margin-top: -1px;
+  font-size: 1.3em;
+  font-weight: bolder;
+  color: $secondaryColor;
+  background: $accent;
+  padding: 10px 15px;
+
+}
 
 .error-label {
   font-weight: bold;

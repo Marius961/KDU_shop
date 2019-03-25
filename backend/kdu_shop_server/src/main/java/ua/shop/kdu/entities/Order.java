@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -26,6 +25,7 @@ public class Order {
     @Column(name = "user_id", insertable = false, updatable = false)
     private Long userId;
 
+    @NotNull
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<OrderedItem> orderedItems;
@@ -33,22 +33,11 @@ public class Order {
     @Temporal(TemporalType.DATE)
     private Date creationDate;
 
-    @NotBlank
-    @Size(max = 80)
-    private String deliveryCity;
-
-    @NotBlank
-    @Size(max = 64)
-    private String deliveryStreet;
-
-    @NotBlank
-    @Size(max = 16)
-    private String deliveryBuildingNumber;
-
     @NotNull
-    private int deliveryApartmentNumber;
+    @OneToOne(cascade = CascadeType.ALL)
+    private ShippingAddress address;
 
-    @Size(max = 512)
+    @Size(min = 3 ,max = 512)
     private String comment;
 
     private double totalPrice;
@@ -67,6 +56,18 @@ public class Order {
         this.id = id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
     public List<OrderedItem> getOrderedItems() {
         return orderedItems;
     }
@@ -83,36 +84,12 @@ public class Order {
         this.creationDate = creationDate;
     }
 
-    public String getDeliveryCity() {
-        return deliveryCity;
+    public ShippingAddress getAddress() {
+        return address;
     }
 
-    public void setDeliveryCity(String deliveryCity) {
-        this.deliveryCity = deliveryCity;
-    }
-
-    public String getDeliveryStreet() {
-        return deliveryStreet;
-    }
-
-    public void setDeliveryStreet(String deliveryStreet) {
-        this.deliveryStreet = deliveryStreet;
-    }
-
-    public String getDeliveryBuildingNumber() {
-        return deliveryBuildingNumber;
-    }
-
-    public void setDeliveryBuildingNumber(String deliveryBuildingNumber) {
-        this.deliveryBuildingNumber = deliveryBuildingNumber;
-    }
-
-    public int getDeliveryApartmentNumber() {
-        return deliveryApartmentNumber;
-    }
-
-    public void setDeliveryApartmentNumber(int deliveryApartmentNumber) {
-        this.deliveryApartmentNumber = deliveryApartmentNumber;
+    public void setAddress(ShippingAddress address) {
+        this.address = address;
     }
 
     public String getComment() {
@@ -121,6 +98,14 @@ public class Order {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public boolean isConfirmed() {
@@ -147,23 +132,5 @@ public class Order {
         isDelivered = delivered;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
 }
