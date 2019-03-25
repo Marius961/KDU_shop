@@ -37,7 +37,7 @@ public class Order {
     @OneToOne(cascade = CascadeType.ALL)
     private ShippingAddress address;
 
-    @Size(min = 3 ,max = 512)
+    @Size(max = 512)
     private String comment;
 
     private double totalPrice;

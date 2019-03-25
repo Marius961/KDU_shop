@@ -8,6 +8,8 @@ import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.services.OrderService;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -21,8 +23,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public void createOrder(@Valid @RequestBody Order order) throws NotFoundException {
-        orderService.createOrder(order);
+    public Map<String, Long> createOrder(@Valid @RequestBody Order order) throws NotFoundException {
+        return Collections.singletonMap("orderId",  orderService.createOrder(order));
     }
 
     @GetMapping

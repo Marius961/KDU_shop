@@ -25,16 +25,18 @@ public class OrderService {
     private OrderRepo orderRepo;
     private ProductRepo productRepo;
     private UserService userService;
+    private CartService cartService;
 
-    public OrderService(OrderedItemRepo orderedItemRepo, OrderRepo orderRepo, ProductRepo productRepo, UserService userService) {
+    public OrderService(OrderedItemRepo orderedItemRepo, OrderRepo orderRepo, ProductRepo productRepo, UserService userService, CartService cartService) {
         this.orderedItemRepo = orderedItemRepo;
         this.orderRepo = orderRepo;
         this.productRepo = productRepo;
         this.userService = userService;
+        this.cartService = cartService;
     }
 
     @Transactional
-    public void createOrder(Order order) throws NotFoundException {
+    public Long createOrder(Order order) throws NotFoundException {
         if (order.getOrderedItems() != null && !order.getOrderedItems().isEmpty()) {
             double orderTotalPrice = 0;
             order.setId(null);
@@ -56,6 +58,8 @@ public class OrderService {
             order.setTotalPrice(orderTotalPrice);
             order.setUser((User) userService.loadUserByUsername(getPrincipal().getName()));
             orderRepo.save(order);
+            cartService.clearCart();
+            return order.getId();
         } else throw new NotFoundException("Cannot find order items in this order");
     }
 

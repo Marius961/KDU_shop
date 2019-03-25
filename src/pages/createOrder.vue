@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form class="row">
+        <form class="row" @submit.prevent="submitOrderForm()">
             <div class="col-12 form-group-header mt-3 mb-3">Основна інформація</div>
             <div class="col-4 form-group-1" :class="{'group-error': $v.order.address.recipientFullName.$error }">
                 <label for="recipientFullName">П. І. Б. отримувача</label>
@@ -110,10 +110,38 @@
         methods: {
             ...mapActions({
                 getCart: 'getCartItems',
-            })
+                createOrder: 'postOrder'
+            }),
+            submitOrderForm() {
+                if (!this.$v.$invalid) {
+                    this.order.orderedItems = this.generateOrderItems();
+                    this.createOrder(this.order)
+                        .then((data) => {
+                            alert("Замовлення успішно створено. Номер замовлення: " + data.orderId);
+                            this.$router.push("/")
+                        })
+                        .catch(() => {
+                            alert("Сталася помилка підчас створення замовлення")
+                        })
+                }
+            },
+            generateOrderItems() {
+                return this.cartItems.map(item => {
+                    return {
+                        product: {
+                            id: item.product.id
+                        },
+                        quantity: item.quantity,
+                        size: item.size
+                    }
+                })
+            }
         },
         created() {
             this.getCart();
+            if (!this.cartItems.length > 0) {
+                this.$router.push("/")
+            }
         }
     }
 </script>

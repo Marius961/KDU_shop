@@ -68,6 +68,10 @@ public class CartService {
         return cartItemRepo.findAllByUser(currentUser);
     }
 
+    public void clearCart() {
+        cartItemRepo.deleteAll();
+    }
+
     private Principal getPrincipal() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
