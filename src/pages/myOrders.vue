@@ -1,13 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-12 header-item">
-                <div class="row">
-                    <div class="col-2">123123</div>
-                    <div class="col-7">Не підтверджено</div>
-                    <div class="col-3">Сума замовлення</div>
-                </div>
-            </div>
+            <header-item></header-item>
             <order-item v-for="order in pageData.content" :order="order" :key="order.id" class="col-12"></order-item>
         </div>
         <div class="row justify-content-center pagination">
@@ -26,6 +20,7 @@
 <script>
     import orderItem from "../components/orderItem";
     import {mapActions} from 'vuex'
+    import headerItem from "../components/headerItem";
 
     export default {
         data() {
@@ -39,7 +34,8 @@
             }
         },
         components: {
-            "order-item": orderItem
+            "order-item": orderItem,
+            "header-item": headerItem
         },
         methods: {
             ...mapActions({

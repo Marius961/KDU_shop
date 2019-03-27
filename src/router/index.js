@@ -11,6 +11,7 @@ import AddProduct from '../pages/addProduct'
 import Error404 from "../pages/Error404";
 import CreateOrder from '../pages/createOrder'
 import myOrders from "../pages/myOrders";
+import orderManagement from "../pages/orderManagement";
 
 Vue.use(Router);
 
@@ -81,6 +82,14 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         requiresRoles: ["USER"]
+      }
+    },
+    {
+      path: '/orders/manage',
+      component: orderManagement,
+      meta: {
+        requiresAuth: true,
+        requiresRoles: ["ADMIN"]
       }
     },
   ]

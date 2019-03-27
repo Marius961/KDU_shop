@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12 order-body">
                 <div class="row">
-                    <div class="col-2">{{order.id}}</div>
+                    <div class="col-2">#{{order.id}}</div>
                     <div class="col-7">{{orderStatus}}</div>
                     <div class="col-3">{{order.totalPrice}}</div>
                 </div>
@@ -59,7 +59,6 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-12 h4">Замовлені товари</div>
-
                         </div>
                         <div v-for="item in order.orderedItems" :key="'item' + item.id" class="row ordered-item">
                             <router-link :to="'/product/' + item.product.id" class="col-8">{{item.product.name + ' (' + item.size + ')'}}</router-link>
@@ -78,6 +77,7 @@
             </div>
         </div>
         <hr class="w-100 m-0 mt-2">
+        <slot></slot>
         <div class="row justify-content-between pr-5 align-items-center details-segment" @click="isShowDetails = !isShowDetails" :class="{'details-active': isShowDetails}">
             <div class="col-auto">
                 <i class="far fa-calendar-plus"></i>

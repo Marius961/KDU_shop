@@ -23,11 +23,14 @@
     padding-left: 13px;
     padding-right: 13px;
     display: flex;
-    align-items: center; }
+    align-items: center;
+    justify-content: center; }
     .nav-link .link-content img {
+      display: flex;
       height: 25px;
       width: auto; }
     .nav-link .link-content span {
+      display: flex;
       margin: 0;
       padding: 4px 0 0 8px;
       font-size: 1.3em;

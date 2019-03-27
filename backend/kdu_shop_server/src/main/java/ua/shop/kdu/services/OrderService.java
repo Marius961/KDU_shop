@@ -2,6 +2,7 @@ package ua.shop.kdu.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ua.shop.kdu.entities.Order;
@@ -65,7 +66,11 @@ public class OrderService {
 
     public Page<Order> getUserOrders(int page, int pageSize) {
         User currentUser = (User) userService.loadUserByUsername(getPrincipal().getName());
-        return orderRepo.findAllByUser(currentUser, PageRequest.of(page, pageSize));
+        return orderRepo.findAllByUser(currentUser, PageRequest.of(page, pageSize, Sort.by("creationDate").descending()));
+    }
+
+    public Page<Order> getAllOrders(int page, int pageSize) {
+        return orderRepo.findAll(PageRequest.of(page, pageSize, Sort.by("creationDate").descending()));
     }
 
     public void confirmOrder(Long orderId) throws NotFoundException {

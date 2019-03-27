@@ -1,0 +1,33 @@
+.btn-cancel {
+  border: 0;
+  padding: 8px 10px;
+  border-radius: 4px;
+  transition: all .25s;
+  background: #d7383a;
+  color: white; }
+  .btn-cancel:hover {
+    background: #b5b5b5; }
+  .btn-cancel:disabled {
+    background: #cdcdcd;
+    cursor: not-allowed; }
+    .btn-cancel:disabled:hover {
+      background: #cdcdcd; }
+  .btn-cancel:hover {
+    background: #ff0000; }
+
+.btn-primary-action {
+  border: 0;
+  padding: 8px 10px;
+  border-radius: 4px;
+  transition: all .25s;
+  background: #179bd7;
+  color: white; }
+  .btn-primary-action:hover {
+    background: #b5b5b5; }
+  .btn-primary-action:disabled {
+    background: #cdcdcd;
+    cursor: not-allowed; }
+    .btn-primary-action:disabled:hover {
+      background: #cdcdcd; }
+  .btn-primary-action:hover {
+    background: #0f678f; }

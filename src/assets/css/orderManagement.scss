@@ -1,0 +1,44 @@
+@import "vars";
+
+@mixin button {
+  border: 0;
+  padding: 8px 10px;
+  border-radius: 4px;
+
+  transition: all .25s;
+
+  &:hover {
+    background: #b5b5b5;
+  }
+
+  &:disabled {
+    background: #cdcdcd;
+    cursor: not-allowed;
+
+    &:hover {
+      background: #cdcdcd;
+    }
+  }
+}
+
+
+.btn-cancel {
+  @include button;
+  background: #d7383a;
+  color: white;
+
+  &:hover {
+    background: #ff0000;
+  }
+}
+
+.btn-primary-action {
+  @include button;
+
+  background: $secondaryColor;
+  color: white;
+
+  &:hover {
+    background: $secondaryColor / 1.5;
+  }
+}

@@ -46,4 +46,9 @@ public class OrderController {
     public void markOrderAsShippedOut(@PathVariable Long id) throws NotFoundException {
         orderService.markAsShippedOut(id);
     }
+
+    @GetMapping("/all")
+    public Page<Order> getAllOrders(@RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+        return orderService.getUserOrders(pageNumber, pageSize);
+    }
 }
