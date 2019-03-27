@@ -31,4 +31,19 @@ public class OrderController {
     public Page<Order> getUserOrders(@RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
         return orderService.getUserOrders(pageNumber, pageSize);
     }
+
+    @PostMapping("/cancel/{id}")
+    public void cancelOrder(@PathVariable Long id) throws NotFoundException {
+        orderService.cancelOrder(id);
+    }
+
+    @PostMapping("/confirm/{id}")
+    public void confirmOrder(@PathVariable Long id) throws NotFoundException {
+        orderService.confirmOrder(id);
+    }
+
+    @PostMapping("/shipped-out/{id}")
+    public void markOrderAsShippedOut(@PathVariable Long id) throws NotFoundException {
+        orderService.markAsShippedOut(id);
+    }
 }

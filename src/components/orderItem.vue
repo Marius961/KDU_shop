@@ -4,7 +4,7 @@
             <div class="col-12 order-body">
                 <div class="row">
                     <div class="col-2">{{order.id}}</div>
-                    <div class="col-7">Не підтверджено</div>
+                    <div class="col-7">{{orderStatus}}</div>
                     <div class="col-3">{{order.totalPrice}}</div>
                 </div>
                 <div v-if="isShowDetails" class="row">
@@ -99,6 +99,15 @@
     export default {
         props: {
             order: Object
+        },
+        computed: {
+            orderStatus() {
+                let status = "Не підтверджено";
+                if (this.order.confirmed) status = "Замовлення підтверджено, очікуйте відправки.";
+                if (this.order.shippedOut) status = "Замовлення відправлено.";
+                if (this.order.canceled) status = "Замовлення скасовано.";
+                return status;
+            }
         },
         data() {
             return {

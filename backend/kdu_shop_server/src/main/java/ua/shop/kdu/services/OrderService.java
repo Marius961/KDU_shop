@@ -42,7 +42,7 @@ public class OrderService {
             order.setId(null);
             order.setConfirmed(false);
             order.setShippedOut(false);
-            order.setDelivered(false);
+            order.setCanceled(false);
             order.setCreationDate(new Date());
             for (OrderedItem item : order.getOrderedItems()) {
                 Optional<Product> opProduct = productRepo.findById(item.getProduct().getId());
@@ -68,16 +68,38 @@ public class OrderService {
         return orderRepo.findAllByUser(currentUser, PageRequest.of(page, pageSize));
     }
 
-    public void confirmOrder(Long orderId) {
-
+    public void confirmOrder(Long orderId) throws NotFoundException {
+        Optional<Order> opOrder = orderRepo.findById(orderId);
+        if (opOrder.isPresent()) {
+            Order order = opOrder.get();
+            if (!order.isConfirmed() && !order.isShippedOut() && !order.isCanceled()) {
+                order.setConfirmed(true);
+                orderRepo.save(order);
+            } else throw new IllegalArgumentException("Order already confirmed");
+        } else throw new NotFoundException("Cannot confirm order, order not found");
     }
 
-    public void markOrderAsDelivered(Long orderId) {
-
+    public void markAsShippedOut(Long orderId) throws NotFoundException {
+        Optional<Order> opOrder = orderRepo.findById(orderId);
+        if (opOrder.isPresent()) {
+            Order order = opOrder.get();
+            if (order.isConfirmed() && !order.isCanceled()) {
+                order.setShippedOut(true);
+                orderRepo.save(order);
+            } else throw new IllegalArgumentException("Cannot mark order as shipped out, because order is not confirmed");
+        } else throw new NotFoundException("Cannot mark order as shipped out, order not found");
     }
 
-    public void cancelOrder(Long orderId) {
 
+    public void cancelOrder(Long orderId) throws NotFoundException {
+        Optional<Order> opOrder = orderRepo.findById(orderId);
+        if (opOrder.isPresent()) {
+            Order order = opOrder.get();
+            if (!order.isShippedOut()) {
+                order.setCanceled(true);
+                orderRepo.save(order);
+            } else throw new IllegalArgumentException("Order cannot be canceled because order is already shipped out");
+        } else throw new NotFoundException("Cannot cancel order, order not found");
     }
 
     private Principal getPrincipal() {

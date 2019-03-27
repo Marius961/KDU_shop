@@ -41,14 +41,13 @@ public class Order {
     @Size(max = 512)
     private String comment;
 
-
     private double totalPrice;
 
     private boolean isConfirmed;
 
     private boolean isShippedOut;
 
-    private boolean isDelivered;
+    private boolean isCanceled;
 
     public Long getId() {
         return id;
@@ -126,15 +125,15 @@ public class Order {
         isShippedOut = shippedOut;
     }
 
-    public boolean isDelivered() {
-        return isDelivered;
-    }
-
-    public void setDelivered(boolean delivered) {
-        isDelivered = delivered;
-    }
-
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public boolean isCanceled() {
+        return isCanceled;
+    }
+
+    public void setCanceled(boolean canceled) {
+        isCanceled = canceled;
     }
 }
