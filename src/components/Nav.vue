@@ -52,6 +52,7 @@
                     <a href="#">Замовлення</a>
                     <router-link to="/add-category" v-if="isAdmin">Додати категорію</router-link>
                     <router-link to="/add-product" v-if="isAdmin">Додати товар</router-link>
+                    <router-link to="/orders" v-if="isAdmin">Мої замовлення</router-link>
                     <a href="#" @click.prevent="logoutUser">Вийти</a>
                   </div>
                 </div>

@@ -16,7 +16,6 @@ public class OrderedItem extends Item {
     private double totalPrice;
 
 
-
     public Order getOrder() {
         return order;
     }

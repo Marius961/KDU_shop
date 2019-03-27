@@ -1,0 +1,46 @@
+@import "vars";
+
+.order-item {
+  border-radius: 6px;
+  overflow: hidden;
+  background: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: $accent;
+
+}
+
+.ordered-item {
+  a {
+    color: $accent;
+
+  }
+}
+
+.order-body {
+  padding: 25px 10px 10px 10px;
+}
+
+.details-segment {
+  padding: 8px;
+  transition: all .25s;
+
+  i {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background: $accent;
+    color: white;
+  }
+}
+
+.details-active {
+  background: $accent;
+  color: white;
+
+  .arrow  i {
+    transform: rotate(180deg);
+  }
+}

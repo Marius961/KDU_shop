@@ -1,5 +1,7 @@
 package ua.shop.kdu.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,7 @@ public class ShippingAddress {
     private Long id;
 
     @OneToOne(mappedBy = "address")
+    @JsonBackReference
     private Order order;
 
     @NotBlank

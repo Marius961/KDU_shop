@@ -25,20 +25,22 @@ public class Order {
     @Column(name = "user_id", insertable = false, updatable = false)
     private Long userId;
 
-    @NotNull
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<OrderedItem> orderedItems;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @NotNull
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     private ShippingAddress address;
 
     @Size(max = 512)
     private String comment;
+
 
     private double totalPrice;
 
@@ -132,5 +134,7 @@ public class Order {
         isDelivered = delivered;
     }
 
-
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

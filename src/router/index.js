@@ -10,6 +10,7 @@ import AddCategory from '../pages/addCategory'
 import AddProduct from '../pages/addProduct'
 import Error404 from "../pages/Error404";
 import CreateOrder from '../pages/createOrder'
+import myOrders from "../pages/myOrders";
 
 Vue.use(Router);
 
@@ -73,7 +74,15 @@ const router = new Router({
         requiresAuth: true,
         requiresRoles: ["USER"]
       }
-    }
+    },
+    {
+      path: '/orders',
+      component: myOrders,
+      meta: {
+        requiresAuth: true,
+        requiresRoles: ["USER"]
+      }
+    },
   ]
 });
 
