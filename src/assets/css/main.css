@@ -23,3 +23,6 @@ body {
   color: #606060; }
   .pagination a:first-child {
     border-left: 1px solid lightgrey; }
+
+.login-form-page {
+  background: #606060; }

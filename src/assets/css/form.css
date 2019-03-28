@@ -1,8 +1,11 @@
 .form {
-  margin-top: 50px;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.75);
+  width: 400px;
+  position: relative;
   transition: all .3s;
-  border: 3px solid #606060;
-  color: #606060; }
+  background: white;
+  color: #606060;
+  padding: 70px 30px 50px 30px; }
 
 .form-2 {
   margin-top: 20px;
@@ -15,35 +18,48 @@
 .form-group-1 {
   margin: 0 0 15px 0; }
   .form-group-1 input, .form-group-1 select, .form-group-1 textarea {
+    background: #e8e8e8;
+    text-align: center;
     border: 1px solid lightgray;
     border-radius: 6px;
-    padding: 5px 10px;
+    padding: 8px 10px;
+    margin: 8px 0;
     width: 100%;
     outline: none; }
     .form-group-1 input:focus, .form-group-1 select:focus, .form-group-1 textarea:focus {
-      border: 2px solid #179bd7; }
-  .form-group-1 label {
-    padding-left: 10px;
-    font-size: 1.2em; }
+      border: 1px solid #606060; }
+  .form-group-1 .error {
+    width: 100%;
+    text-align: center;
+    color: white;
+    background: #ff7b7d;
+    overflow: hidden;
+    transition: all .25s;
+    line-height: 45px;
+    height: 0;
+    padding: 0;
+    margin: 0; }
+    .form-group-1 .error i {
+      margin-right: 5px; }
+  .form-group-1 .error-active {
+    height: 45px;
+    padding: 0 5px; }
 
 .group-error {
   transition: all .3s; }
   .group-error input, .group-error select textarea {
-    border: 2px solid #ff7b7d;
+    border: 1px solid #ff7b7d;
     background: #ffe1e6; }
-  .group-error label {
-    color: #ff7b7d; }
 
 .submit-btn {
   border: 0;
-  background: #606060;
+  background: #179bd7;
   color: white;
   border-radius: 5px;
   margin: 15px 0 0 0;
-  padding: 5px 10px;
+  padding: 8px 10px;
+  font-size: 1.3em;
   transition: background-color .3s; }
-  .submit-btn:hover {
-    background: #179bd7; }
   .submit-btn:disabled {
     background: #d7d7d7;
     cursor: no-drop; }
@@ -65,11 +81,19 @@
   padding: 10px 15px; }
 
 .error-label {
+  overflow: hidden;
   font-weight: bold;
   font-size: 1.1em;
   color: white;
   background: #c70000;
-  padding: 0 20px; }
+  padding: 0 20px;
+  height: 0;
+  line-height: 40px;
+  text-align: center;
+  transition: height .25s; }
+
+.error-label-show {
+  height: 40px; }
 
 .success-message {
   transition: all .3s;
@@ -94,3 +118,17 @@
 .message-show {
   max-height: 75px;
   padding: 10px; }
+
+.form-icon {
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.75);
+  font-size: 1.5em;
+  position: absolute;
+  top: -28px;
+  width: 65px;
+  height: 65px;
+  border-radius: 100%;
+  line-height: 65px;
+  vertical-align: middle;
+  text-align: center;
+  color: white;
+  background: #179bd7; }

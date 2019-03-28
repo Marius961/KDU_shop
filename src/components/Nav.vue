@@ -18,9 +18,9 @@
                         :class="{'show-menu': isShowNavMenu}"
                 >
                     <div class="row">
-                        <div class="col-12 col-md-auto p-0 pl-md-3 pr-md-3">
+                        <div class="col-12 col-md-auto p-0 pr-md-3">
                             <div class="row no-gutters">
-                                <router-link tag="div" to="/" class="col-12 col-auto col-md-auto nav-link">
+                                <router-link tag="div" to="/" active-class="nav-link-active" exact class="col-12 col-auto col-md-auto nav-link">
                                     <div class="link-content">
                                         <img src="../assets/img/nav-icons/home.png" alt="">
                                         <span>ГОЛОВНА</span>
@@ -49,7 +49,6 @@
                                         <span>{{username}}</span>
                                     </div>
                                     <div class="item-dropdown">
-                                        <a href="#">Замовлення</a>
                                         <router-link to="/add-category" v-if="isAdmin">Додати категорію</router-link>
                                         <router-link to="/add-product" v-if="isAdmin">Додати товар</router-link>
                                         <router-link to="/orders">Мої замовлення</router-link>
@@ -57,25 +56,23 @@
                                         <a href="#" @click.prevent="logoutUser">Вийти</a>
                                     </div>
                                 </div>
-                                <div v-if="!isAuthenticated" class="col-12 col-auto col-md-auto nav-link">
-                                    <div class="link-content">
-                                        <span>
-                                          <router-link to="/registration">Реєстрація</router-link> |
-                                          <router-link to="/login">Вхід</router-link>
-                                        </span>
-                                    </div>
-                                </div>
-                                <router-link  tag="div" to="/cart" class="col-auto nav-link">
+                                <router-link v-if="isAuthenticated"  tag="div" to="/cart" active-class="nav-link-active" class="col-12 col-sm-auto nav-link">
                                     <div class="link-content">
                                         <img src="../assets/img/nav-icons/cart.png" alt="">
                                     </div>
                                 </router-link>
-                                <div class="col col-md-4 search-field">
+                                <router-link v-if="!isAuthenticated"  tag="div" to="/registration" active-class="nav-link-active" class="col-12 col-sm-auto nav-link">
                                     <div class="link-content">
-                                        <img src="../assets/img/nav-icons/search.png" alt="">
-                                        <input type="search" name="" id="">
+                                        <i class="fas fa-user-plus"></i>
+                                        <span>Реєстрація</span>
                                     </div>
-                                </div>
+                                </router-link>
+                                <router-link v-if="!isAuthenticated"  tag="div" to="/login" active-class="nav-link-active" class="col-12 col-sm-auto nav-link">
+                                    <div class="link-content">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        <span>Вхід</span>
+                                    </div>
+                                </router-link>
                             </div>
                         </div>
                     </div>

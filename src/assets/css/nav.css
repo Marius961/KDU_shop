@@ -25,6 +25,9 @@
     display: flex;
     align-items: center;
     justify-content: center; }
+    .nav-link .link-content i {
+      color: white;
+      font-size: 1.3em; }
     .nav-link .link-content img {
       display: flex;
       height: 25px;
@@ -39,9 +42,13 @@
     .nav-link .link-content a {
       color: white; }
   .nav-link:hover {
+    cursor: pointer;
     background: #179bd7; }
   .nav-link:hover .item-dropdown {
     display: block; }
+
+.nav-link-active {
+  background: #179bd7; }
 
 .item-dropdown {
   background: #262626;

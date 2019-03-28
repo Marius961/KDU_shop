@@ -1,7 +1,7 @@
 @import "vars";
 
 body {
-  background: #e6e6e6;
+  background: $bg;
 }
 
 .to-cart-btn {;
@@ -42,4 +42,8 @@ body {
     text-decoration: none;
     color: $accent;
   }
+}
+
+.login-form-page {
+  background: $accent;
 }

@@ -34,7 +34,8 @@ const router = new Router({
       path: '/cart',
       component: Cart,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresRoles: ["USER"]
       }
     },
     {
@@ -45,12 +46,17 @@ const router = new Router({
       path: '/registration',
       component: Registration,
       meta: {
-        requiresRoles: [""]
+        requiresRoles: [],
+        bodyClass: 'login-form-page'
       }
     },
     {
       path: '/login',
-      component: Login
+      component: Login,
+      meta: {
+        requiresRoles: [],
+        bodyClass: 'login-form-page'
+      }
     },
     {
       path: '/add-category',
@@ -101,20 +107,26 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
 
     if (user && user.token) {
+
       next()
     } else next('/login')
   }
-  else if(to.meta.requiresRoles) {
-    let roles = [""];
-    if (user && user.roles) {
-      roles = user.roles;
-    }
-
-    const found = to.meta.requiresRoles.some(r => roles.indexOf(r) >= 0);
-    if (found) {
+  else if (to.meta.requiresRoles) {
+    if (to.meta.requiresRoles.length === 0) {
       next();
     } else {
-      next('/errors/404')
+      let roles = [];
+      if (user && user.roles) {
+        roles = user.roles;
+      }
+
+      const found = to.meta.requiresRoles.some(r => roles.indexOf(r) >= 0);
+      if (found) {
+        alert('ok');
+        next();
+      } else {
+        next('/errors/404')
+      }
     }
   }
   next();
