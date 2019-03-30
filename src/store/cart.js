@@ -86,8 +86,8 @@ export default  {
         totalCartPrice(state) {
             let totalPrice = 0;
             state.cartItems.map(item => {
-                totalPrice += item.totalPrice;
-            })
+                totalPrice += item.quantity * item.product.price
+            });
             return totalPrice;
         }
     }

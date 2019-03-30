@@ -1,17 +1,27 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="row justify-content-center">
-                    <div class="col-auto">Кінцева ціна <span class="font-weight-bold">{{totalCartPrice}}</span></div>
-                </div>
+        <div class="row justify-content-between cart-header">
+            <div class="col-auto">Товарів у кошику:
+                <span class="font-weight-bold">{{cartItems.length}}</span>
+            </div>
+            <div class="col-auto">Кінцева ціна:
+                <span class="font-weight-bold">{{totalCartPrice}}</span>
+                грн.
             </div>
         </div>
         <div class="row">
             <div v-if="cartItems.length <= 0" class="col-12 h1">Корзина пуста</div>
-            <cart-item class="col-12" v-for="cartItem in cartItems" :key="cartItem.id" :cart-item="cartItem"></cart-item>
+            <cart-item
+                    class="col-12"
+                    v-for="cartItem in cartItems" :key="cartItem.id"
+                    :cart-item="cartItem"
+                    @deleteItem="deleteFromCart"
+                    @changeQuantity="changeQuantity"
+            ></cart-item>
         </div>
-        <router-link to="/create-order" tag="button" class="row">Створити замовлення</router-link>
+        <div class="row order-bar justify-content-end">
+            <router-link to="/create-order" tag="button" class="col-12 col-sm-auto submit-btn m-0">Створити замовлення</router-link>
+        </div>
     </div>
 </template>
 <script>

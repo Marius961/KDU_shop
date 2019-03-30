@@ -24,6 +24,19 @@ body {
   .pagination a:first-child {
     border-left: 1px solid lightgrey; }
 
+.submit-btn {
+  border: 0;
+  background: #179bd7;
+  color: white;
+  border-radius: 5px;
+  margin: 15px 0 0 0;
+  padding: 8px 10px;
+  font-size: 1.3em;
+  transition: background-color .3s; }
+  .submit-btn:disabled {
+    background: #d7d7d7;
+    cursor: no-drop; }
+
 .auth-form-page {
   background: #606060; }
 

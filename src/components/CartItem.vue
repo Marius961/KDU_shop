@@ -1,7 +1,7 @@
 <template>
     <div class="item">
         <div class="row">
-            <div class="col-3">
+            <div class="col-5 col-sm-4 col-md-3">
                 <div class="row justify-content-center">
                     <div class="col-auto">
                         <img :src="staticImgPath + cartItem.product.imageName" alt="">
@@ -16,10 +16,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-7 col-sm-8 col-md-9">
                 <div class="row justify-content-between align-items-start">
                     <div class="col-auto item-header">{{cartItem.product.name}}</div>
-                    <div @click="deleteFromCart(cartItem.id)" class="col-auto delete-btn"><i class="fas fa-times"></i></div>
+                    <div @click="deleteItem()" class="col-auto delete-btn"><i class="fas fa-times"></i></div>
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -59,10 +59,18 @@
         },
         props: {
             cartItem: Object
+        },
+        methods: {
+            deleteItem() {
+                this.$emit('deleteItem', this.cartItem.id)
+            },
+            changeQuantity(id, quantity) {
+                this.$emit('changeQuantity', id, quantity)
+            }
         }
     }
 </script>
 
 <style scoped>
-
+    @import "../assets/css/cartItem.css";
 </style>

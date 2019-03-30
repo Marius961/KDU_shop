@@ -38,19 +38,6 @@
     border: 1px solid #ff7b7d;
     background: #ffe1e6; }
 
-.submit-btn {
-  border: 0;
-  background: #179bd7;
-  color: white;
-  border-radius: 5px;
-  margin: 15px 0 0 0;
-  padding: 8px 10px;
-  font-size: 1.3em;
-  transition: background-color .3s; }
-  .submit-btn:disabled {
-    background: #d7d7d7;
-    cursor: no-drop; }
-
 .form-header {
   margin-top: -1px;
   font-size: 1.5em;
