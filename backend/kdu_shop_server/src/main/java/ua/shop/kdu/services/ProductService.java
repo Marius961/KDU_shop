@@ -44,8 +44,12 @@ public class ProductService {
 
     public void addProduct(Product product, MultipartFile file) throws Exception {
         String imageName = productImageService.saveImage(file);
-        product.setImageName(imageName);
-        productRepo.save(product);
+        if (!isProductExist(product.getName(), product.getColor())) {
+            product.setId(null);
+            product.setImageName(imageName);
+            productRepo.save(product);
+        } else throw new IllegalArgumentException("Cannot add product. Product with this color and name already exist");
+
     }
 
     public Page<Product> getProductsByCategoryUrl(
@@ -83,6 +87,10 @@ public class ProductService {
 
     public List<String> getAllColors() {
         return productRepo.findAllColors();
+    }
+
+    public boolean isProductExist(String name, String color) {
+        return productRepo.existsByNameAndColor(name, color);
     }
 
 }

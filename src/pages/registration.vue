@@ -1,65 +1,43 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <form @submit.prevent="sendForm()" class="col-12 col-sm-auto form">
+            <form @submit.prevent="sendForm()" class="col-12 col-sm-auto form form-box">
                 <div class="row justify-content-center">
                     <div class="col-auto form-icon">
                         <i class="fas fa-user-plus"></i>
                     </div>
                     <div class="col h3 text-center">Реєстрація</div>
                 </div>
-                <div class="row no-gutters form-group-1"
-                     :class="{'group-error': $v.user.username.$error }">
-                    <label for="username" :class="{'error-active': !$v.user.username.minLength && $v.user.username.$dirty}" class="error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Мінімум 3 символа
-                    </label>
-                    <label for="username" :class="{'error-active': !$v.user.username.isUserRegistered && $v.user.username.$dirty}" class="error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Користувач вже існує
-                    </label>
+                <div class="row no-gutters form-group-1" :class="{'group-error': $v.user.username.$error }">
+
+                    <form-error :target="$v.user.username" param-name="minLength">Мінімум 3 символа</form-error>
+                    <form-error :target="$v.user.username" param-name="maxLength">Максимум 32 символа</form-error>
+                    <form-error :target="$v.user.username" param-name="isUserRegistered">Користувач вже існує</form-error>
 
                     <input type="text" placeholder="Логін" v-model.lazy="$v.user.username.$model" id="username">
                 </div>
 
                 <div class="row no-gutters form-group-1"
                      :class="{'group-error': $v.user.email.$error }">
-                    <label for="email" :class="{'error-active': !$v.user.email.minLength && $v.user.email.$dirty}" class="error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Мінімум 4 символа
-                    </label>
-                    <label for="email" :class="{'error-active': !$v.user.email.maxLength && $v.user.email.$dirty}" class="error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Максимум 32 символи
-                    </label>
-                    <label for="email" :class="{'error-active': !$v.user.email.email && $v.user.email.minLength && $v.user.email.$dirty}" class="error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Поле не містить емейл
-                    </label>
-                    <label for="email" :class="{'error-active': !$v.user.email.isEmailRegistered && $v.user.email.$dirty}" class="error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Емейл вже зареєстрований
-                    </label>
+
+                    <form-error :target="$v.user.email" param-name="minLength">Мінімум 4 символа</form-error>
+                    <form-error :target="$v.user.email" param-name="maxLength">Максимум 32 символи</form-error>
+                    <form-error :target="$v.user.email" param-name="email" v-if="$v.user.email.minLength">Поле не містить емейл</form-error>
+                    <form-error :target="$v.user.email" param-name="isEmailRegistered">Емейл вже зареєстрований</form-error>
 
                     <input type="email" placeholder="Емейл" v-model.lazy="$v.user.email.$model" id="email">
                 </div>
 
                 <div class="row no-gutters form-group-1"
                      :class="{'group-error': $v.user.password.$error }">
-                    <label for="password" :class="{'error-active': !$v.user.password.minLength && $v.user.password.$dirty}" class="error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Занадто короткий пароль
-                    </label>
-                    <label for="password" :class="{'error-active': !$v.confirmPassword.sameAs && $v.confirmPassword.$dirty}" class="error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Паролі не співпадають
-                    </label>
+
+                    <form-error :target="$v.user.password" param-name="minLength">Занадто короткий пароль</form-error>
+                    <form-error :target="$v.confirmPassword" param-name="sameAs">Паролі не співпадають</form-error>
 
                     <input type="password" placeholder="Пароль" v-model="$v.user.password.$model" id="password">
                 </div>
                 <div class="row no-gutters form-group-1"
                      :class="{'group-error': $v.user.password.$error }">
-
                     <input type="password" placeholder="Підтвердіть пароль" v-model="$v.confirmPassword.$model" id="confirmPassword">
                 </div>
                 <div class="row justify-content-center no-gutters">
@@ -75,6 +53,7 @@
     import  {mapActions} from 'vuex'
     import { required, minLength, email, maxLength, sameAs} from 'vuelidate/lib/validators'
     import {isUserRegistered, isEmailRegistered} from "../validators/userValidator";
+    import errorLabel from "../components/errorLabel";
 
     export default {
         data() {
@@ -116,6 +95,9 @@
                 const re = /[^A-Z0-9]/gi;
                 return text.replace(re, '');
             }
+        },
+        components: {
+            'form-error': errorLabel
         },
         watch: {
             'user.username': {

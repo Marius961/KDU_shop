@@ -8,10 +8,13 @@ import ua.shop.kdu.entities.Product;
 import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.services.ProductService;
 
+import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api   /product")
 public class ProductController {
 
     private ProductService productService;
@@ -46,7 +49,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public void addProduct(@RequestPart(name = "image") MultipartFile file, @RequestPart(name = "product") Product product) throws Exception {
+    public void addProduct(@RequestPart(name = "image") MultipartFile file,@Valid @RequestPart(name = "product") Product product) throws Exception {
         System.out.println("Product name:  " + product.getName());
         productService.addProduct(product, file);
     }
@@ -54,5 +57,10 @@ public class ProductController {
     @GetMapping("/colors")
     public List<String> getAllColors() {
         return productService.getAllColors();
+    }
+
+    @PostMapping("/exist")
+    public Map<String, Boolean> checkEmail(@RequestBody Map<String, String> payload) {
+        return Collections.singletonMap("isExist", productService.isProductExist(payload.get("name"), payload.get("color")));
     }
 }

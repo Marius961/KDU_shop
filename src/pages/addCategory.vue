@@ -1,23 +1,32 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-12 h2">Додати категорію</div>
+            <div class="col-12 h2">
+                <i class="fas fa-clipboard-list"></i>
+                Додати категорію
+            </div>
         </div>
         <hr class="w-100">
-        <div class="row success-message mb-2 mt-1" :class="{'message-show': successMessage}">Категорію успішно додано</div>
-        <div class="row error-message mb-2 mt-1" :class="{'message-show': errorMessage.isShow}">{{errorMessage.text + errorMessage.errorText}}</div>
         <div class="row justify-content-center">
-            <form class="col-auto form-2 form-body" @submit.prevent="submitForm()">
+            <form class="col-12 col-sm-7 col-md-5 form-2" @submit.prevent="submitForm()">
                 <div class="row form-group-1" :class="{'group-error': $v.category.categoryName.$error}">
                     <label for="categoryName">Назва категорії</label>
                     <input id="categoryName" v-model="$v.category.categoryName.$model" type="text">
+
+                    <form-error :target="$v.category.categoryName" param-name="minLength">Мінімум 3 символа</form-error>
+                    <form-error :target="$v.category.categoryName" param-name="maxLength">Максимум 32 символа</form-error>
+                    <form-error :target="$v.category.categoryName" param-name="isNameUnique">Категорія з таким іменем вже існує</form-error>
                 </div>
                 <div class="row form-group-1" :class="{'group-error': $v.category.categoryUrl.$error}">
                     <label for="categoryURL">URL адреса категорії</label>
                     <input id="categoryURL" v-model="$v.category.categoryUrl.$model" type="text">
+
+                    <form-error :target="$v.category.categoryUrl" param-name="minLength">Мінімум 3 символа</form-error>
+                    <form-error :target="$v.category.categoryUrl" param-name="maxLength">Максимум 32 символа</form-error>
+                    <form-error :target="$v.category.categoryUrl" param-name="isUrlUnique">Такий URL вже існує вже</form-error>
                 </div>
-                <div class="row justify-content-end no-gutters">
-                    <button :disabled="$v.$invalid" class="col-auto submit-btn">Додати категорію</button>
+                <div class="row no-gutters">
+                    <button :disabled="$v.$invalid" class="col-12 submit-btn">Додати категорію</button>
                 </div>
             </form>
         </div>
@@ -28,6 +37,7 @@
     import {mapActions} from 'vuex'
     import { required, minLength, maxLength} from 'vuelidate/lib/validators'
     import {isNameUnique, isUrlUnique} from "../validators/categoryValidator";
+    import errorLabel from "../components/errorLabel";
 
     export default {
         data() {
@@ -35,12 +45,6 @@
                 category: {
                     categoryName: '',
                     categoryUrl: '',
-                },
-                successMessage: false,
-                errorMessage: {
-                    isShow: false,
-                    text: 'Виникла помилка: ',
-                    errorText: ''
                 }
             }
         },
@@ -50,42 +54,46 @@
                 categoryUrl: {required, minLength: minLength(3), maxLength: maxLength(32), isUrlUnique}
             }
         },
+        components: {
+            'form-error': errorLabel
+        },
         methods: {
             ...mapActions({
                 addCategory: 'addCategory'
             }),
             submitForm() {
                 if (!this.$v.$invalid) {
+
                     this.addCategory(this.category)
                         .then(() => {
                             this.clearData();
-                            this.showSuccessMessage();
+                            this.showSuccessAlert();
                         })
                         .catch((error) => {
                             if (error.status === 403) {
                                 this.$router.push('/login')
                             } else {
-                                this.showErrorMessage(error.data.status + " | " + error.data.error)
+                                this.showErrorMessage();
                             }
                         })
                 }
-            },
-            showSuccessMessage() {
-                this.successMessage = true;
-                setTimeout(() => { this.successMessage = false}, 4000);
             },
             clearData() {
                 this.category.categoryName = '';
                 this.category.categoryUrl = '';
                 this.$v.$reset()
             },
-            showErrorMessage(error) {
-                this.errorMessage.errorText = error;
-                this.errorMessage.isShow = true;
-                setTimeout(() => {
-                    this.errorMessage.isShow = false;
-                    this.errorMessage.errorText = '';
-                }, 4000);
+            showSuccessAlert() {
+                this.$swal.fire({
+                    type: 'success',
+                    title: 'Категорія успішно додана!',
+                })
+            },
+            showErrorMessage() {
+                this.$swal.fire({
+                    type: 'error',
+                    title: 'Невдалось додати категорію!',
+                })
             }
         },
         watch: {
@@ -103,4 +111,7 @@
 
 <style scoped>
     @import "../assets/css/form.css";
+    .container {
+        margin-top: 40px;
+    }
 </style>

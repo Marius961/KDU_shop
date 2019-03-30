@@ -11,4 +11,6 @@ public interface ProductRepo extends PagingAndSortingRepository<Product, Long>, 
 
     @Query("SELECT DISTINCT p.color FROM Product p")
     List<String> findAllColors();
+
+    boolean existsByNameAndColor(String name, String color);
 }

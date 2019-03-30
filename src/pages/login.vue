@@ -1,16 +1,15 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <form @submit.prevent="loginUser()" class="col-12 col-sm-auto form">
+            <form @submit.prevent="loginUser()" class="col-12 col-sm-auto form form-box">
                 <div class="row justify-content-center">
                     <div class="col-auto form-icon">
-<!--                        <i class="fas fa-user-plus"></i>-->
                         <i class="fas fa-sign-in-alt"></i>
                     </div>
                     <div class="col h3 text-center">Вхід</div>
                 </div>
                 <div class="row">
-                    <div class="col form-body">
+                    <div class="col">
                         <div class="row no-gutters error-label" :class="{'error-label-show': isError}">
                             <div class="col-12">
                                 <i class="fas fa-exclamation-circle"></i>

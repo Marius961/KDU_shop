@@ -47,7 +47,7 @@ const router = new Router({
       component: Registration,
       meta: {
         requiresRoles: [],
-        bodyClass: 'login-form-page'
+        bodyClass: 'auth-form-page'
       }
     },
     {
@@ -55,7 +55,7 @@ const router = new Router({
       component: Login,
       meta: {
         requiresRoles: [],
-        bodyClass: 'login-form-page'
+        bodyClass: 'auth-form-page'
       }
     },
     {
@@ -63,7 +63,8 @@ const router = new Router({
       component: AddCategory,
       meta: {
         requiresAuth: true,
-        requiresRoles: ["ADMIN"]
+        requiresRoles: ["ADMIN"],
+        bodyClass: 'adding-page-form'
       }
     },
     {
@@ -71,7 +72,8 @@ const router = new Router({
       component: AddProduct,
       meta: {
         requiresAuth: true,
-        requiresRoles: ["ADMIN"]
+        requiresRoles: ["ADMIN"],
+        bodyClass: 'adding-page-form'
       }
     },
     {

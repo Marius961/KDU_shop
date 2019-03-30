@@ -1,0 +1,23 @@
+
+.error {
+  width: 100%;
+  text-align: center;
+  color: white;
+  background: #ff7b7d;
+  overflow: hidden;
+  transition: all .25s;
+  line-height: 45px;
+  height: 0;
+  padding: 0;
+  margin: 0;
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+.error-active {
+  height: 45px;
+  padding: 0 5px;
+
+}

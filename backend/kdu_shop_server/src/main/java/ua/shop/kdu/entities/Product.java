@@ -1,5 +1,7 @@
 package ua.shop.kdu.entities;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -23,18 +25,19 @@ public class Product {
     @NotBlank
     @Size(min = 3, max = 512)
     private String description;
-    
+
+
     @Size(max = 128)
     private String sizes;
 
     @NotNull
     private double price;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @NotBlank
     private String imageName;
 
     public Long getId() {

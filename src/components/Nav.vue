@@ -26,7 +26,7 @@
                                         <span>ГОЛОВНА</span>
                                     </div>
                                 </router-link>
-                                <div class="col-12 col-md-auto nav-link">
+                                <div class="col-12 col-md nav-link">
                                     <div class="link-content">
                                         <img src="../assets/img/nav-icons/t-shirt.png" alt="">
                                         <span>ПРОДУКЦІЯ</span>
@@ -36,7 +36,9 @@
                                                 v-for="category in categories"
                                                 :to="{ path: '/products/' + category.categoryUrl, query: {pageNum: 0}}"
                                                 :key="'c' + category.id"
-                                        >{{category.categoryName}}</router-link>
+                                        >
+                                            {{category.categoryName}}
+                                        </router-link>
                                     </div>
                                 </div>
                             </div>
