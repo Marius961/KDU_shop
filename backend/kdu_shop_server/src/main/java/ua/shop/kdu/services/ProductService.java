@@ -47,6 +47,9 @@ public class ProductService {
         if (!isProductExist(product.getName(), product.getColor())) {
             product.setId(null);
             product.setImageName(imageName);
+            if (product.getColor().trim().equals("")) {
+                product.setColor(null);
+            }
             productRepo.save(product);
         } else throw new IllegalArgumentException("Cannot add product. Product with this color and name already exist");
 

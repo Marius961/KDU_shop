@@ -15,7 +15,7 @@
                     </button>
                     <button
                             @click="setShippedOut(order.id)"
-                            v-if="order.confirmed"
+                            v-if="order.confirmed && !order.shippedOut"
                             :disabled="order.canceled"
                             class="col-auto btn-primary-action m-0 ml-sm-2"
                     >
@@ -78,7 +78,7 @@
                 let max = this.pageData.totalPages;
                 const start = currentPage -3 >0 ? currentPage - 3 : 0;
                 const end = currentPage +3 < max ? currentPage + 3 : max;
-
+                this.pages = [];
                 if (start > 0)
                     this.pages.push(this.generatePaginationObject(0, '1...', false, {...this.$route.query}));
 
@@ -104,6 +104,7 @@
                 this.cancelOrder(id)
                     .then(() => {
                         alert('Замовлення успішно скасовано')
+                        this.loadOrders();
                     })
                     .catch(() => {
                         alert('Не вдалося скасувати замовлення')
@@ -113,6 +114,7 @@
                 this.confirmOrder(id)
                     .then(() => {
                         alert("Замовлення успішно підтверджено")
+                        this.loadOrders();
                     })
                     .catch(() => {
                         alert("Невдалося підтвердити замовлення")
@@ -122,21 +124,25 @@
                 this.markAsShippedOut(id)
                     .then(() => {
                         alert("Замовлення позначено як відправлене")
+                        this.loadOrders();
                     })
                     .catch(() => {
                         alert("Невдалось позначити замовлення як відправлене")
                     })
+            },
+            loadOrders() {
+                this.getOrders(this.query)
+                    .then((data) => {
+                        this.pageData = data;
+                        this.setPagination();
+                    })
+                    .catch(() => {
+                        alert('error')
+                    })
             }
         },
         created() {
-            this.getOrders(this.query)
-                .then((data) => {
-                    this.pageData = data;
-                    this.setPagination();
-                })
-                .catch(() => {
-                    alert('error')
-                })
+            this.loadOrders();
         }
     }
 </script>

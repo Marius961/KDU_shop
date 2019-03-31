@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProductRepo extends PagingAndSortingRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
-    @Query("SELECT DISTINCT p.color FROM Product p")
+    @Query("SELECT DISTINCT p.color FROM Product p WHERE p.color IS NOT NULL")
     List<String> findAllColors();
 
     boolean existsByNameAndColor(String name, String color);

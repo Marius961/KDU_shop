@@ -29,7 +29,7 @@
                         <button @click="applyFilters">OK</button>
                     </div>
                 </div>
-                <div class="row filters-group">
+                <div class="row filters-group" v-if="colorsList.length > 0">
                     <div class="col-12 group-name">Колір</div>
                     <div class="col-12 group-items" v-for="color in colorsList" :key="'color' + color">
                         <label class="checkbox-container">
