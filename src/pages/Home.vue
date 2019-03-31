@@ -8,10 +8,7 @@
           v-for="product in products"
           :key="'product' + product.id"
           class="col-12 col-sm-6 col-md-4 col-lg-3"
-          :id="product.id"
-          :name="product.name"
-          :image-name="product.imageName"
-          :price="product.price"
+          :product="product"
         >
         </card>
       </div>

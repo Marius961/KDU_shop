@@ -15,15 +15,13 @@ public class Product {
     private Long id;
 
     @NotBlank
-    @Size(min = 3, max = 32)
+    @Size(min = 3, max = 128)
     private String name;
 
-    @NotBlank
-    @Size(min = 3, max = 32)
+    @Size(max = 32)
     private String color;
 
-    @NotBlank
-    @Size(min = 3, max = 512)
+    @Size(max = 512)
     private String description;
 
 

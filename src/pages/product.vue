@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-6 col-xl-8 pr-4 order-2 order-md-1">
+            <div class="col-12 col-md-6 col-xl-6 pr-4 order-2 order-md-1">
                 <div class="row">
                     <div class="col-12 h1 mt-4 mt-md-0">{{product.productName}}</div>
                     <hr class="w-100 m-1">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="col-12 mt-3 mb-3">
-                        <div class="row">
+                        <div class="row form-group-1">
                             <label for="quantity">Кількість
                                 <input v-model="quantity" id="quantity" type="number">
                             </label>
@@ -41,12 +41,12 @@
                     </div>
                     <div class="col-12 mb-5">
                         <div class="row pl-3">
-                            <button @click="addItemToCart" class="col-12 p-3 p-md-2 pl-md-4 pr-md-4 col-md-auto to-cart-btn cart-btn-text">У кошик</button>
+                            <button @click="addItemToCart" class="col-12 col-md-auto submit-btn">У кошик</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 order-1 order-md-2 col-xl-4 mt-5">
+            <div class="col-12 col-md-6 order-1 order-md-2 col-xl-6 mt-5">
                 <div class="row justify-content-center">
                     <div class="col-auto p-0 text-center img-segment">
                         <img :src="productImageUrl"  alt="">
@@ -119,4 +119,5 @@
 
 <style scoped>
     @import "../assets/css/product-page.css";
+    @import "../assets/css/form.css";
 </style>

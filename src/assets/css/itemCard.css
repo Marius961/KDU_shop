@@ -1,18 +1,21 @@
+.card-link {
+  cursor: pointer; }
+
 .card-body {
   margin: 20px 0;
-  max-width: 320px;
+  max-width: 380px;
   border: 1px solid #cccccc;
   overflow: hidden;
-  border-radius: 15px;
-  background: #e5e5e5; }
+  border-radius: 7px;
+  background: white;
+  height: 400px; }
   .card-body img {
     max-width: 100%; }
   .card-body:hover .item-info .params {
     transition: max-height 1s ease-in-out;
-    max-height: 600px; }
+    max-height: 400px; }
 
 .item-title {
-  font-size: 1.3em;
   font-weight: bold; }
 
 .item-price {
@@ -23,7 +26,10 @@
 .item-info {
   bottom: 0;
   background: white;
-  position: absolute; }
+  position: absolute;
+  box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, 0.75); }
+  .item-info a {
+    color: #606060; }
 
 .params {
   max-height: 0;

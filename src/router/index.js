@@ -40,7 +40,10 @@ const router = new Router({
     },
     {
       path: '/product/:id',
-      component: Product
+      component: Product,
+      meta: {
+        bodyClass: 'product-page'
+      }
     },
     {
       path: '/registration',
@@ -81,7 +84,8 @@ const router = new Router({
       component: CreateOrder,
       meta: {
         requiresAuth: true,
-        requiresRoles: ["USER"]
+        requiresRoles: ["USER"],
+        bodyClass: 'product-page'
       }
     },
     {

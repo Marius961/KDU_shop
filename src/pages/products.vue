@@ -1,22 +1,31 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-3 filters">
-                <div class="row filters-group">
+        <div class="row align-items-start">
+            <div class="col-12">
+                <div class="row justify-content-end filters-panel">
+                    <button @click="isHideFilters = !isHideFilters" class="col-12 col-sm-auto">
+                        <i class="fas fa-filter"></i>
+                        {{isHideFilters ? 'Показати' : 'Приховати'}}
+                        фільтри
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 filters" :class="{'hide-filters': isHideFilters}">
+                <div class="row pr-2 filters-group">
                     <div class="col-12 group-name">Ціна</div>
-                    <div class="col-12">
-                        <div class="row">
+                    <div class="col-5">
+                        <div class="row pr-1">
                             <label class="col-12">Від</label>
                             <input v-model="query.minPrice" class="col-12" type="number">
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-5">
                         <div class="row">
                             <label class="col-12">до</label>
                             <input v-model="query.maxPrice" class="col-12" type="number">
                         </div>
                     </div>
-                    <div class="col-4 align-self-end">
+                    <div class="col-1 align-self-end">
                         <button @click="applyFilters">OK</button>
                     </div>
                 </div>
@@ -28,28 +37,25 @@
                             <span class="checkmark"></span>
                         </label>
                     </div>
-                    {{query.colors}}
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-12 col-md-12 col-lg-9">
                 <div class="row">
                     <card
                             v-for="item in pageData.content"
                             :key="'product' + item.id"
-                            class="col-12 col-sm-6 col-md-4"
-                            :id="item.id"
-                            :name="item.name"
-                            :image-name="item.imageName"
-                            :price="item.price"
+                            class="col-12 col-sm-6 col-md-6 col-lg-4"
+                            :product="item"
                     >
                     </card>
                 </div>
-                <div class="row justify-content-center pagination">
+                <div class="row justify-content-center pagination" v-if="pages.length > 1">
                     <router-link
                             :class="{'page-active': page.isCurrent}"
                             v-for="page in pages"
                             :key="'page' + page.name"
-                            :to="{ path: page.url, query: page.query }" class="col-auto"
+                            :to="{ path: page.url, query: page.query }"
+                            class="col-auto"
                     >
                         {{page.name}}
                     </router-link>
@@ -68,6 +74,7 @@
         props: ["categoryUrl"],
         data() {
             return {
+                isHideFilters: true,
                 colorsList: [],
                 pageData: {},
                 pages: [],

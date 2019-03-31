@@ -47,7 +47,7 @@
   .nav-link:hover .item-dropdown {
     display: block; }
 
-.nav-link-active {
+.nav-link-active .link-content {
   background: #179bd7; }
 
 .item-dropdown {

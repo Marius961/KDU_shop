@@ -113,5 +113,6 @@
     @import "../assets/css/form.css";
     .container {
         margin-top: 40px;
+        margin-bottom: 40px;
     }
 </style>

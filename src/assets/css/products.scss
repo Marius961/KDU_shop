@@ -1,9 +1,47 @@
 @import "vars";
 
 .filters {
+
+  background: white;
   border-right: 1px solid lightgray;
 }
 
+.hide-filters {
+  display: none;
+}
+
+.filters-panel {
+  position: sticky;
+  top: 20px;
+  z-index: 99;
+  padding: 8px 15px;
+  background: white;
+
+
+  button {
+    border: 0;
+    background: $secondaryColor;
+    color: white;
+    padding: 8px 15px;
+  }
+}
+
+@media all and (min-width: 992px){
+  .filters {
+    margin-top: 20px;
+    position: sticky;
+    top: 20px;
+  }
+
+  .filters-panel {
+    display: none;
+  }
+
+  .hide-filters {
+    display: block;
+  }
+
+}
 
 .filters-group {
   margin: 15px 5px;
@@ -17,6 +55,31 @@
   .group-items {
     font-size: 1.3em;
     font-weight: 300;
+  }
+
+  input[type=number] {
+    height: 46px;
+    background: #e8e8e8;
+    text-align: center;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin: 8px 0;
+    width: 100%;
+    outline: none;
+
+    &:focus {
+      border: 1px solid $accent;
+    }
+  }
+
+  button {
+    margin: 8px 0;
+    height: 46px;
+    width: 36px;
+    border: 0;
+    background: $secondaryColor;
+    color: white;
   }
 }
 
@@ -65,26 +128,24 @@
 }
 
 
-/* When the checkbox is checked, add a background */
 .checkbox-container input:checked ~ .checkmark {
   border-color: $secondaryColor;
 }
 
 
-/* Create the indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
+
 .checkbox-container input:checked ~ .checkmark:after {
   display: block;
 }
 
 
-/* Style the indicator */
+
 .checkbox-container .checkmark:after {
   left: 8px;
   top: 6px;
