@@ -1,8 +1,11 @@
 <template>
-    <label :class="{'error-active': isShow}" class="error">
-        <i class="fas fa-exclamation-circle"></i>
-        <slot></slot>
-    </label>
+    <transition name="slide">
+        <label v-if="isShow" class="error">
+            <i class="fas fa-exclamation-circle"></i>
+            <slot></slot>
+        </label>
+    </transition>
+
 </template>
 
 <script>

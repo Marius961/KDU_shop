@@ -58,9 +58,10 @@
                                         <a href="#" @click.prevent="logoutUser">Вийти</a>
                                     </div>
                                 </div>
-                                <router-link v-if="isAuthenticated"  tag="div" to="/cart" active-class="nav-link-active" class="col-12 col-sm-auto nav-link">
+                                <router-link v-if="isAuthenticated"  tag="div" to="/cart" active-class="nav-link-active" class="col-12 col-md-auto nav-link">
                                     <div class="link-content">
                                         <img src="../assets/img/nav-icons/cart.png" alt="">
+                                        <span class="d-md-none">Кошик</span>
                                     </div>
                                 </router-link>
                                 <router-link v-if="!isAuthenticated"  tag="div" to="/registration" active-class="nav-link-active" class="col-12 col-sm-auto nav-link">

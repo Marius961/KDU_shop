@@ -87,12 +87,16 @@
                 this.$swal.fire({
                     type: 'success',
                     title: 'Категорія успішно додана!',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
             },
             showErrorMessage() {
                 this.$swal.fire({
                     type: 'error',
                     title: 'Невдалось додати категорію!',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
             }
         },

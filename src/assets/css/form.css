@@ -31,6 +31,8 @@
     outline: none; }
     .form-group-1 input:focus, .form-group-1 select:focus, .form-group-1 textarea:focus {
       border: 1px solid #606060; }
+  .form-group-1 label {
+    font-size: 1.3em; }
   .form-group-1 textarea {
     text-align: left; }
 

@@ -41,7 +41,7 @@ public class ShippingAddress {
     @NotNull
     private int apartmentNumber;
 
-    @Size(max = 256)
+    @Size(max = 120)
     private String postOfficeNumber;
 
     public Long getId() {

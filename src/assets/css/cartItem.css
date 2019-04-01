@@ -1,12 +1,12 @@
 .item {
-  box-shadow: 0px 1px 6px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 1px 6px -4px rgba(0, 0, 0, 0.75);
   color: #606060;
   background: #f1f1f1;
   margin-top: 15px;
   border: 1px solid lightgrey;
   padding: 10px 15px; }
   .item img {
-    max-width: 140px; }
+    max-width: 110px; }
 
 .quantity-bar {
   font-size: 1.4em; }
@@ -29,3 +29,19 @@
 .details-link {
   font-size: 1.3em;
   color: #179bd7; }
+
+.item-info {
+  margin-top: 6px; }
+  .item-info .row {
+    padding: 7px 13px;
+    align-items: center;
+    height: 40px;
+    line-height: 26px;
+    background: lightgray;
+    color: #606060;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1em; }
+    .item-info .row i {
+      margin-right: 6px;
+      font-size: 1.2em; }

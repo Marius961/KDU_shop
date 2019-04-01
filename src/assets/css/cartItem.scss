@@ -1,7 +1,7 @@
 @import "vars";
 
 .item {
-  box-shadow: 0px 1px 6px -4px rgba(0,0,0,0.75);
+  box-shadow: 0 1px 6px -4px rgba(0,0,0,0.75);
 
   color: $accent;
   background: #f1f1f1;
@@ -9,7 +9,7 @@
   border: 1px solid lightgrey;
   padding: 10px 15px;
   img {
-    max-width: 140px;
+    max-width: 110px;
   }
 }
 
@@ -45,4 +45,27 @@
 .details-link {
   font-size: 1.3em;
   color: $secondaryColor;
+}
+
+.item-info {
+  margin-top: 6px;
+
+  .row {
+    padding: 7px 13px;
+    align-items: center;
+    height: 40px;
+    line-height: 26px;
+    background: lightgray;
+    color: $accent;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1em;
+
+    i {
+      margin-right: 6px;
+      font-size: 1.2em;
+    }
+  }
+
+
 }

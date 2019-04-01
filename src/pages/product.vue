@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-12 col-md-6 col-xl-6 pr-4 order-2 order-md-1">
                 <div class="row">
-                    <div class="col-12 h1 mt-4 mt-md-0">{{product.productName}}</div>
+                    <div class="col-12 h1 mt-4 mt-md-0">{{product.name}}</div>
                     <hr class="w-100 m-1">
-                    <div class="col-12 mt-3 mb-3">
+                    <div class="col-12 mt-3 mb-3" v-if="product.color">
                         <div class="row align-items-center">
                             <div class="col-auto h4">Колір:</div>
                             <div class="col h5 font-weight-bold">{{product.color}}</div>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <hr class="w-100 m-1">
-                    <div class="col-12 mt-3 mb-3">
+                    <div class="col-12 mt-3 mb-3" v-if="product.description">
                         <div class="row align-items-center">
                             <div class="col-12 h4">Опис</div>
                             <p class="col-12">{{product.description}}</p>
@@ -48,7 +48,7 @@
             </div>
             <div class="col-12 col-md-6 order-1 order-md-2 col-xl-6 mt-5">
                 <div class="row justify-content-center">
-                    <div class="col-auto p-0 text-center img-segment">
+                    <div class="col-8 col-sm-auto p-0 text-center img-segment">
                         <img :src="productImageUrl"  alt="">
                     </div>
                 </div>
@@ -97,10 +97,20 @@
 
                 this.addToCart(cartItem)
                     .then(() => {
-                        alert("Додано в кошик")
+                        this.$swal.fire({
+                            type: 'success',
+                            title: 'Товар додано у кошик',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
                     })
                     .catch(() => {
-                        alert("Сталася помилка")
+                        this.$swal.fire({
+                            type: 'error',
+                            title: 'Невдалось додати товар у кошик',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
                     })
             }
         },

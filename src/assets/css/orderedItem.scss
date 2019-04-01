@@ -1,0 +1,23 @@
+.ordered-item {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.1em;
+  border: 1px solid lightgray;
+  flex-wrap: nowrap;
+}
+
+
+@media all and (max-width: 576px){
+
+  .ordered-item {
+    width: 600px;
+  }
+
+  .product-info {
+    min-width: 150px;
+  }
+
+  .product-name {
+    min-width: 300px;
+  }
+}

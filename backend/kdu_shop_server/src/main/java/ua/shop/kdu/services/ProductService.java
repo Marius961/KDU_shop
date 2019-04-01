@@ -6,18 +6,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ua.shop.kdu.entities.Category;
 import ua.shop.kdu.entities.Product;
 import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.repositories.CategoryRepo;
 import ua.shop.kdu.repositories.ProductRepo;
-import ua.shop.kdu.specifications.ProductSpecification;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
-import static org.springframework.data.jpa.domain.Specification.where;
 import static ua.shop.kdu.specifications.ProductSpecification.*;
 
 @Service
