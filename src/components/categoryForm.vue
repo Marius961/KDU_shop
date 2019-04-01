@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div>
         <div class="row">
             <div class="col-12 h2">
                 <i class="fas fa-clipboard-list"></i>
@@ -40,6 +40,11 @@
     import errorLabel from "../components/errorLabel";
 
     export default {
+        props: {
+            categoryUrl: {
+                default: undefined
+            }
+        },
         data() {
             return {
                 category: {
@@ -59,23 +64,39 @@
         },
         methods: {
             ...mapActions({
-                addCategory: 'addCategory'
+                addCategory: 'addCategory',
+                getCategory: 'getCategoryByUrl',
+                updateCategory: 'updateCategory'
             }),
             submitForm() {
                 if (!this.$v.$invalid) {
-
-                    this.addCategory(this.category)
-                        .then(() => {
-                            this.clearData();
-                            this.showSuccessAlert();
-                        })
-                        .catch((error) => {
-                            if (error.status === 403) {
-                                this.$router.push('/login')
-                            } else {
-                                this.showErrorMessage();
-                            }
-                        })
+                    if (!this.categoryUrl) {
+                        this.addCategory(this.category)
+                            .then(() => {
+                                this.clearData();
+                                this.showSuccessAlert('Категорія успішно додана!');
+                            })
+                            .catch((error) => {
+                                if (error.status === 403) {
+                                    this.$router.push('/login')
+                                } else {
+                                    this.showErrorMessage('Невдалось додати категорію!');
+                                }
+                            })
+                    } else {
+                        this.updateCategory(this.category)
+                            .then(() => {
+                                this.showSuccessAlert("Категорію оновлено");
+                                this.$router.push('/admin-panel/categories/list')
+                            })
+                            .catch((error) => {
+                                if (error.status === 403) {
+                                    this.$router.push('/login')
+                                } else {
+                                    this.showErrorMessage('Невдалось оновити категорію!');
+                                }
+                            })
+                    }
                 }
             },
             clearData() {
@@ -83,18 +104,18 @@
                 this.category.categoryUrl = '';
                 this.$v.$reset()
             },
-            showSuccessAlert() {
+            showSuccessAlert(title) {
                 this.$swal.fire({
                     type: 'success',
-                    title: 'Категорія успішно додана!',
+                    title,
                     showConfirmButton: false,
                     timer: 1500
                 })
             },
-            showErrorMessage() {
+            showErrorMessage(title) {
                 this.$swal.fire({
                     type: 'error',
-                    title: 'Невдалось додати категорію!',
+                    title,
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -108,6 +129,17 @@
                 },
                 deep: true
             }
+        },
+        created() {
+            if (this.categoryUrl) {
+                this.getCategory(this.categoryUrl)
+                    .then(data => {
+                        this.category = data;
+                    })
+                    .catch(() => {
+                        this.showErrorMessage("Невдалося завантажити категорію для оновлення")
+                    })
+            }
         }
 
     }
@@ -115,8 +147,4 @@
 
 <style scoped>
     @import "../assets/css/form.css";
-    .container {
-        margin-top: 40px;
-        margin-bottom: 40px;
-    }
 </style>

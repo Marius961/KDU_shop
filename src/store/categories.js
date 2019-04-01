@@ -27,9 +27,43 @@ export default  {
                     })
             })
         },
+        getCategoryByUrl(context, categoryUrl) {
+            return new Promise((resolve, reject) => {
+                $http.get("/api/categories/" + categoryUrl, getConfig())
+                    .then(response => {
+                        resolve(response.data);
+                    })
+                    .catch(error => {
+                        reject();
+                    })
+            })
+        },
+        deleteCategory(context, categoryId) {
+            return new Promise((resolve, reject) => {
+                $http.delete("/api/categories/" + categoryId, getConfig())
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+            })
+        },
         addCategory(context, category) {
             return new Promise((resolve, reject) => {
                 $http.post('/api/categories', {...category}, getConfig())
+                    .then(() => {
+                        context.dispatch('getAllCategories');
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error.response);
+                    })
+            })
+        },
+        updateCategory(context, category) {
+            return new Promise((resolve, reject) => {
+                $http.put('/api/categories', {...category}, getConfig())
                     .then(() => {
                         context.dispatch('getAllCategories');
                         resolve();

@@ -6,12 +6,16 @@ import Cart from '../pages/cart'
 import Product from '../pages/product'
 import Registration from '../pages/registration'
 import Login from '../pages/login'
-import AddCategory from '../pages/addCategory'
+import AddCategory from '../pages/adminPanel/categoriesPanel/addCategory'
 import AddProduct from '../pages/addProduct'
 import Error404 from "../pages/Error404";
 import CreateOrder from '../pages/createOrder'
 import myOrders from "../pages/myOrders";
 import orderManagement from "../pages/orderManagement";
+import adminPanel from "../pages/adminPanel/adminPanel";
+import categoriesPanel from "../pages/adminPanel/categoriesPanel/categoriesPanel";
+import categoriesList from "../pages/adminPanel/categoriesPanel/categoriesList";
+import UpdateCategory from "../pages/adminPanel/categoriesPanel/UpdateCategory";
 
 Vue.use(Router);
 
@@ -62,15 +66,6 @@ const router = new Router({
       }
     },
     {
-      path: '/add-category',
-      component: AddCategory,
-      meta: {
-        requiresAuth: true,
-        requiresRoles: ["ADMIN"],
-        bodyClass: 'adding-page-form'
-      }
-    },
-    {
       path: '/add-product',
       component: AddProduct,
       meta: {
@@ -103,6 +98,53 @@ const router = new Router({
         requiresAuth: true,
         requiresRoles: ["ADMIN"]
       }
+    },
+    {
+      path: '/admin-panel',
+      component: adminPanel,
+      redirect: '/admin-panel/categories',
+      meta: {
+        requiresAuth: true,
+        requiresRoles: ["ADMIN"],
+        bodyClass: 'adding-page-form'
+      },
+      children: [
+        {
+          path: 'categories',
+          component: categoriesPanel,
+          meta: {
+            requiresAuth: true,
+            requiresRoles: ["ADMIN"]
+          },
+          children: [
+            {
+              path: 'add',
+              component: AddCategory,
+              meta: {
+                requiresAuth: true,
+                requiresRoles: ["ADMIN"]
+              }
+            },
+            {
+              path: 'list',
+              component: categoriesList,
+              meta: {
+                requiresAuth: true,
+                requiresRoles: ["ADMIN"]
+              }
+            },
+            {
+              path: 'update/:categoryUrl',
+              component: UpdateCategory,
+              props: true,
+              meta: {
+                requiresAuth: true,
+                requiresRoles: ["ADMIN"],
+              }
+            },
+          ]
+        }
+      ]
     },
   ]
 });

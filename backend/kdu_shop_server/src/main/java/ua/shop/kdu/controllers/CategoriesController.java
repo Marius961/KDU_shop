@@ -45,4 +45,14 @@ public class CategoriesController {
     public Map<String, Boolean> checkCategoryUrl(@RequestBody Map<String, String> categoryIrl) {
         return Collections.singletonMap("isExist", categoryService.isCategoryUrlExist(categoryIrl.get("categoryUrl")));
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteCategory(@PathVariable Long id) throws NotFoundException {
+        categoryService.deleteCategory(id);
+    }
+
+    @PutMapping
+    public void updateCategory(@Valid @RequestBody Category category) throws NotFoundException {
+        categoryService.updateCategory(category);
+    }
 }

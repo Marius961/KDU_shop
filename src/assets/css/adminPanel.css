@@ -1,0 +1,16 @@
+.item {
+  background: lightgray;
+  padding: 8px 15px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 5px 0; }
+
+.item-active {
+  background: #179bd7;
+  color: white; }
+
+.list-item {
+  padding: 8px;
+  font-size: 1.3em;
+  border: 1px solid lightgray; }

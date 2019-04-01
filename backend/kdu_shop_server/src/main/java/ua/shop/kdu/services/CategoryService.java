@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ua.shop.kdu.entities.Category;
 import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.repositories.CategoryRepo;
+import ua.shop.kdu.repositories.ProductRepo;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,12 +15,13 @@ import java.util.Optional;
 public class CategoryService {
 
     private CategoryRepo categoryRepo;
+    private ProductRepo productRepo;
 
     @Autowired
-    public CategoryService(CategoryRepo categoryRepo) {
+    public CategoryService(CategoryRepo categoryRepo, ProductRepo productRepo) {
         this.categoryRepo = categoryRepo;
+        this.productRepo = productRepo;
     }
-
 
     public Category getCategoryById(long id) throws NotFoundException {
         Optional category = categoryRepo.findById(id);
@@ -33,13 +35,25 @@ public class CategoryService {
         return categoryRepo.findAll();
     }
 
-    public boolean saveCategory(Category category) {
-        try {
+    public void saveCategory(Category category) {
+        category.setId(null);
+        categoryRepo.save(category);
+    }
+
+    public void updateCategory(Category category) throws NotFoundException {
+        if (category.getId() != null) {
             categoryRepo.save(category);
-            return true;
-        } catch (HibernateException e) {
-            return false;
-        }
+        } else throw new NotFoundException("Cannot update category with id null");
+    }
+
+    public void deleteCategory(Long categoryId) throws NotFoundException {
+        System.out.println(categoryId + "  category id =============");
+        Optional<Category> opCategory = categoryRepo.findById(categoryId);
+        if (opCategory.isPresent()) {
+            if (productRepo.existsByCategory(opCategory.get())) {
+                throw new IllegalArgumentException("Unable to delete category with products, first remove all products.");
+            } else categoryRepo.deleteById(categoryId);
+        } else throw new NotFoundException("Cannot find category with id: " + categoryId);
     }
 
     public Category getCategoryByUrl(String url) throws NotFoundException {
