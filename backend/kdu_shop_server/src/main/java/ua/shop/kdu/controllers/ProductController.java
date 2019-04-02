@@ -30,7 +30,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public Page<Product> getAllProducts(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
+    public Page<Product> getAllProducts(@RequestParam(name = "pageNum") int page, @RequestParam(name = "pageSize") int size) {
         return productService.findAllProducts(page, size);
     }
 
@@ -48,10 +48,31 @@ public class ProductController {
                 url, page, size, colors, maxPrice, minPrice);
     }
 
+
+    //TODO: unused
+    @GetMapping("/search")
+    public Page<Product> searchProducts(
+            @RequestParam(name = "pageNum") int page,
+            @RequestParam(name = "pageSize") int size,
+            @RequestBody Map<String, String> searchMap
+    ) {
+
+        return productService.searchProducts(page, size, searchMap.get("searchRequest"));
+    }
+
     @PostMapping
     public void addProduct(@RequestPart(name = "image") MultipartFile file,@Valid @RequestPart(name = "product") Product product) throws Exception {
-        System.out.println("Product name:  " + product.getName());
         productService.addProduct(product, file);
+    }
+
+    @PutMapping
+    public void updateProduct(@RequestPart(name = "image", required = false) MultipartFile file, @Valid @RequestPart(name = "product") Product product) throws Exception {
+        productService.updateProduct(product, file);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) throws NotFoundException {
+        productService.deleteProduct(id);
     }
 
     @GetMapping("/colors")
@@ -63,4 +84,5 @@ public class ProductController {
     public Map<String, Boolean> checkEmail(@RequestBody Map<String, String> payload) {
         return Collections.singletonMap("isExist", productService.isProductExist(payload.get("name"), payload.get("color")));
     }
+
 }

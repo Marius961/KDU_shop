@@ -1,34 +1,43 @@
 <template>
-    <div>
-        <div class="row">
-            <div class="col-12 h2">
-                <i class="fas fa-clipboard-list"></i>
-                Додати категорію
+    <div class="row ">
+        <div class="col">
+            <div class="row">
+                <div class="col-12 h2" v-if="!categoryUrl">
+                    <i class="fas fa-clipboard-list"></i>
+                    Додати категорію
+                </div>
+                <div class="col-12 h2" v-else>
+                    <i class="fas fa-edit"></i>
+                    Редагування категорії
+                </div>
             </div>
-        </div>
-        <hr class="w-100">
-        <div class="row justify-content-center">
-            <form class="col-12 col-sm-7 col-md-5 form-2" @submit.prevent="submitForm()">
-                <div class="row form-group-1" :class="{'group-error': $v.category.categoryName.$error}">
-                    <label for="categoryName">Назва категорії</label>
-                    <input id="categoryName" v-model="$v.category.categoryName.$model" type="text">
+            <hr class="w-100">
+            <div class="row justify-content-center">
+                <form class="col-12 col-sm-7 col-md-5 form-2" @submit.prevent="submitForm()">
+                    <div class="row form-group-1" :class="{'group-error': $v.category.categoryName.$error}">
+                        <label for="categoryName">Назва категорії</label>
+                        <input id="categoryName" v-model="$v.category.categoryName.$model" type="text">
 
-                    <form-error :target="$v.category.categoryName" param-name="minLength">Мінімум 3 символа</form-error>
-                    <form-error :target="$v.category.categoryName" param-name="maxLength">Максимум 32 символа</form-error>
-                    <form-error :target="$v.category.categoryName" param-name="isNameUnique">Категорія з таким іменем вже існує</form-error>
-                </div>
-                <div class="row form-group-1" :class="{'group-error': $v.category.categoryUrl.$error}">
-                    <label for="categoryURL">URL адреса категорії</label>
-                    <input id="categoryURL" v-model="$v.category.categoryUrl.$model" type="text">
+                        <form-error :target="$v.category.categoryName" param-name="minLength">Мінімум 3 символа</form-error>
+                        <form-error :target="$v.category.categoryName" param-name="maxLength">Максимум 32 символа</form-error>
+                        <form-error :target="$v.category.categoryName" param-name="isNameUnique">Категорія з таким іменем вже існує</form-error>
+                    </div>
+                    <div class="row form-group-1" :class="{'group-error': $v.category.categoryUrl.$error}">
+                        <label for="categoryURL">URL адреса категорії</label>
+                        <input id="categoryURL" v-model="$v.category.categoryUrl.$model" type="text">
 
-                    <form-error :target="$v.category.categoryUrl" param-name="minLength">Мінімум 3 символа</form-error>
-                    <form-error :target="$v.category.categoryUrl" param-name="maxLength">Максимум 32 символа</form-error>
-                    <form-error :target="$v.category.categoryUrl" param-name="isUrlUnique">Такий URL вже існує вже</form-error>
-                </div>
-                <div class="row no-gutters">
-                    <button :disabled="$v.$invalid" class="col-12 submit-btn">Додати категорію</button>
-                </div>
-            </form>
+                        <form-error :target="$v.category.categoryUrl" param-name="minLength">Мінімум 3 символа</form-error>
+                        <form-error :target="$v.category.categoryUrl" param-name="maxLength">Максимум 32 символа</form-error>
+                        <form-error :target="$v.category.categoryUrl" param-name="isUrlUnique">Такий URL вже існує вже</form-error>
+                    </div>
+                    <div class="row no-gutters">
+                        <button :disabled="$v.$invalid" class="col-12 submit-btn">
+                            <span v-if="!categoryUrl">Додати категорію</span>
+                            <span v-else>Зберегти зміни</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -73,7 +82,7 @@
                     if (!this.categoryUrl) {
                         this.addCategory(this.category)
                             .then(() => {
-                                this.clearData();
+                                this.resetForm();
                                 this.showSuccessAlert('Категорія успішно додана!');
                             })
                             .catch((error) => {
@@ -90,16 +99,12 @@
                                 this.$router.push('/admin-panel/categories/list')
                             })
                             .catch((error) => {
-                                if (error.status === 403) {
-                                    this.$router.push('/login')
-                                } else {
-                                    this.showErrorMessage('Невдалось оновити категорію!');
-                                }
+                                this.showErrorMessage('Невдалось оновити категорію!', "Помилка: " + error);
                             })
                     }
                 }
             },
-            clearData() {
+            resetForm() {
                 this.category.categoryName = '';
                 this.category.categoryUrl = '';
                 this.$v.$reset()
@@ -112,7 +117,7 @@
                     timer: 1500
                 })
             },
-            showErrorMessage(title) {
+            showErrorMessage(title, text) {
                 this.$swal.fire({
                     type: 'error',
                     title,

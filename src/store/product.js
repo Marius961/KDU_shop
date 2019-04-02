@@ -30,18 +30,51 @@ export default  {
                         resolve();
                     })
                     .catch((error) => {
-                        reject(error.response);
+                        reject(error);
                     })
             })
         },
-        getAllProducts() {
+        updateProduct(context, formProduct) {
             return new Promise((resolve, reject) => {
-                $http.get("/api/product?page=0&size=16")
+                $http.put('/api/product', formProduct, getConfig())
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+            })
+        },
+        deleteProduct(context, productId) {
+            return new Promise((resolve, reject) => {
+                $http.delete("/api/product/" + productId, getConfig())
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+            })
+        },
+        getHomePageProducts() {
+            return new Promise((resolve, reject) => {
+                $http.get("/api/product?pageNum=0&pageSize=16")
                     .then((response) => {
                         resolve(response.data.content);
                     })
                     .catch(() => {
                         reject();
+                    })
+            })
+        },
+        getAllProducts(context, query) {
+            return new Promise((resolve, reject) => {
+                $http.get("/api/product/", {params: query, ...getConfig()})
+                    .then((response) => {
+                        resolve(response.data);
+                    })
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },

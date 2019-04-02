@@ -9,7 +9,10 @@
         <hr class="w-100">
         <div class="row">
             <router-link to="/admin-panel/categories" active-class="item-active" tag="div" class="col-auto item">
-                Категорії
+                Керування категоріями
+            </router-link>
+            <router-link to="/admin-panel/products" active-class="item-active" tag="div" class="col-auto item">
+                Керування товарами
             </router-link>
         </div>
         <hr class="w-100">

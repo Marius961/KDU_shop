@@ -10,7 +10,12 @@
   background: #179bd7;
   color: white; }
 
+.list > .list-item:nth-child(even) {
+  background: #e6e6e6; }
+
 .list-item {
   padding: 8px;
   font-size: 1.3em;
   border: 1px solid lightgray; }
+  .list-item, .list-item a {
+    color: #606060; }

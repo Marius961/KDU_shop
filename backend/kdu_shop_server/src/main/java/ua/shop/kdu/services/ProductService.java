@@ -6,11 +6,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ua.shop.kdu.entities.Category;
 import ua.shop.kdu.entities.Product;
 import ua.shop.kdu.exceptions.NotFoundException;
+import ua.shop.kdu.repositories.CartItemRepo;
 import ua.shop.kdu.repositories.CategoryRepo;
+import ua.shop.kdu.repositories.OrderedItemRepo;
 import ua.shop.kdu.repositories.ProductRepo;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,13 +25,17 @@ public class ProductService {
 
     private ProductRepo productRepo;
     private CategoryRepo categoryRepo;
+    private OrderedItemRepo orderedItemRepo;
     private ProductImageService productImageService;
+    private CartItemRepo cartItemRepo;
 
     @Autowired
-    public ProductService(ProductRepo productRepo, CategoryRepo categoryRepo, ProductImageService productImageService) {
+    public ProductService(ProductRepo productRepo, CategoryRepo categoryRepo, OrderedItemRepo orderedItemRepo, ProductImageService productImageService, CartItemRepo cartItemRepo) {
         this.productRepo = productRepo;
         this.categoryRepo = categoryRepo;
+        this.orderedItemRepo = orderedItemRepo;
         this.productImageService = productImageService;
+        this.cartItemRepo = cartItemRepo;
     }
 
     public Product getProduct(long id) throws NotFoundException {
@@ -48,7 +56,35 @@ public class ProductService {
             }
             productRepo.save(product);
         } else throw new IllegalArgumentException("Cannot add product. Product with this color and name already exist");
+    }
 
+    public void updateProduct(Product product, MultipartFile file) throws NotFoundException, IOException {
+        Optional<Product> opProduct = productRepo.findById(product.getId());
+        if (opProduct.isPresent()) {
+            if (categoryRepo.existsById(product.getCategory().getId())) {
+                if (file != null) {
+                    product.setImageName(productImageService.saveImage(file));
+                } else if (product.getImageName().equals("") || product.getImageName() == null) {
+                    product.setImageName(opProduct.get().getImageName());
+                }
+                productRepo.save(product);
+            } else throw new NotFoundException("Cannot find category fo updated product.");
+        } else throw new NotFoundException("Cannot update product. Product with id: " + product.getId() + " is not exist");
+    }
+
+    public void deleteProduct(Long productId) throws NotFoundException {
+        Optional<Product> opProduct = productRepo.findById(productId);
+        if (opProduct.isPresent()) {
+            if (!orderedItemRepo.existsByProduct(opProduct.get())) {
+                cartItemRepo.deleteAllByProduct(opProduct.get());
+                productRepo.deleteById(productId);
+            } else throw new NotFoundException("Cannot delete product, because it is already ordered.");
+        } else throw new NotFoundException("Cannot delete product. Product with id: "+ productId + " is not exist");
+    }
+
+    public Page<Product> searchProducts(int page, int size, String request) {
+        Specification<Product> productsBySearchRequest = productBySearchRequest(request);
+        return productRepo.findAll(productsBySearchRequest, PageRequest.of(page, size));
     }
 
     public Page<Product> getProductsByCategoryUrl(

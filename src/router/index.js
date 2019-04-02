@@ -7,7 +7,6 @@ import Product from '../pages/product'
 import Registration from '../pages/registration'
 import Login from '../pages/login'
 import AddCategory from '../pages/adminPanel/categoriesPanel/addCategory'
-import AddProduct from '../pages/addProduct'
 import Error404 from "../pages/Error404";
 import CreateOrder from '../pages/createOrder'
 import myOrders from "../pages/myOrders";
@@ -16,6 +15,10 @@ import adminPanel from "../pages/adminPanel/adminPanel";
 import categoriesPanel from "../pages/adminPanel/categoriesPanel/categoriesPanel";
 import categoriesList from "../pages/adminPanel/categoriesPanel/categoriesList";
 import UpdateCategory from "../pages/adminPanel/categoriesPanel/UpdateCategory";
+import productsPanel from "../pages/adminPanel/productsPanel/productsPanel";
+import addProduct from "../pages/adminPanel/productsPanel/addProduct";
+import ProductsList from "../pages/adminPanel/productsPanel/ProductsList";
+import updateProduct from "../pages/adminPanel/productsPanel/updateProduct";
 
 Vue.use(Router);
 
@@ -66,15 +69,6 @@ const router = new Router({
       }
     },
     {
-      path: '/add-product',
-      component: AddProduct,
-      meta: {
-        requiresAuth: true,
-        requiresRoles: ["ADMIN"],
-        bodyClass: 'adding-page-form'
-      }
-    },
-    {
       path: '/create-order',
       component: CreateOrder,
       meta: {
@@ -116,6 +110,7 @@ const router = new Router({
             requiresAuth: true,
             requiresRoles: ["ADMIN"]
           },
+          redirect: '/admin-panel/categories/add',
           children: [
             {
               path: 'add',
@@ -136,6 +131,42 @@ const router = new Router({
             {
               path: 'update/:categoryUrl',
               component: UpdateCategory,
+              props: true,
+              meta: {
+                requiresAuth: true,
+                requiresRoles: ["ADMIN"],
+              }
+            },
+          ]
+        },
+        {
+          path: 'products',
+          component: productsPanel,
+          meta: {
+            requiresAuth: true,
+            requiresRoles: ["ADMIN"]
+          },
+          redirect: '/admin-panel/products/add',
+          children: [
+            {
+              path: 'add',
+              component: addProduct,
+              meta: {
+                requiresAuth: true,
+                requiresRoles: ["ADMIN"],
+              }
+            },
+            {
+              path: 'list',
+              component: ProductsList,
+              meta: {
+                requiresAuth: true,
+                requiresRoles: ["ADMIN"],
+              }
+            },
+            {
+              path: 'update/:productId',
+              component: updateProduct,
               props: true,
               meta: {
                 requiresAuth: true,

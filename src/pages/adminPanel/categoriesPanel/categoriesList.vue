@@ -1,22 +1,24 @@
 <template>
     <div class="row pl-3 pr-3">
-        <div class="row">
-            <div class="col-12 h2">
-                <i class="fas fa-clipboard-list"></i>
-                Список категорій
-            </div>
+        <div class="col-12 h2">
+            <i class="fas fa-clipboard-list"></i>
+            Список категорій
         </div>
-        <div class="col-12 list-item" v-for="category in categories">
-            <div class="row">
-                <div class="col-4">{{category.categoryName}}</div>
-                <div class="col-4">{{category.categoryUrl}}</div>
-                <div class="col-4">
-                    <div class="row justify-content-end">
-                        <router-link :to="'/admin-panel/categories/update/' + category.categoryUrl" tag="div" class="col-auto">
-                            <i class="fas fa-edit"></i>
-                        </router-link>
-                        <div class="col-auto" @click="deleteCategory(category.id)">
-                            <i class="fas fa-minus-square"></i>
+        <div class="col-12">
+            <div class="row list">
+                <div class="col-12 list-item" v-for="category in categories">
+                    <div class="row">
+                        <div class="col-4">{{category.categoryName}}</div>
+                        <div class="col-4">{{category.categoryUrl}}</div>
+                        <div class="col-4">
+                            <div class="row justify-content-end">
+                                <router-link :to="'/admin-panel/categories/update/' + category.categoryUrl" tag="div" class="col-auto">
+                                    <i class="fas fa-edit"></i>
+                                </router-link>
+                                <div class="col-auto" @click="deleteCategory(category.id)">
+                                    <i class="fas fa-minus-square"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

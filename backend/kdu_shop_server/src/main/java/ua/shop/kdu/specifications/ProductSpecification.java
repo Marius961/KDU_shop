@@ -40,4 +40,18 @@ public class ProductSpecification {
         };
     }
 
+    public static Specification<Product> productBySearchRequest(String request) {
+        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> {
+            String text = request;
+            if (!text.contains("%")) {
+                text = "%" + text + "%";
+            }
+            return criteriaBuilder.or(
+                    criteriaBuilder.like(root.get("name"), text),
+                    criteriaBuilder.like(root.get("color"), text),
+                    criteriaBuilder.like(root.get("sizes"), text)
+                    );
+        };
+    }
+
 }

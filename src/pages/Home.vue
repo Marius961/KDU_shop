@@ -36,7 +36,7 @@
         },
         methods: {
             ...mapActions({
-                loadAllProducts: 'getAllProducts'
+                loadAllProducts: 'getHomePageProducts'
             })
         },
         created() {

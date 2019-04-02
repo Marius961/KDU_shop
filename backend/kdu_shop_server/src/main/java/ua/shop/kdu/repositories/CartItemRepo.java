@@ -18,4 +18,6 @@ public interface CartItemRepo extends CrudRepository<CartItem, Long> {
     Iterable<CartItem> findAllByUser(User user);
 
     Optional<CartItem> findByProductAndSizeAndUser(Product product, String size, User user);
+
+    void deleteAllByProduct(Product product);
 }

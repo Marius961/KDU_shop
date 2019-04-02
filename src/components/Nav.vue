@@ -51,7 +51,6 @@
                                         <span>{{username}}</span>
                                     </div>
                                     <div class="item-dropdown">
-                                        <router-link to="/add-product" v-if="isAdmin">Додати товар</router-link>
                                         <router-link to="/admin-panel" v-if="isAdmin">Адмін панель</router-link>
                                         <router-link to="/orders">Мої замовлення</router-link>
                                         <router-link to="/orders/manage" v-if="isAdmin">Менеджер замовлень</router-link>
