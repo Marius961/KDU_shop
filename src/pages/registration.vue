@@ -10,35 +10,36 @@
                 </div>
                 <div class="row no-gutters form-group-1" :class="{'group-error': $v.user.username.$error }">
 
-                    <form-error :target="$v.user.username" param-name="minLength">Мінімум 3 символа</form-error>
-                    <form-error :target="$v.user.username" param-name="maxLength">Максимум 32 символа</form-error>
-                    <form-error :target="$v.user.username" param-name="isUserRegistered">Користувач вже існує</form-error>
+                    <form-error :target="$v.user.username" param-name="minLength">Мінімум {{$v.user.username.$params.minLength.min}} символа</form-error>
+                    <form-error :target="$v.user.username" param-name="maxLength">Максимум {{$v.user.username.$params.maxLength.max}} символа</form-error>
+                    <form-error :target="$v.user.username" param-name="isUserRegistered">Користувач з таким іменем вже існує</form-error>
 
-                    <input type="text" placeholder="Логін" v-model.lazy="$v.user.username.$model" id="username">
+                    <input type="text" placeholder="Логін" v-model.lazy.trim="$v.user.username.$model" id="username">
                 </div>
 
                 <div class="row no-gutters form-group-1"
                      :class="{'group-error': $v.user.email.$error }">
 
-                    <form-error :target="$v.user.email" param-name="minLength">Мінімум 4 символа</form-error>
-                    <form-error :target="$v.user.email" param-name="maxLength">Максимум 32 символи</form-error>
+                    <form-error :target="$v.user.email" param-name="minLength">Мінімум {{$v.user.email.$params.minLength.min}} символа</form-error>
+                    <form-error :target="$v.user.email" param-name="maxLength">Максимум {{$v.user.email.$params.maxLength.max}} символи</form-error>
                     <form-error :target="$v.user.email" param-name="email" v-if="$v.user.email.minLength">Поле не містить емейл</form-error>
-                    <form-error :target="$v.user.email" param-name="isEmailRegistered">Емейл вже зареєстрований</form-error>
+                    <form-error :target="$v.user.email" param-name="isEmailRegistered">Користувач з таким емейлом вже зареєстрований</form-error>
 
-                    <input type="email" placeholder="Емейл" v-model.lazy="$v.user.email.$model" id="email">
+                    <input type="email" placeholder="Емейл" v-model.lazy.trim="$v.user.email.$model" id="email">
                 </div>
 
                 <div class="row no-gutters form-group-1"
                      :class="{'group-error': $v.user.password.$error }">
 
                     <form-error :target="$v.user.password" param-name="minLength">Занадто короткий пароль</form-error>
+                    <form-error :target="$v.user.password" param-name="maxLength">Максимальна кількість символів {{$v.user.password.$params.maxLength.max}}/</form-error>
                     <form-error :target="$v.confirmPassword" param-name="sameAs">Паролі не співпадають</form-error>
 
-                    <input type="password" placeholder="Пароль" v-model="$v.user.password.$model" id="password">
+                    <input type="password" placeholder="Пароль" v-model.trim="$v.user.password.$model" id="password">
                 </div>
                 <div class="row no-gutters form-group-1"
                      :class="{'group-error': $v.user.password.$error }">
-                    <input type="password" placeholder="Підтвердіть пароль" v-model="$v.confirmPassword.$model" id="confirmPassword">
+                    <input type="password" placeholder="Підтвердіть пароль" v-model.trim="$v.confirmPassword.$model" id="confirmPassword">
                 </div>
                 <div class="row justify-content-center no-gutters">
                     <button :disabled="$v.$invalid" class="col-12 submit-btn">Зареєструватись</button>
@@ -71,7 +72,7 @@
             user: {
                 username: {required, minLength: minLength(4), maxLength: maxLength(16), isUserRegistered},
                 email: {required, email, minLength: minLength(4), maxLength: maxLength(32), isEmailRegistered},
-                password: {required, minLength: minLength(6), maxLength: maxLength(32)}
+                password: {required, minLength: minLength(6), maxLength: maxLength(16)}
             },
             confirmPassword: {required ,sameAs: sameAs(function() { return this.user.password })}
         },

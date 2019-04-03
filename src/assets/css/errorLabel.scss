@@ -19,6 +19,7 @@
 
 .slide-enter-active, .slide-leave-active {
   transition: all .3s;
+  transition-delay: .3s;
 }
 .slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {
   height: 0;

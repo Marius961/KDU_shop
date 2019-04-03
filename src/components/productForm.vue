@@ -1,9 +1,9 @@
 <template>
-    <div class="row pl-3 pr-3">
+    <div class="row">
         <div class="col">
             <div class="row">
                 <div class="col-12 h2" v-if="!productId">
-                    <i class="fas fa-clipboard-list"></i>
+                    <i class="far fa-plus-square"></i>
                     Додати товар
                 </div>
                 <div class="col-12 h2" v-else>
@@ -16,30 +16,30 @@
                 <form class="col-12 col-sm-7 col-md-5 form-2" @submit.prevent="submitForm()">
                     <div class="row form-group-1" :class="{'group-error': $v.product.name.$error}">
                         <label for="name">Назва</label>
-                        <input id="name" v-model.lazy="$v.product.name.$model" type="text">
+                        <input id="name" v-model.lazy.trim="$v.product.name.$model" type="text">
 
-                        <form-error :target="$v.product.name" param-name="minLength">Мінімум 3 символа</form-error>
-                        <form-error :target="$v.product.name" param-name="maxLength">Максимум 128 символа</form-error>
+                        <form-error :target="$v.product.name" param-name="minLength">Мінімум {{$v.product.name.$params.minLength.min}} символа</form-error>
+                        <form-error :target="$v.product.name" param-name="maxLength">Максимум {{$v.product.name.$params.maxLength.max}} символа</form-error>
                         <form-error :target="$v.product.name" param-name="isProductExist">Продукт з таким іменем та кольором вже існує</form-error>
                     </div>
                     <div class="row form-group-1" :class="{'group-error': $v.product.color.$error}">
                         <label for="color">Колір</label>
-                        <input id="color" v-model.lazy="$v.product.color.$model" type="text">
+                        <input id="color" v-model.lazy.trim="$v.product.color.$model" type="text">
 
-                        <form-error :target="$v.product.color" param-name="maxLength">Максимум 32 символа</form-error>
+                        <form-error :target="$v.product.color" param-name="maxLength">Максимум {{$v.product.color.$params.maxLength.max}} символа</form-error>
                     </div>
                     <div class="row form-group-1" :class="{'group-error': $v.product.description.$error}">
                         <label for="description">Опис</label>
-                        <textarea id="description" rows="6" v-model="$v.product.description.$model" type="text"></textarea>
+                        <textarea id="description" rows="6" v-model.trim="$v.product.description.$model" type="text"></textarea>
 
-                        <form-error :target="$v.product.description" param-name="maxLength">Максимум 512 символа</form-error>
+                        <form-error :target="$v.product.description" param-name="maxLength">Максимум {{$v.product.description.$params.maxLength.max}} символа</form-error>
                     </div>
                     <div class="row form-group-1" :class="{'group-error': $v.product.sizes.$error}">
                         <label for="sizes">Розміри</label>
-                        <input id="sizes" v-model="$v.product.sizes.$model" type="text">
+                        <input id="sizes" v-model.trim="$v.product.sizes.$model" type="text">
 
-                        <form-error :target="$v.product.sizes" param-name="minLength">Мінімум 3 символа</form-error>
-                        <form-error :target="$v.product.sizes" param-name="maxLength">Максимум 128 символа</form-error>
+                        <form-error :target="$v.product.sizes" param-name="minLength">Мінімум {{$v.product.sizes.$params.minLength.min}} символа</form-error>
+                        <form-error :target="$v.product.sizes" param-name="maxLength">Максимум {{$v.product.sizes.$params.maxLength.max}} символа</form-error>
                     </div>
                     <div class="row form-group-1">
                         <label for="image">Фото</label>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="row form-group-1" :class="{'group-error': $v.product.price.$error}">
                         <label for="price">Ціна за шт.</label>
-                        <input id="price" v-model="$v.product.price.$model" type="number">
+                        <input id="price" v-model.trim="$v.product.price.$model" type="number">
 
                         <form-error :target="$v.product.price" param-name="required">Вкажіть ціну</form-error>
                     </div>
@@ -59,15 +59,14 @@
                             <option disabled value="">Виберіть категорію</option>
                             <option v-for="category in categories" :key="'option' + category.id" :value="category.id">{{category.categoryName}}</option>
                         </select>
-                        <form-error :target="$v.product.category.id" param-name="required">Будь ласка оберіть категорію</form-error>
+                        <form-error :target="$v.product.category.id" param-name="required">Оберіть категорію</form-error>
                     </div>
                     <div class="row justify-content-end no-gutters">
                         <button :disabled="$v.$invalid" class="col-12 col-sm-8 submit-btn">
                             <span v-if="!productId">Додати товар</span>
-                            <span v-else>Зберегти</span>
+                            <span v-else>Зберегти зміни</span>
                         </button>
                     </div>
-                    <pre>{{$v}}</pre>
                 </form>
             </div>
         </div>

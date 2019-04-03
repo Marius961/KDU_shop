@@ -23,7 +23,7 @@ export default  {
                         resolve();
                     })
                     .catch(error => {
-                        reject();
+                        reject(error);
                     })
             })
         },
@@ -34,7 +34,7 @@ export default  {
                         resolve(response.data);
                     })
                     .catch(error => {
-                        reject();
+                        reject(error);
                     })
             })
         },

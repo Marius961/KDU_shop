@@ -1,14 +1,27 @@
 @import "vars";
 
+.admin-panel-header {
+  color: white;
+}
 
-
-.item {
-  background: lightgray;
+@mixin itemBase {
+  background: white;
   padding: 8px 15px;
   font-size: 1.1em;
   font-weight: bold;
   cursor: pointer;
-  margin: 5px 0;
+  margin: 5px 0 0 0;
+
+}
+
+.item {
+  @include itemBase;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 3px 0px 5px -1px rgba(0,0,0,0.75);
+}
+
+.panel-item {
+  @include itemBase;
 }
 
 .item-active {
@@ -20,6 +33,9 @@
   & > .list-item:nth-child(even) {
     background: #e6e6e6;
   }
+
+
+
 }
 
 .list-item {
@@ -27,7 +43,25 @@
     color: $accent;
   }
 
+
   padding: 8px;
   font-size: 1.3em;
   border: 1px solid lightgray;
+}
+
+.panel {
+  padding: 15px;
+  border-radius: 0 6px 6px 6px;
+  background: white;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.75);
+
+}
+
+.panel-content {
+  padding: 0 35px;
+}
+
+.tab-panel {
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }

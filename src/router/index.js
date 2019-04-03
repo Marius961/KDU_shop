@@ -10,7 +10,7 @@ import AddCategory from '../pages/adminPanel/categoriesPanel/addCategory'
 import Error404 from "../pages/Error404";
 import CreateOrder from '../pages/createOrder'
 import myOrders from "../pages/myOrders";
-import orderManagement from "../pages/orderManagement";
+import orderManagement from "../pages/adminPanel/orderManagement";
 import adminPanel from "../pages/adminPanel/adminPanel";
 import categoriesPanel from "../pages/adminPanel/categoriesPanel/categoriesPanel";
 import categoriesList from "../pages/adminPanel/categoriesPanel/categoriesList";
@@ -36,6 +36,9 @@ const router = new Router({
     {
       path: '/errors/404',
       component: Error404,
+      meta: {
+        bodyClass: 'body-dark'
+      }
     },
     {
       path: '/cart',
@@ -49,7 +52,7 @@ const router = new Router({
       path: '/product/:id',
       component: Product,
       meta: {
-        bodyClass: 'product-page'
+        bodyClass: 'body-light'
       }
     },
     {
@@ -57,7 +60,7 @@ const router = new Router({
       component: Registration,
       meta: {
         requiresRoles: [],
-        bodyClass: 'auth-form-page'
+        bodyClass: 'body-dark'
       }
     },
     {
@@ -65,7 +68,7 @@ const router = new Router({
       component: Login,
       meta: {
         requiresRoles: [],
-        bodyClass: 'auth-form-page'
+        bodyClass: 'body-dark'
       }
     },
     {
@@ -74,7 +77,7 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         requiresRoles: ["USER"],
-        bodyClass: 'product-page'
+        bodyClass: 'body-light'
       }
     },
     {
@@ -86,29 +89,29 @@ const router = new Router({
       }
     },
     {
-      path: '/orders/manage',
-      component: orderManagement,
-      meta: {
-        requiresAuth: true,
-        requiresRoles: ["ADMIN"]
-      }
-    },
-    {
       path: '/admin-panel',
       component: adminPanel,
       redirect: '/admin-panel/categories',
       meta: {
         requiresAuth: true,
         requiresRoles: ["ADMIN"],
-        bodyClass: 'adding-page-form'
+        bodyClass: 'body-dark'
       },
       children: [
+        {
+          path: '/orders-manage',
+          component: orderManagement,
+          meta: {
+            requiresAuth: true,
+            requiresRoles: ["ADMIN"]
+          }
+        },
         {
           path: 'categories',
           component: categoriesPanel,
           meta: {
             requiresAuth: true,
-            requiresRoles: ["ADMIN"]
+            requiresRoles: ["ADMIN"],
           },
           redirect: '/admin-panel/categories/add',
           children: [
@@ -183,10 +186,9 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const user = JSON.parse(localStorage.getItem('user'));
-  if (to.meta.requiresAuth) {
+  if (to.meta.requiresAuth && !to.meta.requiresRoles) {
 
     if (user && user.token) {
-
       next()
     } else next('/login')
   }
@@ -201,7 +203,6 @@ router.beforeEach((to, from, next) => {
 
       const found = to.meta.requiresRoles.some(r => roles.indexOf(r) >= 0);
       if (found) {
-        alert('ok');
         next();
       } else {
         next('/errors/404')

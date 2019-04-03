@@ -18,8 +18,8 @@ export default  {
                     .then((response) => {
                         resolve(response.data);
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -62,8 +62,8 @@ export default  {
                     .then((response) => {
                         resolve(response.data.content);
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -84,8 +84,8 @@ export default  {
                     .then((response) => {
                         resolve(response.data);
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -95,8 +95,8 @@ export default  {
                     .then((response) => {
                         resolve(response.data);
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         }

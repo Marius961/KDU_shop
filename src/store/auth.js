@@ -32,9 +32,10 @@ export default  {
                             resolve();
                         }
                         reject();
-                    }).catch(function (error) {
-                    reject(error);
-                });
+                    })
+                    .catch( (error) => {
+                        reject(error);
+                     });
             })
         }
     },

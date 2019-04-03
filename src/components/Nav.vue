@@ -1,5 +1,5 @@
 <template>
-    <nav class="nav-bar mb-3">
+    <nav class="nav-bar">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-auto logo">

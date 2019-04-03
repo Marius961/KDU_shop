@@ -8,7 +8,7 @@
                 <router-link to="/" tag="button" class="col-auto submit-btn m-0">За покупками!</router-link>
             </div>
         </div>
-        <div class="row mt-4" v-if="!cartItems.length <= 0">
+        <div class="row" v-if="!cartItems.length <= 0">
             <div class="col">
                 <div class="row justify-content-between cart-header">
                     <div class="col-auto">Товарів у кошику:
@@ -29,7 +29,7 @@
                     ></cart-item>
                 </div>
                 <div class="row order-bar justify-content-end">
-                    <router-link to="/create-order" tag="button" class="col-12 col-sm-auto submit-btn m-0">Створити замовлення</router-link>
+                    <router-link to="/create-order" tag="button" class="col-12 col-sm-auto submit-btn m-0">Оформити замовлення</router-link>
                 </div>
             </div>
         </div>

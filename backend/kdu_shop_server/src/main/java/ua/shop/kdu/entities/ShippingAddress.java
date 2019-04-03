@@ -23,6 +23,10 @@ public class ShippingAddress {
     private String recipientFullName;
 
     @NotBlank
+    @Size(min = 10, max = 10)
+    private String contactMobilePhoneNumber;
+
+    @NotBlank
     @Size(min = 2, max = 64)
     private String city;
 
@@ -58,6 +62,14 @@ public class ShippingAddress {
 
     public void setRecipientFullName(String recipientFullName) {
         this.recipientFullName = recipientFullName;
+    }
+
+    public String getContactMobilePhoneNumber() {
+        return contactMobilePhoneNumber;
+    }
+
+    public void setContactMobilePhoneNumber(String contactMobilePhoneNumber) {
+        this.contactMobilePhoneNumber = contactMobilePhoneNumber;
     }
 
     public String getCity() {

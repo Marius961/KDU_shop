@@ -1,16 +1,17 @@
 <template>
-    <div class="row pl-3 pr-3"">
+    <div class="row"">
         <div class="col-12 h2">
             <i class="fas fa-clipboard-list"></i>
-            Список категорій
+            Список товарів
         </div>
         <div class="col-12">
             <div class="row list">
                 <div class="col-12 list-item" v-for="product in pageData.content">
                     <div class="row">
-                        <router-link :to="'/product/' + product.id" class="col-4">{{product.name}}</router-link>
-                        <div class="col-4">{{product.price}}</div>
-                        <div class="col-4">
+                        <div class="col-3 col-md-2">{{product.id}}</div>
+                        <router-link :to="'/product/' + product.id" class="col-9 col-md">{{product.name}}</router-link>
+                        <div class="col-12 col-md-3"><span class="font-weight-bold d-md-none">Ціна:</span> {{product.price}}</div>
+                        <div class="col-12 col-md-auto">
                             <div class="row justify-content-end">
                                 <router-link :to="'/admin-panel/products/update/' + product.id" tag="div" class="col-auto">
                                     <i class="fas fa-edit"></i>
@@ -70,14 +71,22 @@
                     })
             },
             deleteProduct(id) {
-                this.deleteProductById(id)
-                    .then(() => {
-                        this.showSuccessAlert("Продукт успішно видалено!")
-                        this.loadList();
-                    })
-                    .catch((error) => {
-                        this.showErrorMessage("Невдалось видалити продукт.", "Помилка: " + error);
-                    })
+                this.showConfirmDialog(
+                    "Ви впевнені що хочете видалити товар?",
+                    "Товар можливо видалити тільки при умові якщо він жодного разу не був замовлений.",
+                    "Спробувати видалити"
+                ).then((result) => {
+                    if (result.value) {
+                        this.deleteProductById(id)
+                            .then(() => {
+                                this.showSuccessAlert("Продукт успішно видалено!")
+                                this.loadList();
+                            })
+                            .catch((error) => {
+                                this.showErrorMessage("Невдалось видалити продукт.", "Помилка: " + error);
+                            })
+                    }
+                })
             },
             setPagination() {
                 let currentPage = this.pageData.number;
@@ -122,6 +131,16 @@
                     title,
                     text
                 })
+            },
+            showConfirmDialog(title, text, confirmText) {
+                return this.$swal.fire({
+                    title,
+                    text,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: confirmText,
+                    cancelButtonText: 'Скасувати'
+                });
             }
         },
         created() {

@@ -9,13 +9,19 @@
                 </div>
                 <div v-if="isShowDetails" class="row">
                     <hr class="w-100">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <div class="row">
                             <div class="col-12 h4">Адреса доставки</div>
                             <div class="col-12 pt-2">
                                 <div class="row">
                                     <div class="col-auto font-weight-bold">П. І. Б. отримувача</div>
                                     <div class="col-auto">{{order.address.recipientFullName}}</div>
+                                </div>
+                            </div>
+                            <div class="col-12 pt-2">
+                                <div class="row">
+                                    <div class="col-auto font-weight-bold">Контактний номер отримувача</div>
+                                    <div class="col-auto">{{order.address.contactMobilePhoneNumber}}</div>
                                 </div>
                             </div>
                             <div class="col-4 pt-2">
@@ -48,7 +54,7 @@
                                     <div class="col-12">{{order.address.apartmentNumber}}</div>
                                 </div>
                             </div>
-                            <div class="col-12 pt-2">
+                            <div class="col-12 pt-2" v-if="order.address.postOfficeNumber">
                                 <div class="row">
                                     <div class="col-12 font-weight-bold">Номер поштового відділення та інша інформація</div>
                                     <div class="col-12">{{order.address.postOfficeNumber}}</div>
@@ -56,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-6 mt-5 mt-md-0">
                         <div class="row">
                             <div class="col-12 h4">Замовлені товари</div>
                         </div>
@@ -66,11 +72,11 @@
                             <div class="col-2">{{item.totalPrice + ' гре.'}}</div>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12" v-if="order.comment">
                         <hr class="w-100">
                         <div class="row">
                             <div class="col-12 h5 font-weight-bold">Коментар до замовлення</div>
-                            <p class="col-12">Коментар до замовлення</p>
+                            <p class="col-12">{{order.comment}}</p>
                         </div>
                     </div>
                 </div>

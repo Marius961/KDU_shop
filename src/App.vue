@@ -1,6 +1,7 @@
 <template>
   <div>
     <nav-bar></nav-bar>
+    <div class="w-100" style="margin-top: 30px"></div>
     <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>

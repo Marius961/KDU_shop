@@ -1,20 +1,29 @@
 <template>
     <div class="container">
         <form class="row align-items-end" @submit.prevent="submitOrderForm()">
-            <div class="col-12 form-group-header mt-3 mb-3">Основна інформація</div>
+            <div class="col-12 form-group-header mb-3">Основна інформація</div>
             <div class="col-12 col-sm-6 col-lg-4 form-group-1" :class="{'group-error': $v.order.address.recipientFullName.$error }">
                 <label for="recipientFullName">П. І. Б. отримувача</label>
-                <input v-model="$v.order.address.recipientFullName.$model" type="text" id="recipientFullName">
+                <input v-model.trim="$v.order.address.recipientFullName.$model" type="text" id="recipientFullName">
             </div>
             <div class="col-12 col-sm-5 col-lg-3 pb-2  ">
                 <form-error :target="$v.order.address.recipientFullName" param-name="minLength">Мінімум 5 символів</form-error>
                 <form-error :target="$v.order.address.recipientFullName" param-name="maxLength">Максимум 64 символа</form-error>
             </div>
+            <div class="w-100"></div>
+            <div class="col-12 col-sm-4 col-lg-4 form-group-1" :class="{'group-error': $v.order.address.contactMobilePhoneNumber.$error }">
+                <label for="contactMobilePhoneNumber">Контактний номер телефону</label>
+                <input v-model.trim="$v.order.address.contactMobilePhoneNumber.$model" type="text" id="contactMobilePhoneNumber">
+            </div>
+            <div class="col-12 col-sm-8 col-lg-4 pb-2  ">
+                <form-error :target="$v.order.address.contactMobilePhoneNumber" param-name="minLength">Номер телефону повинен містити 10 цифр</form-error>
+                <form-error :target="$v.order.address.contactMobilePhoneNumber" param-name="maxLength">Перевищено максимальну кількість цифр</form-error>
+            </div>
 
             <hr class="w-100 m-2">
             <div class="col-12 col-sm-6 col-md-5 col-lg-4 form-group-1" :class="{'group-error': $v.order.address.city.$error }">
                 <label for="city">Місто</label>
-                <input v-model="$v.order.address.city.$model" type="text" id="city">
+                <input v-model.trim="$v.order.address.city.$model" type="text" id="city">
             </div>
             <div class="col-12 col-sm-5 col-md-4 col-lg-3 pb-2  ">
                 <form-error :target="$v.order.address.city" param-name="minLength">Мінімум 2 символи</form-error>
@@ -24,7 +33,7 @@
             <hr class="w-100 m-2">
             <div class="col-12 col-md-6 col-lg-5 form-group-1" :class="{'group-error': $v.order.address.region.$error }">
                 <label for="region">Область</label>
-                <input v-model="$v.order.address.region.$model" type="text" id="region">
+                <input v-model.trim="$v.order.address.region.$model" type="text" id="region">
             </div>
             <div class="col-12 col-md-4 col-lg-3 pb-2  ">
                 <form-error :target="$v.order.address.region" param-name="minLength">Мінімум 2 символи</form-error>
@@ -34,7 +43,7 @@
             <div class="w-100"></div>
             <div class="col-12 col-sm-6 col-lg-4 form-group-1" :class="{'group-error': $v.order.address.street.$error }">
                 <label for="street">Вулиця</label>
-                <input v-model="$v.order.address.street.$model" type="text" id="street">
+                <input v-model.trim="$v.order.address.street.$model" type="text" id="street">
             </div>
             <div class="col-12 col-sm-6 col-lg-3 pb-2">
                 <form-error :target="$v.order.address.street" param-name="minLength">Мінімум 2 символи</form-error>
@@ -44,7 +53,7 @@
             <hr class="w-100 m-2">
             <div class="col-12 col-sm-6 col-md-3 col-lg-2 form-group-1" :class="{'group-error': $v.order.address.buildingNumber.$error }">
                 <label for="buildingNumber">Номер будинку</label>
-                <input v-model="$v.order.address.buildingNumber.$model" type="text" id="buildingNumber">
+                <input v-model.trim="$v.order.address.buildingNumber.$model" type="text" id="buildingNumber">
             </div>
             <div class="col-12 col-sm-6 col-md-3 pb-2  ">
                 <form-error :target="$v.order.address.buildingNumber" param-name="minLength">Мінімум 1 цифра</form-error>
@@ -53,7 +62,7 @@
 
             <div class="col-12 col-sm-6 col-md-3 col-lg-2 form-group-1" :class="{'group-error': $v.order.address.apartmentNumber.$error }">
                 <label for="apartmentNumber">квартира</label>
-                <input v-model="$v.order.address.apartmentNumber.$model" type="number" id="apartmentNumber">
+                <input v-model.trim="$v.order.address.apartmentNumber.$model" type="number" id="apartmentNumber">
             </div>
             <div class="col-12 col-sm-6 col-md-3 pb-2  ">
                 <form-error :target="$v.order.address.apartmentNumber" param-name="minLength">Мінімум 1 цифра</form-error>
@@ -63,7 +72,7 @@
             <hr class="w-100 m-2">
             <div class="col-12 col-md-8 form-group-1">
                 <label for="postOfficeNumber">Номер поштового відділення або інша уточнююча інформація</label>
-                <textarea rows="3" v-model="$v.order.address.postOfficeNumber.$model" type="text" id="postOfficeNumber"></textarea>
+                <textarea rows="3" v-model.trim="$v.order.address.postOfficeNumber.$model" type="text" id="postOfficeNumber"></textarea>
             </div>
             <div class="col-12 col-md-4 pb-2 align-self-center">
                 <form-error :target="$v.order.address.postOfficeNumber" param-name="maxLength">Максимум 120 символів</form-error>
@@ -85,7 +94,7 @@
             </div>
             <div class="col-12 col-md-8 form-group-1">
                 <label for="comment">Коментар до замовлення</label>
-                <textarea rows="8" v-model="$v.order.comment.$model" id="comment"></textarea>
+                <textarea rows="8" v-model.trim="$v.order.comment.$model" id="comment"></textarea>
             </div>
             <div class="col-12 col-md-4 align-self-center pb-2">
                 <form-error :target="$v.order.comment" param-name="maxLength">Максимум 512 символів</form-error>
@@ -113,6 +122,7 @@
                     orderedItems: [],
                     address: {
                         recipientFullName: '',
+                        contactMobilePhoneNumber: '',
                         city: '',
                         region: '',
                         street: '',
@@ -129,6 +139,7 @@
                 orderedItems: [],
                 address: {
                     recipientFullName: {required, minLength: minLength(5), maxLength: maxLength(64)},
+                    contactMobilePhoneNumber: {required, minLength:minLength(10), maxLength: maxLength(10)} ,
                     city: {required, minLength: minLength(2), maxLength: maxLength(64)},
                     region: {required, minLength: minLength(2), maxLength: maxLength(80)},
                     street: {required, minLength: minLength(2), maxLength: maxLength(64)},
@@ -187,12 +198,24 @@
                         size: item.size
                     }
                 })
+            },
+            validatePhoneNumber(number) {
+                const re = /[^0-9]/gi;
+                return number.replace(re, '');
             }
         },
         created() {
             this.getCart();
             if (!this.orderedItems.length > 0) {
                 this.$router.push("/")
+            }
+        },
+        watch: {
+            'order.address.contactMobilePhoneNumber': {
+                handler(newVal) {
+                    this.order.address.contactMobilePhoneNumber = this.validatePhoneNumber(newVal);
+                },
+                deep: true
             }
         }
     }
@@ -202,7 +225,7 @@
     @import "../assets/css/form.css";
 
     .order-items {
-        overflow-y: scroll;
+        overflow-x: auto;
     }
 
     .order-items div:nth-child(even) {

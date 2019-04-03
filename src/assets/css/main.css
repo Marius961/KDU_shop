@@ -29,14 +29,8 @@ body {
     background: #d7d7d7;
     cursor: no-drop; }
 
-.auth-form-page {
+.body-dark {
   background: #606060; }
 
-.adding-page-form {
-  background: white; }
-
-.product-page {
-  background: white; }
-
-.bg-white {
+.body-light {
   background: white; }

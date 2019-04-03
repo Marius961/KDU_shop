@@ -21,8 +21,8 @@ export default  {
                         resolve();
                         context.commit("LOAD_SUCCESS", response.data)
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -32,8 +32,8 @@ export default  {
                     .then(() => {
                         resolve();
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -44,8 +44,8 @@ export default  {
                         context.commit("deleteItemFromStore", itemId);
                         resolve();
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -56,8 +56,8 @@ export default  {
                         context.commit("changeQuantity", itemData);
                         resolve();
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         }

@@ -21,8 +21,8 @@ export default  {
                     .then((response) => {
                         resolve(response.data);
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -32,8 +32,8 @@ export default  {
                     .then((response) => {
                         resolve(response.data);
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -41,10 +41,11 @@ export default  {
             return new Promise((resolve, reject) => {
                 $http.get("/api/orders/all", getConfig(query))
                     .then((response) => {
+                        console.log(response.data)
                         resolve(response.data);
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -54,8 +55,8 @@ export default  {
                     .then(() => {
                         resolve();
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -65,8 +66,8 @@ export default  {
                     .then(() => {
                         resolve();
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         },
@@ -76,8 +77,8 @@ export default  {
                     .then(() => {
                         resolve();
                     })
-                    .catch(() => {
-                        reject();
+                    .catch((error) => {
+                        reject(error);
                     })
             })
         }

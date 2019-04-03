@@ -49,6 +49,6 @@ public class OrderController {
 
     @GetMapping("/all")
     public Page<Order> getAllOrders(@RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
-        return orderService.getUserOrders(pageNumber, pageSize);
+        return orderService.getAllOrders(pageNumber, pageSize);
     }
 }
