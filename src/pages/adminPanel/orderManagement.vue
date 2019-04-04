@@ -1,5 +1,9 @@
 <template>
     <div class="row pt-3 pb-3 panel-content">
+        <div class="col-12 h2">
+            <i class="fas fa-clipboard-list"></i>
+            Всі замовлення
+        </div>
         <div class="col">
             <div class="row">
                 <header-item></header-item>

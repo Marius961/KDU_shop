@@ -11,22 +11,30 @@
   font-weight: bold;
   cursor: pointer;
   margin: 5px 0 0 0;
-
+  transition: all .25s;
+  user-select: none;
 }
 
 .item {
   @include itemBase;
+  margin-right: 6px;
   border-radius: 10px 10px 0 0;
   box-shadow: 3px 0px 5px -1px rgba(0,0,0,0.75);
 }
 
 .panel-item {
   @include itemBase;
+  border: 1px solid $accent;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .item-active {
   background: $secondaryColor;
   color: white;
+  border: 0;
 }
 
 .list {

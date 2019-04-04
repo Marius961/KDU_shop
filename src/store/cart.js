@@ -1,13 +1,4 @@
-import {$http} from "../axiosConfig";
-import JwtHelper from "../helpers/jwtHelper";
-
-function getConfig() {
-    return {
-        headers: {
-            ...JwtHelper.getAuthorizationHeader()
-        }
-    }
-}
+import {$http, getAuthConfig} from "../axiosConfig";
 
 export default  {
     state: {
@@ -16,7 +7,7 @@ export default  {
     actions: {
         getCartItems(context) {
             return new Promise((resolve, reject) => {
-                $http.get("/api/cart", getConfig())
+                $http.get("/api/cart", getAuthConfig())
                     .then((response) => {
                         resolve();
                         context.commit("LOAD_SUCCESS", response.data)
@@ -28,7 +19,7 @@ export default  {
         },
         postCartItem(context, cartItem) {
             return new Promise((resolve, reject) => {
-                $http.post("/api/cart",cartItem, getConfig())
+                $http.post("/api/cart",cartItem, getAuthConfig())
                     .then(() => {
                         resolve();
                     })
@@ -39,7 +30,7 @@ export default  {
         },
         deleteCartItem(context, itemId) {
             return new Promise((resolve, reject) => {
-                $http.delete("/api/cart/" + itemId, getConfig())
+                $http.delete("/api/cart/" + itemId, getAuthConfig())
                     .then(() => {
                         context.commit("deleteItemFromStore", itemId);
                         resolve();
@@ -51,7 +42,7 @@ export default  {
         },
         changeItemQuantity(context, itemData) {
             return new Promise((resolve, reject) => {
-                $http.put("/api/cart/" + itemData.itemId + "/" + itemData.quantity,null, getConfig())
+                $http.put("/api/cart/" + itemData.itemId + "/" + itemData.quantity,null, getAuthConfig())
                     .then(() => {
                         context.commit("changeQuantity", itemData);
                         resolve();

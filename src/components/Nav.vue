@@ -89,18 +89,15 @@
     import {mapGetters} from 'vuex'
     import {mapMutations} from 'vuex'
     import {mapActions} from 'vuex'
-    import rolesHelper from '../helpers/rolesHelper'
 
     export default {
         computed: {
             ...mapGetters({
                 categories: 'getCategories',
                 isAuthenticated: 'isAuthenticated',
-                username: 'getUsername'
+                username: 'getUsername',
+                isAdmin: 'isAdmin'
             }),
-            isAdmin() {
-                return rolesHelper.isUserHasRole('ADMIN')
-            }
         },
         data() {
             return {

@@ -61,6 +61,11 @@ export default  {
         },
         getToken(state) {
             return state.user.token
+        },
+        isAdmin(state) {
+            if (state.user && state.user.roles) {
+                return state.user.roles.indexOf("ADMIN") >= 0
+            } else return false;
         }
     }
 }

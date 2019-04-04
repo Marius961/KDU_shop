@@ -1,14 +1,4 @@
-import {$http} from "../axiosConfig";
-import JwtHelper from '../helpers/jwtHelper'
-
-function getConfig() {
-    return {
-        headers: {
-            ...JwtHelper.getAuthorizationHeader()
-        }
-    }
-}
-
+import {$http, getAuthConfig} from "../axiosConfig";
 
 export default  {
     actions: {
@@ -25,7 +15,7 @@ export default  {
         },
         postProduct(context, formProduct) {
             return new Promise((resolve, reject) => {
-                $http.post('/api/product', formProduct, getConfig())
+                $http.post('/api/product', formProduct, getAuthConfig())
                     .then(() => {
                         resolve();
                     })
@@ -36,7 +26,7 @@ export default  {
         },
         updateProduct(context, formProduct) {
             return new Promise((resolve, reject) => {
-                $http.put('/api/product', formProduct, getConfig())
+                $http.put('/api/product', formProduct, getAuthConfig())
                     .then(() => {
                         resolve();
                     })
@@ -47,7 +37,7 @@ export default  {
         },
         deleteProduct(context, productId) {
             return new Promise((resolve, reject) => {
-                $http.delete("/api/product/" + productId, getConfig())
+                $http.delete("/api/product/" + productId, getAuthConfig())
                     .then(() => {
                         resolve();
                     })
@@ -69,7 +59,7 @@ export default  {
         },
         getAllProducts(context, query) {
             return new Promise((resolve, reject) => {
-                $http.get("/api/product/", {params: query, ...getConfig()})
+                $http.get("/api/product/", {params: query, ...getAuthConfig()})
                     .then((response) => {
                         resolve(response.data);
                     })

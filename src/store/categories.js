@@ -1,13 +1,4 @@
-import {$http} from "../axiosConfig";
-import JwtHelper from '../helpers/jwtHelper'
-
-function getConfig() {
-    return {
-        headers: {
-            ...JwtHelper.getAuthorizationHeader()
-        }
-    }
-}
+import {$http, getAuthConfig} from "../axiosConfig";
 
 
 export default  {
@@ -29,7 +20,7 @@ export default  {
         },
         getCategoryByUrl(context, categoryUrl) {
             return new Promise((resolve, reject) => {
-                $http.get("/api/categories/" + categoryUrl, getConfig())
+                $http.get("/api/categories/" + categoryUrl, getAuthConfig())
                     .then(response => {
                         resolve(response.data);
                     })
@@ -40,7 +31,7 @@ export default  {
         },
         deleteCategory(context, categoryId) {
             return new Promise((resolve, reject) => {
-                $http.delete("/api/categories/" + categoryId, getConfig())
+                $http.delete("/api/categories/" + categoryId, getAuthConfig())
                     .then(() => {
                         resolve();
                     })
@@ -51,7 +42,7 @@ export default  {
         },
         addCategory(context, category) {
             return new Promise((resolve, reject) => {
-                $http.post('/api/categories', {...category}, getConfig())
+                $http.post('/api/categories', {...category}, getAuthConfig())
                     .then(() => {
                         context.dispatch('getAllCategories');
                         resolve();
@@ -63,7 +54,7 @@ export default  {
         },
         updateCategory(context, category) {
             return new Promise((resolve, reject) => {
-                $http.put('/api/categories', {...category}, getConfig())
+                $http.put('/api/categories', {...category}, getAuthConfig())
                     .then(() => {
                         context.dispatch('getAllCategories');
                         resolve();

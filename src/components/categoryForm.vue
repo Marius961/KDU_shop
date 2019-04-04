@@ -12,8 +12,8 @@
                 </div>
             </div>
             <hr class="w-100">
-            <div class="row justify-content-center">
-                <form class="col-12 col-sm-7 col-md-5 form-2" @submit.prevent="submitForm()">
+            <form class="row form-2" @submit.prevent="submitForm()">
+                <div class="col-12 col-md-6">
                     <div class="row form-group-1" :class="{'group-error': $v.category.categoryName.$error}">
                         <label for="categoryName">Назва категорії</label>
                         <input id="categoryName" v-model.lazy.trim="$v.category.categoryName.$model" type="text">
@@ -22,6 +22,8 @@
                         <form-error :target="$v.category.categoryName" param-name="maxLength">Максимум {{$v.category.categoryName.$params.maxLength.max}} символа</form-error>
                         <form-error :target="$v.category.categoryName" param-name="isNameUnique">Категорія з таким іменем вже існує</form-error>
                     </div>
+                </div>
+                <div class="col-12 col-md-6">
                     <div class="row form-group-1" :class="{'group-error': $v.category.categoryUrl.$error}">
                         <label for="categoryURL">URL адреса категорії</label>
                         <input id="categoryURL" v-model.lazy.trim="$v.category.categoryUrl.$model" type="text">
@@ -30,14 +32,16 @@
                         <form-error :target="$v.category.categoryUrl" param-name="maxLength">Максимум {{$v.category.categoryUrl.$params.maxLength.max}} символа</form-error>
                         <form-error :target="$v.category.categoryUrl" param-name="isUrlUnique">Такий URL вже існує вже</form-error>
                     </div>
+                </div>
+                <div class="col-12">
                     <div class="row no-gutters">
-                        <button :disabled="$v.$invalid" class="col-12 submit-btn">
+                        <button :disabled="$v.$invalid" class="col-12 col-sm-6 col-lg-4 submit-btn">
                             <span v-if="!categoryUrl">Додати категорію</span>
                             <span v-else>Зберегти зміни</span>
                         </button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </template>
