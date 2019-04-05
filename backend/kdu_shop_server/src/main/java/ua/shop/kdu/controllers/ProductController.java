@@ -54,10 +54,9 @@ public class ProductController {
     public Page<Product> searchProducts(
             @RequestParam(name = "pageNum") int page,
             @RequestParam(name = "pageSize") int size,
-            @RequestBody Map<String, String> searchMap
+            @RequestParam(name = "q") String request
     ) {
-
-        return productService.searchProducts(page, size, searchMap.get("searchRequest"));
+        return productService.searchProducts(page, size, request);
     }
 
     @PostMapping

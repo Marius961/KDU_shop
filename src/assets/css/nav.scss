@@ -95,33 +95,60 @@
 
 
 .search-field {
-  height: 100%;
-  padding: 10px;
+  height: $navHeight;
+  padding: 10px 0;
+  position: relative;
+
+  ::placeholder {
+    color: white;
+  }
+
+  label {
+    position: absolute;
+    line-height: 35px;
+    vertical-align: middle;
+    right: 16px;
+    i {
+      color: white;
+      font-size: 16px;
+    }
+  }
+
   input {
+    transition: all .25s;
+
     border-radius: 6px;
-    padding-right: 10px;
-    padding-left: 5px;
+    padding-right: 20px;
+    padding-left: 8px;
     color: white;
     display: inline;
     height: 35px;
     width: 100%;
     background: $accent;
     border: 2px solid white;
+    outline: none;
+
+    &:focus {
+      background: $accent * 1.5;
+    }
+
+    &:focus + .item-dropdown, &:focus + .item-dropdown:focus {
+      display: block;
+    }
   }
 
-  img {
-    position: absolute;
-    top: 19px;
-    bottom: 19px;
-    right: 18px;
-    width: 17px;
-    height: 17px;
+  .search-results {
+    background: white;
   }
 
-  label {
-    display: block;
-    height: 100%;
-    width: 100%;
+  .search-result {
+    padding: 4px 8px;
+    user-select: none;
+
+    &:hover {
+      color: white;
+      background: $secondaryColor;
+    }
   }
 }
 

@@ -13,6 +13,17 @@ export default  {
                     })
             })
         },
+        searchProducts(context, request) {
+            return new Promise((resolve, reject) => {
+                $http.get("/api/product/search", {params: {...request, pageNum: 0, pageSize: 8}})
+                    .then((response) => {
+                        resolve(response.data);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+            })
+        },
         postProduct(context, formProduct) {
             return new Promise((resolve, reject) => {
                 $http.post('/api/product', formProduct, getAuthConfig())
