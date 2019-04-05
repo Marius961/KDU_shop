@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers("/api/cart", "/api/cart/**").hasAuthority(Role.USER.getAuthority())
                         .antMatchers(HttpMethod.POST, "/api/orders").hasAuthority(Role.USER.getAuthority())
                         .antMatchers(HttpMethod.GET, "/api/orders**", "/api/orders/**").hasAuthority(Role.USER.getAuthority())
-                        .antMatchers("/api/categories", "/api/categories/**", "/api/product/**", "/api/product**", "/api/orders**", "/api/orders/**", "/api/orders/all**").hasAnyAuthority(Role.ADMIN.getAuthority())
+                        .antMatchers("/api/categories", "/api/categories/**", "/api/product/**", "/api/product**", "/api/orders**", "/api/orders/**", "/api/orders/all**", "/api/user", "/api/user/**").hasAnyAuthority(Role.ADMIN.getAuthority())
                 .anyRequest().authenticated()
                 .and()
                     .addFilter(new JWTAuthorizationFilter(authenticationManager()))

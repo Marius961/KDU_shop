@@ -19,6 +19,7 @@ import productsPanel from "../pages/adminPanel/productsPanel/productsPanel";
 import addProduct from "../pages/adminPanel/productsPanel/addProduct";
 import ProductsList from "../pages/adminPanel/productsPanel/ProductsList";
 import updateProduct from "../pages/adminPanel/productsPanel/updateProduct";
+import UsersManagement from "../pages/adminPanel/UsersManagement";
 
 Vue.use(Router);
 
@@ -101,6 +102,14 @@ const router = new Router({
         {
           path: '/orders-manage',
           component: orderManagement,
+          meta: {
+            requiresAuth: true,
+            requiresRoles: ["ADMIN"]
+          }
+        },
+        {
+          path: '/users-manage',
+          component: UsersManagement,
           meta: {
             requiresAuth: true,
             requiresRoles: ["ADMIN"]

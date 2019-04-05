@@ -2,12 +2,15 @@ package ua.shop.kdu.services;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ua.shop.kdu.entities.Role;
 import ua.shop.kdu.entities.User;
+import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.repositories.UserRepo;
 
 import java.util.Collections;
@@ -45,18 +48,26 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public Iterable<User> getAllUsers() {
-        return userRepo.findAll();
+    public Page<User> getAllUsers(int page, int size) {
+        return userRepo.findAll(PageRequest.of(page, size));
     }
 
-    public void setAsAdmin(int userId) {
+    public void setAdminRole(Long userId) throws NotFoundException {
         Optional opUser = userRepo.findById(userId);
         if (opUser.isPresent()) {
             User user = (User) opUser.get();
             user.addRole(Role.ADMIN);
-            System.out.println(user.getRoles());
             userRepo.save(user);
-        }
+        } else throw new NotFoundException("Cannot find user with id: " + userId);
+    }
+
+    public void removeAdminRole(Long userId) throws NotFoundException {
+        Optional<User> opUser = userRepo.findById(userId);
+        if (opUser.isPresent()) {
+            User user = opUser.get();
+            user.deleteRole(Role.ADMIN);
+            userRepo.save(user);
+        } else throw new NotFoundException("Cannot find user with id: " + userId);
     }
 
     public boolean isRegistered(String username) throws HibernateException {

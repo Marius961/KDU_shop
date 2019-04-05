@@ -17,6 +17,9 @@
             <router-link to="/orders-manage" active-class="item-active" tag="div" class="col-auto item">
                 Керування Замовленнями
             </router-link>
+            <router-link to="/users-manage" active-class="item-active" tag="div" class="col-auto item">
+                Користувачі
+            </router-link>
         </div>
         <router-view class="panel"></router-view>
     </div>

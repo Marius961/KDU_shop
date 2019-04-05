@@ -2,22 +2,23 @@
     <div class="row">
         <div class="col-12 h2">
             <i class="fas fa-clipboard-list"></i>
-            Список товарів
+            Користувачі
         </div>
         <div class="col-12">
             <div class="row list">
-                <div class="col-12 list-item" v-for="product in pageData.content">
+                <div class="col-12 list-item" v-for="user in pageData.content" :key="'user' + user.id">
                     <div class="row">
-                        <div class="col-3 col-md-2">{{product.id}}</div>
-                        <router-link :to="'/product/' + product.id" class="col-9 col-md">{{product.name}}</router-link>
-                        <div class="col-12 col-md-3"><span class="font-weight-bold d-md-none">Ціна:</span> {{product.price}}</div>
+                        <div class="col-3 col-md-2">{{user.id}}</div>
+                        <div class="col-9 col-md">{{user.username}}</div>
                         <div class="col-12 col-md-auto">
                             <div class="row justify-content-end">
-                                <router-link :to="'/admin-panel/products/update/' + product.id" tag="div" class="col-auto">
-                                    <i class="fas fa-edit"></i>
-                                </router-link>
-                                <div class="col-auto" @click="deleteProduct(product.id)">
-                                    <i class="fas fa-minus-square"></i>
+                                <div v-if="isUserHasAdminRole(user.roles)" @click="removeAdminRole(user.id)" class="col-auto" title="Дати права адміністратора">
+                                    <i class="fas fa-user-plus"></i>
+                                    Відкликати адмін. права
+                                </div>
+                                <div v-else @click="addAdminRole(user.id)" class="col-auto" title="Дати права адміністратора">
+                                    <i class="fas fa-user-plus"></i>
+                                    Надати адмін. права
                                 </div>
                             </div>
                         </div>
@@ -51,39 +52,57 @@
                 pages: [],
                 query: {
                     pageNum: this.$route.query.pageNum ? this.$route.query.pageNum : 0,
-                    pageSize: 4,
+                    pageSize: 16,
                 },
             }
         },
         methods: {
             ...mapActions({
-                getProducts: "getAllProducts",
-                deleteProductById: 'deleteProduct'
+                getUsers: 'getAllUsers',
+                setAdmin: 'setAdmin',
+                removeAdmin: 'removeAdmin'
             }),
             loadList() {
-                this.getProducts(this.query)
+                this.getUsers(this.query)
                     .then((data) => {
                         this.pageData = data;
                         this.setPagination();
                     })
                     .catch((error) => {
-                        this.showErrorMessage("Невдалось завантажити список товарів!", "Помилка: " + error)
+                        this.showErrorMessage("Невдалось завантажити список користувачів!", "Помилка: " + error)
                     })
             },
-            deleteProduct(id) {
+            addAdminRole(userId) {
                 this.showConfirmDialog(
-                    "Ви впевнені що хочете видалити товар?",
-                    "Товар можливо видалити тільки при умові якщо він жодного разу не був замовлений.",
-                    "Спробувати видалити"
+                    "Ви впевнені що хочете надати права адміністратора?",
+                    "Якщо ви надасте права адміністратора, користувач отримає доступ до всього функціоналу адмін. панелі, це може бути небезпечно",
+                    "Надати права"
                 ).then((result) => {
                     if (result.value) {
-                        this.deleteProductById(id)
+                        this.setAdmin(userId)
                             .then(() => {
-                                this.showSuccessAlert("Продукт успішно видалено!")
+                                this.showSuccessAlert("Користувачеві надано права адміністратора!")
                                 this.loadList();
                             })
                             .catch((error) => {
-                                this.showErrorMessage("Невдалось видалити продукт.", "Помилка: " + error);
+                                this.showErrorMessage("Невдалось виконати запит.", "Помилка: " + error);
+                            })
+                    }
+                })
+            },
+            removeAdminRole(userId) {
+                this.showConfirmDialog(
+                    "Ви впевнені що хочете відкликати права адміністратора?", "",
+                    "Відкликати"
+                ).then((result) => {
+                    if (result.value) {
+                        this.removeAdmin(userId)
+                            .then(() => {
+                                this.showSuccessAlert("Права адміністратора відкликано!")
+                                this.loadList();
+                            })
+                            .catch((error) => {
+                                this.showErrorMessage("Невдалось виконати запит.", "Помилка: " + error);
                             })
                     }
                 })
@@ -91,6 +110,7 @@
             setPagination() {
                 let currentPage = this.pageData.number;
                 let max = this.pageData.totalPages;
+                this.pages = [];
                 const start = currentPage -3 >0 ? currentPage - 3 : 0;
                 const end = currentPage +3 < max ? currentPage + 3 : max;
 
@@ -141,6 +161,9 @@
                     confirmButtonText: confirmText,
                     cancelButtonText: 'Скасувати'
                 });
+            },
+            isUserHasAdminRole(roles) {
+                return roles.indexOf("ADMIN") >= 0;
             }
         },
         created() {
@@ -150,5 +173,5 @@
 </script>
 
 <style scoped>
-    @import "../../../assets/css/adminPanel.css";
+    @import "../../assets/css/adminPanel.css";
 </style>

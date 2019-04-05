@@ -1,9 +1,10 @@
 package ua.shop.kdu.repositories;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import ua.shop.kdu.entities.User;
 
-public interface UserRepo extends CrudRepository<User, Integer> {
+public interface UserRepo extends PagingAndSortingRepository<User, Long> {
 
     User findByUsername(String username);
 
