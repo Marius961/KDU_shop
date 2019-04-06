@@ -1,0 +1,25 @@
+ create table cart_items (id bigint not null, quantity integer not null, size varchar(255), user_id bigint, product_id bigint, primary key (id)) engine=InnoDB;
+ create table category (id bigint not null, category_name varchar(32), category_url varchar(32), primary key (id)) engine=InnoDB;
+ create table hibernate_sequence (next_val bigint) engine=InnoDB;
+ insert into hibernate_sequence values ( 2 );
+ insert into hibernate_sequence values ( 2 );
+ insert into hibernate_sequence values ( 2 );
+ insert into hibernate_sequence values ( 2 );
+ insert into hibernate_sequence values ( 2 );
+ insert into hibernate_sequence values ( 2 );
+ insert into hibernate_sequence values ( 2 );
+
+ create table ordered_items (id bigint not null, quantity integer not null, size varchar(255), total_price double precision not null, product_id bigint, order_id bigint, primary key (id)) engine=InnoDB;
+ create table orders (id bigint not null, comment varchar(512), creation_date datetime, is_canceled bit not null, is_confirmed bit not null, is_shipped_out bit not null, total_price double precision not null, user_id bigint, address_id bigint not null, primary key (id)) engine=InnoDB;
+ create table product (id bigint not null, color varchar(32), description varchar(512), image_name varchar(255), name varchar(128), price double precision not null, sizes varchar(128), category_id bigint not null, primary key (id)) engine=InnoDB;
+ create table shipping_address (id bigint not null, apartment_number integer not null, building_number varchar(16), city varchar(64), contact_mobile_phone_number varchar(10), post_office_number varchar(120), recipient_full_name varchar(64), region varchar(80), street varchar(64), primary key (id)) engine=InnoDB;
+ create table user (id bigint not null auto_increment, email varchar(32), password varchar(255), username varchar(16), primary key (id)) engine=InnoDB;
+ create table user_role (user_id bigint not null, roles varchar(255)) engine=InnoDB;
+ alter table cart_items add constraint FKl7je3auqyq1raj52qmwrgih8x foreign key (product_id) references product (id);
+ alter table cart_items add constraint FKkjv4yjjdlt4hd9ayey6mti09m foreign key (user_id) references user (id);
+ alter table ordered_items add constraint FKenvq2gngkutwji39t3vns1ews foreign key (product_id) references product (id);
+ alter table ordered_items add constraint FKha3q3tsqr7gri0mbp14hc5mkq foreign key (order_id) references orders (id);
+ alter table orders add constraint FK2534f4b7uqv9wta5fg5uii91j foreign key (address_id) references shipping_address (id);
+ alter table orders add constraint FKel9kyl84ego2otj2accfd8mr7 foreign key (user_id) references user (id);
+ alter table product add constraint FK1mtsbur82frn64de7balymq9s foreign key (category_id) references category (id);
+ alter table user_role add constraint FK859n2jvi8ivhui0rl0esws6o foreign key (user_id) references user (id);
