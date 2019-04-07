@@ -1,7 +1,5 @@
 package ua.shop.kdu.controllers;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +9,7 @@ import ua.shop.kdu.entities.User;
 import ua.shop.kdu.services.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.Map;
 
@@ -27,13 +26,9 @@ public class AuthController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<Void> signUp(@Valid @RequestBody User user) {
+    public void signUp(@Valid @RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        boolean isSuccess = userService.createUser(user);
-        if (isSuccess) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        userService.createUser(user);
     }
 
     @PostMapping("/is-registered")
@@ -44,5 +39,21 @@ public class AuthController {
     @PostMapping("/is-email-exist")
     public Map<String, Boolean> checkEmail(@RequestBody Map<String, String> payload) {
         return Collections.singletonMap("isExist", userService.isEmailExist(payload.get("email")));
+    }
+
+    @PostMapping("/change-password")
+    public void changePassword(
+            @RequestBody Map<String, String> passwordData,
+            Principal principal)
+    {
+        userService.changePassword(
+                passwordData.get("oldPassword"),
+                passwordEncoder.encode(passwordData.get("newPassword")),
+                principal);
+    }
+
+    @PostMapping("/change-email")
+    public void changeEmail(@RequestBody Map<String, String> payload, Principal principal) {
+        userService.changeEmail(payload.get("email") ,principal);
     }
 }

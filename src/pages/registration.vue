@@ -16,7 +16,6 @@
 
                     <input type="text" placeholder="Логін" v-model.lazy.trim="$v.user.username.$model" id="username">
                 </div>
-
                 <div class="row no-gutters form-group-1"
                      :class="{'group-error': $v.user.email.$error }">
 

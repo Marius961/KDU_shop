@@ -20,6 +20,7 @@ import addProduct from "../pages/adminPanel/productsPanel/addProduct";
 import ProductsList from "../pages/adminPanel/productsPanel/ProductsList";
 import updateProduct from "../pages/adminPanel/productsPanel/updateProduct";
 import UsersManagement from "../pages/adminPanel/UsersManagement";
+import Account from "../pages/Account";
 
 Vue.use(Router);
 
@@ -87,6 +88,15 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         requiresRoles: ["USER"]
+      }
+    },
+    {
+      path: '/account',
+      component: Account,
+      meta: {
+        requiresAuth: true,
+        requiresRoles: ["USER"],
+        bodyClass: 'body-dark'
       }
     },
     {

@@ -7,6 +7,8 @@ import ua.shop.kdu.entities.User;
 import ua.shop.kdu.exceptions.NotFoundException;
 import ua.shop.kdu.services.UserService;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -35,5 +37,10 @@ public class UserController {
     @PostMapping("/remove-admin/{id}")
     public void removeAdminRole(@PathVariable Long id) throws NotFoundException {
         userService.removeAdminRole(id);
+    }
+
+    @GetMapping("/account-info")
+    public User getAccountInfo(Principal principal) {
+        return (User) userService.loadUserByUsername(principal.getName());
     }
 }

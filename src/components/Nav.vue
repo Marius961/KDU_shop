@@ -23,7 +23,7 @@
                                 <router-link tag="div" to="/" active-class="nav-link-active" exact class="col-12 col-auto col-md-auto nav-link">
                                     <div class="link-content">
                                         <img src="../assets/img/nav-icons/home.png" alt="">
-                                        <span>ГОЛОВНА</span>
+                                        <span class="d-md-none d-lg-inline">ГОЛОВНА</span>
                                     </div>
                                 </router-link>
                                 <div class="col-12 col-md nav-link">
@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-12 col-md">
                             <div class="row justify-content-end">
-                                <div class="col-12 col-md search-field">
+                                <div class="col-12 col-md col-md-5 col-xl-4 search-field order-last order-md-1">
                                     <div>
                                         <label for="search">
                                             <i class="fas fa-search"></i>
@@ -59,31 +59,32 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="isAuthenticated" class="col-12 col-md-5 col-lg-4 col-xl-3 nav-link">
+                                <div v-if="isAuthenticated" class="col-12 col-md-5 col-lg-4 col-xl-3 nav-link order-md-2">
                                     <div class="link-content">
                                         <img src="../assets/img/nav-icons/user.png" alt="">
                                         <span>{{username}}</span>
                                     </div>
                                     <div class="item-dropdown">
+                                        <router-link to="/account">Мій аккаунт</router-link>
                                         <router-link to="/admin-panel" v-if="isAdmin">Адмін панель</router-link>
                                         <router-link to="/orders">Мої замовлення</router-link>
                                         <router-link to="/orders/manage" v-if="isAdmin">Менеджер замовлень</router-link>
                                         <a href="#" @click.prevent="logoutUser">Вийти</a>
                                     </div>
                                 </div>
-                                <router-link v-if="isAuthenticated"  tag="div" to="/cart" active-class="nav-link-active" class="col-12 col-md-auto nav-link">
+                                <router-link v-if="isAuthenticated"  tag="div" to="/cart" active-class="nav-link-active" class="col-12 col-md-auto nav-link order-md-3">
                                     <div class="link-content">
                                         <img src="../assets/img/nav-icons/cart.png" alt="">
                                         <span class="d-md-none">Кошик</span>
                                     </div>
                                 </router-link>
-                                <router-link v-if="!isAuthenticated"  tag="div" to="/registration" active-class="nav-link-active" class="col-12 col-sm-auto nav-link">
+                                <router-link v-if="!isAuthenticated"  tag="div" to="/registration" active-class="nav-link-active" class="col-12 col-sm-auto nav-link order-md-2">
                                     <div class="link-content">
                                         <i class="fas fa-user-plus"></i>
                                         <span>Реєстрація</span>
                                     </div>
                                 </router-link>
-                                <router-link v-if="!isAuthenticated"  tag="div" to="/login" active-class="nav-link-active" class="col-12 col-sm-auto nav-link">
+                                <router-link v-if="!isAuthenticated"  tag="div" to="/login" active-class="nav-link-active" class="col-12 col-sm-auto nav-link order-md-3">
                                     <div class="link-content">
                                         <i class="fas fa-sign-in-alt"></i>
                                         <span>Вхід</span>

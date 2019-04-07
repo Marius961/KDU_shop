@@ -10,7 +10,6 @@
                     <div class="row">
                         <div class="col-3 col-md-2">{{user.id}}</div>
                         <div class="col-9 col-md">{{user.username}}</div>
-                        <div class="col-9 col-md">{{user.password}}</div>
                         <div class="col-12 col-md-auto">
                             <div class="row justify-content-end">
                                 <div v-if="isUserHasAdminRole(user.roles)" @click="removeAdminRole(user.id)" class="col-auto" title="Дати права адміністратора">
