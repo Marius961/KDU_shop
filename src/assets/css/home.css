@@ -27,9 +27,13 @@
 
 .more-btn {
   border: 0;
+  user-select: none;
   background: white;
   color: #606060;
   padding: 6px 15px;
   font-size: 1.4em;
   border-radius: 25px;
-  box-shadow: 0 2px 10px 0 rgba(110, 110, 110, 0.75); }
+  box-shadow: 0 2px 10px 0 rgba(110, 110, 110, 0.75);
+  outline: none; }
+  .more-btn:hover {
+    cursor: pointer; }

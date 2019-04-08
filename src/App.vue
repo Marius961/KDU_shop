@@ -3,16 +3,19 @@
     <nav-bar></nav-bar>
     <div class="w-100" style="margin-top: 30px"></div>
     <router-view :key="$route.fullPath"></router-view>
+    <page-footer></page-footer>
   </div>
 </template>
 
 <script>
 
   import Nav from './components/Nav'
+  import footer from "./components/footer";
 
   export default {
     components: {
       'nav-bar': Nav,
+      'page-footer': footer
     }
   }
 </script>

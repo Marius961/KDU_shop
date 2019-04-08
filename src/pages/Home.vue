@@ -1,6 +1,29 @@
 <template>
     <main class="container">
+        <div class="row">
+            <div class="col-12 p-0 order-1 order-md-1">
+                <div id="carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="../assets/img/slider/slider-1.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../assets/img/slider/slider-2.png" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="row mt-2 mb-2">
+            <hr class="w-100">
             <router-link
                     class="col-auto category-link"
                     v-for="category in categories"
@@ -10,6 +33,7 @@
                 >
                 {{category.categoryName}}
             </router-link>
+            <hr class="w-100">
         </div>
         <div class="row">
             <div class="col-12 popular-products-segment" :class="{'show-all': showAllPopularProducts}">

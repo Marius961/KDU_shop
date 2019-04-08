@@ -11,23 +11,21 @@
                 </div>
             </div>
             <div class="col-12 col-lg-3 filters" :class="{'hide-filters': isHideFilters}">
-                <div class="row pr-2 filters-group">
+                <div class="row no-gutters filters-group">
                     <div class="col-12 group-name">Ціна</div>
                     <div class="col-5">
-                        <div class="row pr-1">
+                        <div class="row no-gutters pr-1">
                             <label class="col-12">Від</label>
                             <input v-model="query.minPrice" class="col-12" type="number">
                         </div>
                     </div>
                     <div class="col-5">
-                        <div class="row">
+                        <div class="row no-gutters">
                             <label class="col-12">до</label>
                             <input v-model="query.maxPrice" class="col-12" type="number">
                         </div>
                     </div>
-                    <div class="col-1 align-self-end">
-                        <button @click="applyFilters">OK</button>
-                    </div>
+                    <button class="col-2 align-self-end" @click="applyFilters">OK</button>
                 </div>
                 <div class="row filters-group" v-if="colorsList.length > 0">
                     <div class="col-12 group-name">Колір</div>

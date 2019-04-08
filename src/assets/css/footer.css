@@ -1,0 +1,30 @@
+.footer {
+  margin-top: 80px;
+  background: #262626;
+  padding: 25px 0; }
+
+.info-segment {
+  color: white;
+  padding: 0 25px; }
+  .info-segment h4 {
+    padding-bottom: 8px;
+    border-bottom: 1px solid white; }
+  .info-segment a {
+    color: white; }
+
+.contact-info i {
+  font-size: 1.15em;
+  margin-right: 8px; }
+.contact-info .info-field {
+  padding: 5px 0; }
+
+.social-link {
+  font-size: 2em;
+  padding-left: 8px;
+  padding-right: 8px;
+  cursor: pointer; }
+
+.copyright-segment {
+  background: #383838;
+  padding: 10px 0;
+  color: white; }

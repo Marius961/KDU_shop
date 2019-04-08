@@ -5,7 +5,6 @@
             <slot></slot>
         </label>
     </transition>
-
 </template>
 
 <script>

@@ -36,6 +36,10 @@ const router = new Router({
       props: true
     },
     {
+      path: '*',
+      redirect: '/errors/404'
+    },
+    {
       path: '/errors/404',
       component: Error404,
       meta: {
