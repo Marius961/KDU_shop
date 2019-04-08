@@ -12,12 +12,10 @@
 .popular-products-segment {
   margin: 0;
   padding: 20px 35px;
-  background: #179bd7; }
+  background: white; }
   .popular-products-segment .list {
     flex-wrap: nowrap;
     overflow: hidden; }
-  .popular-products-segment h2 {
-    color: white; }
 
 .show-all .list {
   flex-wrap: wrap;

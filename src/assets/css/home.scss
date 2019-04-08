@@ -18,15 +18,11 @@
 .popular-products-segment {
   margin: 0;
   padding: 20px 35px;
-  background: $secondaryColor;
+  background: white;
 
   .list {
     flex-wrap: nowrap;
     overflow: hidden;
-  }
-
-  h2 {
-    color: white;
   }
 }
 
