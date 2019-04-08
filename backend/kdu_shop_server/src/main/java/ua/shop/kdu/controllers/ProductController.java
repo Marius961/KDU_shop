@@ -59,6 +59,11 @@ public class ProductController {
         return productService.searchProducts(page, size, request);
     }
 
+    @GetMapping("/popular")
+    public List<Product> getPopularProducts() {
+        return productService.getMoreOrderedProducts();
+    }
+
     @PostMapping
     public void addProduct(@RequestPart(name = "image") MultipartFile file,@Valid @RequestPart(name = "product") Product product) throws Exception {
         productService.addProduct(product, file);

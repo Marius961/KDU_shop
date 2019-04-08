@@ -100,6 +100,17 @@ export default  {
                         reject(error);
                     })
             })
+        },
+        getPopularProducts(context) {
+            return new Promise((resolve, reject) => {
+                $http.get("/api/product/popular")
+                    .then((response) => {
+                        resolve(response.data);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+            })
         }
     },
     mutations: {

@@ -116,6 +116,10 @@ public class ProductService {
         } else throw new NotFoundException("Cannot find category with URL: " + categoryUrl);
     }
 
+    public List<Product> getMoreOrderedProducts() {
+        return orderedItemRepo.getPopularProducts(PageRequest.of(0, 20));
+    }
+
     public Page<Product> findAllProducts(int page, int size) {
         return productRepo.findAll(PageRequest.of(page, size));
     }

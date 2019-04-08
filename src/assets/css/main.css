@@ -1,5 +1,7 @@
 body {
-  background: #e6e6e6; }
+  background: #e6e6e6;
+  padding: 0;
+  margin: 0; }
 
 .pagination .page-active {
   background: #179bd7;
