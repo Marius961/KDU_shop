@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import productForm from "../../../components/productForm";
+    import productForm from "../../../components/forms/ProductForm";
 
     export default {
         props: ['productId'],

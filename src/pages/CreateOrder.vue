@@ -110,10 +110,10 @@
 
 <script>
     import {mapActions, mapGetters} from "vuex";
-    import CartItem from "../components/CartItem";
+    import CartItem from "../components/cart/CartItem";
     import { required, minLength, maxLength} from 'vuelidate/lib/validators';
-    import errorLabel from "../components/errorLabel";
-    import orderedItem from "../components/orderedItem";
+    import errorLabel from "../components/ErrorLabel";
+    import orderedItem from "../components/order/ProductOrdered";
 
     export default {
         data() {

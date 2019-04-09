@@ -81,7 +81,7 @@
                     if (result.value) {
                         this.setAdmin(userId)
                             .then(() => {
-                                this.showSuccessAlert("Користувачеві надано права адміністратора!")
+                                this.showSuccessAlert("Користувачеві надано права адміністратора!");
                                 this.loadList();
                             })
                             .catch((error) => {
@@ -98,7 +98,7 @@
                     if (result.value) {
                         this.removeAdmin(userId)
                             .then(() => {
-                                this.showSuccessAlert("Права адміністратора відкликано!")
+                                this.showSuccessAlert("Права адміністратора відкликано!");
                                 this.loadList();
                             })
                             .catch((error) => {

@@ -62,7 +62,7 @@
 
 <script>
 
-    import ItemCard from '../components/ItemCard'
+    import ItemCard from '../components/ProductCard'
     import {mapGetters, mapActions} from 'vuex'
 
     export default {
@@ -92,7 +92,7 @@
                 })
                 .catch(() => {
                     this.$router.push('/errors/404')
-                })
+                });
         }
 
     }

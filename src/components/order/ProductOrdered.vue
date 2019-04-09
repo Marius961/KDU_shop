@@ -15,5 +15,5 @@
 </script>
 
 <style scoped>
-    @import "../assets/css/orderedItem.css";
+    @import "../../assets/css/orderedItem.css";
 </style>

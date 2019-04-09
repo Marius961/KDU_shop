@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import categoryForm from "../../../components/categoryForm";
+    import categoryForm from "../../../components/forms/CategoryForm";
 
     export default {
         props: ['categoryUrl'],

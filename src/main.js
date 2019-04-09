@@ -8,11 +8,13 @@ Vue.config.productionTip = false;
 import VueSweetalert2 from 'vue-sweetalert2';
 
 
-Vue.use(VueSweetalert2);
-Vue.use(Vuelidate);
-Vue.use( vbclass, router )
 
-
+Vue.use(
+    vbclass,
+    router,
+    Vuelidate,
+    VueSweetalert2
+);
 
 
 new Vue({

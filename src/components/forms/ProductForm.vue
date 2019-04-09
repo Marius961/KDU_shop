@@ -89,10 +89,9 @@
 
 <script>
     import { required, requiredIf, minLength, maxLength} from 'vuelidate/lib/validators'
-
     import {mapActions, mapGetters} from "vuex";
-    import errorLabel from "../components/errorLabel";
-    import {checkProduct} from "../validators/productValidator";
+    import errorLabel from "../ErrorLabel";
+    import {checkProduct} from "../../validators/productValidator";
 
     export default {
         props: {
@@ -214,11 +213,5 @@
 </script>
 
 <style scoped>
-    @import "../assets/css/form.css";
-    .container {
-        margin-top: 40px;
-        margin-bottom: 40px;
-    }
-
-
+    @import "../../assets/css/form.css";
 </style>

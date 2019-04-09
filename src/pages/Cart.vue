@@ -37,7 +37,7 @@
 </template>
 <script>
     import {mapGetters, mapActions} from 'vuex'
-    import CartItem from "../components/CartItem";
+    import CartItem from "../components/cart/CartItem";
 
     export default {
         components: {

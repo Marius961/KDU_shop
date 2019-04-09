@@ -15,5 +15,5 @@
 </script>
 
 <style scoped>
-    @import "../assets/css/headerItem.css";
+    @import "../../assets/css/headerItem.css";
 </style>

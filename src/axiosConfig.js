@@ -3,7 +3,7 @@ import JwtHelper from "./helpers/jwtHelper";
 
 export const $http = axios.create({
     baseURL: 'http://localhost:8090',
-})
+});
 
 export function getAuthConfig() {
     return {

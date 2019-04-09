@@ -90,7 +90,7 @@ export default  {
                     })
             })
         },
-        getAllColors(context) {
+        getAllColors() {
             return new Promise((resolve, reject) => {
                 $http.get("/api/product/colors")
                     .then((response) => {
@@ -101,7 +101,7 @@ export default  {
                     })
             })
         },
-        getPopularProducts(context) {
+        getPopularProducts() {
             return new Promise((resolve, reject) => {
                 $http.get("/api/product/popular")
                     .then((response) => {
@@ -112,10 +112,5 @@ export default  {
                     })
             })
         }
-    },
-    mutations: {
-    },
-    getters: {
-
     }
 }

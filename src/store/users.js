@@ -13,7 +13,7 @@ export default  {
                     })
             })
         },
-        getAccountInfo(context) {
+        getAccountInfo() {
             return new Promise((resolve, reject) => {
                 $http.get("/api/user/account-info", getAuthConfig())
                     .then((response) => {
@@ -68,10 +68,5 @@ export default  {
                     })
             })
         }
-    },
-    mutations: {
-    },
-    getters: {
-
     }
 }

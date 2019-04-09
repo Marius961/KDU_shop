@@ -10,7 +10,7 @@
 <script>
 
   import Nav from './components/Nav'
-  import footer from "./components/footer";
+  import footer from "./components/Footer";
 
   export default {
     components: {

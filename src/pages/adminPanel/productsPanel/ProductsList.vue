@@ -79,7 +79,7 @@
                     if (result.value) {
                         this.deleteProductById(id)
                             .then(() => {
-                                this.showSuccessAlert("Продукт успішно видалено!")
+                                this.showSuccessAlert("Продукт успішно видалено!");
                                 this.loadList();
                             })
                             .catch((error) => {

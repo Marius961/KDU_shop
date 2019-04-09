@@ -49,8 +49,8 @@
 <script>
     import {mapActions} from 'vuex'
     import { required, minLength, maxLength} from 'vuelidate/lib/validators'
-    import {isNameUnique, isUrlUnique} from "../validators/categoryValidator";
-    import errorLabel from "../components/errorLabel";
+    import {isNameUnique, isUrlUnique} from "../../validators/categoryValidator";
+    import errorLabel from "../ErrorLabel";
 
     export default {
         props: {
@@ -125,6 +125,7 @@
                 this.$swal.fire({
                     type: 'error',
                     title,
+                    text,
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -155,5 +156,5 @@
 </script>
 
 <style scoped>
-    @import "../assets/css/form.css";
+    @import "../../assets/css/form.css";
 </style>

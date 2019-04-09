@@ -53,7 +53,7 @@
     import  {mapActions} from 'vuex'
     import { required, minLength, email, maxLength, sameAs} from 'vuelidate/lib/validators'
     import {isUserRegistered, isEmailRegistered} from "../validators/userValidator";
-    import errorLabel from "../components/errorLabel";
+    import errorLabel from "../components/ErrorLabel";
 
     export default {
         data() {

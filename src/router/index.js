@@ -1,25 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../pages/Home'
-import Products from '../pages/products'
-import Cart from '../pages/cart'
-import Product from '../pages/product'
-import Registration from '../pages/registration'
-import Login from '../pages/login'
-import AddCategory from '../pages/adminPanel/categoriesPanel/addCategory'
+import Products from '../pages/Products'
+import Cart from '../pages/Cart'
+import Product from '../pages/Product'
+import Registration from '../pages/Registration'
+import Login from '../pages/Login'
+import AddCategory from '../pages/adminPanel/categoriesPanel/AddCategory'
 import Error404 from "../pages/Error404";
-import CreateOrder from '../pages/createOrder'
-import myOrders from "../pages/myOrders";
-import orderManagement from "../pages/adminPanel/orderManagement";
-import adminPanel from "../pages/adminPanel/adminPanel";
-import categoriesPanel from "../pages/adminPanel/categoriesPanel/categoriesPanel";
-import categoriesList from "../pages/adminPanel/categoriesPanel/categoriesList";
+import CreateOrder from '../pages/CreateOrder'
+import myOrders from "../pages/MyOrdersList";
+import orderManagement from "../pages/adminPanel/OrdersPanel";
+import adminPanel from "../pages/adminPanel/AdminPanel";
+import categoriesPanel from "../pages/adminPanel/categoriesPanel/CategoriesPanel";
+import categoriesList from "../pages/adminPanel/categoriesPanel/CategoriesList";
 import UpdateCategory from "../pages/adminPanel/categoriesPanel/UpdateCategory";
-import productsPanel from "../pages/adminPanel/productsPanel/productsPanel";
-import addProduct from "../pages/adminPanel/productsPanel/addProduct";
+import productsPanel from "../pages/adminPanel/productsPanel/ProductsPanel";
+import addProduct from "../pages/adminPanel/productsPanel/AddProduct";
 import ProductsList from "../pages/adminPanel/productsPanel/ProductsList";
-import updateProduct from "../pages/adminPanel/productsPanel/updateProduct";
-import UsersManagement from "../pages/adminPanel/UsersManagement";
+import updateProduct from "../pages/adminPanel/productsPanel/UpdateProduct";
+import UsersManagement from "../pages/adminPanel/UsersPanel";
 import Account from "../pages/Account";
 
 Vue.use(Router);
@@ -50,8 +50,7 @@ const router = new Router({
       path: '/cart',
       component: Cart,
       meta: {
-        requiresAuth: true,
-        requiresRoles: ["USER"]
+        requiresAuth: true
       }
     },
     {
@@ -82,7 +81,6 @@ const router = new Router({
       component: CreateOrder,
       meta: {
         requiresAuth: true,
-        requiresRoles: ["USER"],
         bodyClass: 'body-light'
       }
     },
@@ -90,8 +88,7 @@ const router = new Router({
       path: '/orders',
       component: myOrders,
       meta: {
-        requiresAuth: true,
-        requiresRoles: ["USER"]
+        requiresAuth: true
       }
     },
     {
@@ -99,7 +96,6 @@ const router = new Router({
       component: Account,
       meta: {
         requiresAuth: true,
-        requiresRoles: ["USER"],
         bodyClass: 'body-dark'
       }
     },
@@ -108,7 +104,6 @@ const router = new Router({
       component: adminPanel,
       redirect: '/admin-panel/categories',
       meta: {
-        requiresAuth: true,
         requiresRoles: ["ADMIN"],
         bodyClass: 'body-dark'
       },
@@ -117,7 +112,6 @@ const router = new Router({
           path: '/orders-manage',
           component: orderManagement,
           meta: {
-            requiresAuth: true,
             requiresRoles: ["ADMIN"]
           }
         },
@@ -125,7 +119,6 @@ const router = new Router({
           path: '/users-manage',
           component: UsersManagement,
           meta: {
-            requiresAuth: true,
             requiresRoles: ["ADMIN"]
           }
         },
@@ -133,8 +126,7 @@ const router = new Router({
           path: 'categories',
           component: categoriesPanel,
           meta: {
-            requiresAuth: true,
-            requiresRoles: ["ADMIN"],
+            requiresRoles: ["ADMIN"]
           },
           redirect: '/admin-panel/categories/add',
           children: [
@@ -142,7 +134,6 @@ const router = new Router({
               path: 'add',
               component: AddCategory,
               meta: {
-                requiresAuth: true,
                 requiresRoles: ["ADMIN"]
               }
             },
@@ -150,7 +141,6 @@ const router = new Router({
               path: 'list',
               component: categoriesList,
               meta: {
-                requiresAuth: true,
                 requiresRoles: ["ADMIN"]
               }
             },
@@ -159,17 +149,15 @@ const router = new Router({
               component: UpdateCategory,
               props: true,
               meta: {
-                requiresAuth: true,
-                requiresRoles: ["ADMIN"],
+                requiresRoles: ["ADMIN"]
               }
-            },
+            }
           ]
         },
         {
           path: 'products',
           component: productsPanel,
           meta: {
-            requiresAuth: true,
             requiresRoles: ["ADMIN"]
           },
           redirect: '/admin-panel/products/add',
@@ -178,16 +166,14 @@ const router = new Router({
               path: 'add',
               component: addProduct,
               meta: {
-                requiresAuth: true,
-                requiresRoles: ["ADMIN"],
+                requiresRoles: ["ADMIN"]
               }
             },
             {
               path: 'list',
               component: ProductsList,
               meta: {
-                requiresAuth: true,
-                requiresRoles: ["ADMIN"],
+                requiresRoles: ["ADMIN"]
               }
             },
             {
@@ -196,13 +182,13 @@ const router = new Router({
               props: true,
               meta: {
                 requiresAuth: true,
-                requiresRoles: ["ADMIN"],
+                requiresRoles: ["ADMIN"]
               }
-            },
+            }
           ]
         }
       ]
-    },
+    }
   ]
 });
 

@@ -72,5 +72,5 @@
 </script>
 
 <style scoped>
-    @import "../assets/css/cartItem.css";
+    @import "../../assets/css/cartItem.css";
 </style>

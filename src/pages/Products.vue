@@ -65,7 +65,7 @@
 
 <script>
 
-    import ItemCard from '../components/ItemCard'
+    import ItemCard from '../components/ProductCard'
     import {mapActions} from 'vuex'
 
     export default {

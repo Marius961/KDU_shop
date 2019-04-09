@@ -19,9 +19,9 @@
 </template>
 
 <script>
-    import errorLabel from "./errorLabel";
-    import { required, minLength, email, maxLength, sameAs} from 'vuelidate/lib/validators'
-    import {isEmailRegistered} from "../validators/userValidator";
+    import errorLabel from "../ErrorLabel";
+    import { required, minLength, email, maxLength} from 'vuelidate/lib/validators'
+    import {isEmailRegistered} from "../../validators/userValidator";
     import {mapActions} from "vuex";
 
     export default {
@@ -44,7 +44,7 @@
                 if(!this.$v.invalid) {
                     this.changeEmail({email: this.email})
                         .then(() => {
-                            this.showSuccessAlert("Емейл змінено")
+                            this.showSuccessAlert("Емейл змінено");
                             this.$emit("closeForm");
                             this.$emit("updateData");
                         })
@@ -73,5 +73,5 @@
 </script>
 
 <style scoped>
-    @import "../assets/css/form.css";
+    @import "../../assets/css/form.css";
 </style>

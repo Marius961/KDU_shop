@@ -32,8 +32,8 @@
 </template>
 
 <script>
-    import errorLabel from "./errorLabel";
-    import { required, minLength, email, maxLength, sameAs} from 'vuelidate/lib/validators'
+    import errorLabel from "../ErrorLabel";
+    import { required, minLength, maxLength, sameAs} from 'vuelidate/lib/validators'
     import {mapActions} from "vuex";
 
     export default {
@@ -75,7 +75,7 @@
                 if (!this.$v.invalid) {
                     this.changePassword({oldPassword: this.oldPassword, newPassword: this.newPassword})
                         .then(() => {
-                            this.showSuccessAlert("Пароль успішно змінено")
+                            this.showSuccessAlert("Пароль успішно змінено");
                             this.$emit('closeForm');
                         })
                         .catch((error) => {
@@ -92,5 +92,5 @@
 </script>
 
 <style scoped>
-    @import "../assets/css/form.css";
+    @import "../../assets/css/form.css";
 </style>

@@ -124,5 +124,5 @@
 </script>
 
 <style scoped>
-    @import "../assets/css/orderItem.css";
+    @import "../../assets/css/orderItem.css";
 </style>

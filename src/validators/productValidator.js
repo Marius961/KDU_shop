@@ -15,7 +15,7 @@ export function checkProduct(name, color) {
             .then((response) => {
                 resolve(!response.data.isExist);
             })
-            .catch((error) => {
+            .catch(() => {
                 reject();
             })
     })

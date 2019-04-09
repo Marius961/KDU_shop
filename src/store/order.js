@@ -11,9 +11,6 @@ function getConfig(params) {
 }
 
 export default  {
-    state: {
-
-    },
     actions: {
         postOrder(context, order) {
             return new Promise((resolve, reject) => {
@@ -41,7 +38,7 @@ export default  {
             return new Promise((resolve, reject) => {
                 $http.get("/api/orders/all", getConfig(query))
                     .then((response) => {
-                        console.log(response.data)
+                        console.log(response.data);
                         resolve(response.data);
                     })
                     .catch((error) => {
@@ -82,11 +79,5 @@ export default  {
                     })
             })
         }
-    },
-    mutations: {
-
-    },
-    getters: {
-
     }
 }

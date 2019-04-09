@@ -18,9 +18,9 @@
 </template>
 
 <script>
-    import orderItem from "../components/orderItem";
+    import orderItem from "../components/order/OrderListItem";
     import {mapActions} from 'vuex'
-    import headerItem from "../components/headerItem";
+    import headerItem from "../components/order/OrdersListHeader";
 
     export default {
         data() {

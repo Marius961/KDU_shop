@@ -60,8 +60,8 @@
 
 <script>
     import {mapActions} from 'vuex'
-    import ChangePassword from "../components/ChangePassword";
-    import ChangeEmail from "../components/ChangeEmail";
+    import ChangePassword from "../components/forms/ChangePasswordForm";
+    import ChangeEmail from "../components/forms/ChangeEmailForm";
 
     export default {
         data() {
