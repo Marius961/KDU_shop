@@ -12,7 +12,7 @@
                         <div class="col-9 col-md">{{user.username}}</div>
                         <div class="col-12 col-md-auto">
                             <div class="row justify-content-end">
-                                <div v-if="isUserHasAdminRole(user.roles)" @click="removeAdminRole(user.id)" class="col-auto" title="Дати права адміністратора">
+                                <div v-if="isUserHasAdminRole(user.roles)" @click="removeAdminRole(user.id)" class="col-auto" title="Відкликати права адміністратора">
                                     <i class="fas fa-user-plus"></i>
                                     Відкликати адмін. права
                                 </div>
@@ -75,7 +75,8 @@
             addAdminRole(userId) {
                 this.showConfirmDialog(
                     "Ви впевнені що хочете надати права адміністратора?",
-                    "Якщо ви надасте права адміністратора, користувач отримає доступ до всього функціоналу адмін. панелі, це може бути небезпечно",
+                    "Якщо ви надасте права адміністратора, користувач отримає доступ до всіх функцій адмін. панелі, це може бути небезпечно! " +
+                    "Зміни вступлять в силу після релогіну або по закінченню токена",
                     "Надати права"
                 ).then((result) => {
                     if (result.value) {
@@ -92,7 +93,8 @@
             },
             removeAdminRole(userId) {
                 this.showConfirmDialog(
-                    "Ви впевнені що хочете відкликати права адміністратора?", "",
+                    "Ви впевнені що хочете відкликати права адміністратора? ",
+                    "Зміни вступлять в силу після релогіну або по закінченню токена",
                     "Відкликати"
                 ).then((result) => {
                     if (result.value) {

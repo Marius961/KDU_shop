@@ -128,6 +128,6 @@
 </script>
 
 <style scoped>
-    @import "../assets/css/product-page.css";
+    @import "../assets/css/product.css";
     @import "../assets/css/form.css";
 </style>
