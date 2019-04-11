@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-12">
                     <div class="row no-gutters">
-                        <button :disabled="$v.$invalid" class="col-12 col-sm-6 col-lg-4 submit-btn">
+                        <button :disabled="$v.$invalid" class="col-12 col-sm-5 col-md-4 col-lg-3 col-xl-2 submit-btn">
                             <span v-if="!categoryUrl">Додати категорію</span>
                             <span v-else>Зберегти зміни</span>
                         </button>

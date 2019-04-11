@@ -43,13 +43,21 @@ body {
   color: white;
   border-radius: 5px;
   margin: 15px 0 0 0;
-  padding: 8px 15px;
-  font-size: 1.3em;
+  padding: 6px 0;
+  font-size: 1.1em;
   transition: background-color .3s;
 
   &:disabled {
     background: #d7d7d7;
     cursor: no-drop;
+  }
+}
+
+@media all and(max-width: 576px){
+
+  .submit-btn {
+    padding: 10px auto;
+    font-size: 1.6em;
   }
 }
 
