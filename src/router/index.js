@@ -21,6 +21,8 @@ import ProductsList from "../pages/adminPanel/productsPanel/ProductsList";
 import updateProduct from "../pages/adminPanel/productsPanel/UpdateProduct";
 import UsersManagement from "../pages/adminPanel/UsersPanel";
 import Account from "../pages/Account";
+import Logout from "../pages/Logout";
+import jwtHelper from "../helpers/jwtHelper";
 
 Vue.use(Router);
 
@@ -83,6 +85,10 @@ const router = new Router({
                 requiresAuth: true,
                 bodyClass: 'body-light'
             }
+        },
+        {
+            path: '/logout',
+            component: Logout
         },
         {
             path: '/orders',
@@ -199,27 +205,28 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     const user = JSON.parse(localStorage.getItem('user'));
-    if (to.meta.requiresAuth && !to.meta.requiresRoles) {
+    const authenticated = !!(user && user.token && jwtHelper.isTokenNotExpired(user.token));
 
-        if (user && user.token) {
+    if (to.meta.requiresAuth && !to.meta.requiresRoles) {
+        if (authenticated) {
             next()
         } else next('/login')
-    }
-    else if (to.meta.requiresRoles) {
+    } else if (to.meta.requiresRoles) {
         if (to.meta.requiresRoles.length === 0) {
             next();
         } else {
-            let roles = [];
-            if (user && user.roles) {
-                roles = user.roles;
-            }
-
-            const found = to.meta.requiresRoles.some(r => roles.indexOf(r) >= 0);
-            if (found) {
-                next();
-            } else {
-                next('/errors/404')
-            }
+            if (authenticated) {
+                let roles = [];
+                if (user.roles) {
+                    roles = user.roles;
+                }
+                const found = to.meta.requiresRoles.some(r => roles.indexOf(r) >= 0);
+                if (found) {
+                    next();
+                } else {
+                    next('/errors/404')
+                }
+            } else next('/login')
         }
     }
     next();

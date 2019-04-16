@@ -10,6 +10,17 @@ export default {
         }
     },
 
+    isTokenNotExpired(token) {
+        try {
+            // const now = new Date().getTime() / 1000;
+            // const jwt = JSON.parse(atob(token.split('.')[1]));
+            // return now <= jwt.exp;
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
+
     getJwtToken() {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user && user.token) {
@@ -26,5 +37,9 @@ export default {
                 'Authorization': token
             }
         } else return {};
+    },
+
+    getLocalUser() {
+        return JSON.parse(localStorage.getItem('user'));
     }
 }

@@ -12,7 +12,7 @@
                 <input type="email" placeholder="Новий емейл" v-model.lazy.trim="$v.email.$model" id="email">
             </div>
             <div class="row justify-content-end no-gutters">
-                <button :disabled="$v.$invalid" class="col-12 submit-btn">Змінити пароль</button>
+                <button :disabled="$v.$invalid" class="col-12 submit-btn">Змінити емейл</button>
             </div>
         </form>
     </div>
