@@ -132,7 +132,7 @@
       background: $accent * 1.5;
     }
 
-    &:focus + .item-dropdown, &:focus + .item-dropdown:focus {
+    &:focus + .item-dropdown, & + .item-dropdown:hover {
       display: block;
     }
   }

@@ -91,7 +91,7 @@
     outline: none; }
     .search-field input:focus {
       background: #909090; }
-    .search-field input:focus + .item-dropdown, .search-field input:focus + .item-dropdown:focus {
+    .search-field input:focus + .item-dropdown, .search-field input + .item-dropdown:hover {
       display: block; }
   .search-field .search-results {
     background: white; }
