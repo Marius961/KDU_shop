@@ -63,6 +63,7 @@ public class ProductService {
         if (opProduct.isPresent()) {
             if (categoryRepo.existsById(product.getCategory().getId())) {
                 if (file != null) {
+                    productImageService.deleteImage(opProduct.get().getImageName());
                     product.setImageName(productImageService.saveImage(file));
                 } else if (product.getImageName().equals("") || product.getImageName() == null) {
                     product.setImageName(opProduct.get().getImageName());
